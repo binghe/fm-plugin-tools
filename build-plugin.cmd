@@ -1,4 +1,4 @@
-REM echo off
+@echo off
 REM +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 REM + Example build script for Windows                            +
 REM +                                                             +
