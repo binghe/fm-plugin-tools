@@ -50,8 +50,13 @@ expression."
     ;; contains a pipe symbol, so make LOGIOR of previously defined
     ;; constants
     (let (result)
-      (do-matches-as-strings (value "\\w+" string)
-        (push (mangle-name value t) result))
+      (do-matches-as-strings (value "[#\\w]+" string)
+	;; Piped constants and numbers appeared in SDK version 17.
+	;; -- Chun Tian (binghe), 1 sep 2018.
+	(cond ((eq (elt value 0) #\#)
+	       (push (read-from-string value) result))
+	      (t
+	       (push (mangle-name value t) result))))
       (cons 'logior (nreverse result)))
     ;; just read value as a number
     (read-from-string string)))
