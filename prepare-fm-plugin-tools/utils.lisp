@@ -49,6 +49,9 @@ instead of a list if the string contained only one word."
   (let ((keyword-list
          (loop for part in (split "\\s+" string)
                collect (intern (string-upcase part) :keyword))))
+    ;; handle deprecated APIs in FMP 13. -- Chun Tian (binghe), 1 sep 2018
+    (when (eq :deprecated (car keyword-list))
+      (setq keyword-list (cdr keyword-list)))
     (if (cdr keyword-list) keyword-list (car keyword-list))))
 
 (defun find-type (type &optional default)
