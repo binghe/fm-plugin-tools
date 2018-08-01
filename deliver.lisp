@@ -37,12 +37,12 @@
 ;;; If you want to build the plug-in example that comes with
 ;;; FM-PLUGIN-TOOLS, you just need to adjust the first TWO values.
 
-(defvar *asdf-location* #+:win32 "c:/home/lisp/asdf.lisp"
-                        #+:macosx "/Users/karlpurtz/lisp/asdf.lisp"
+(defvar *asdf-location* #+:win32 "c:/Lisp/asdf/build/asdf.lisp"
+                        #+:macosx "/Users/binghe/Lisp/asdf/build/asdf.lisp"
   "Where ASDF can be found.")
 
-(defvar *asdf-base-dirs* #+:win32 '("c:/home/lisp/")
-                         #+:macosx '("/Users/karlpurtz/lisp/")
+(defvar *asdf-base-dirs* #+:win32 '("c:/Lisp/packages/")
+                         #+:macosx '("/Users/binghe/Lisp/packages/")
   "A list of directories \(note trailing slashes) which contain
 directories that contain ASDF system definitions.
 

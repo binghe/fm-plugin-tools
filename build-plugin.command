@@ -12,13 +12,13 @@
 build_dir="/tmp"
 
 # The FileMaker extension directory
-target_dir="/Applications/FileMaker Pro 9/Extensions"
+target_dir="/Applications/FileMaker Pro 13 Advanced/Extensions"
 
 # The delivery script
-script="/Users/karlpurtz/lisp/fm-plugin-tools/deliver.lisp"
+script="/Users/binghe/Lisp/packages/fm-plugin-tools/deliver.lisp"
 
 # The LispWorks executable
-lispworks="/Applications/LispWorks 5.1/LispWorks.app/Contents/MacOS/lispworks-5-1-0-macos-universal"
+lispworks="/Applications/LispWorks 6.0/LispWorks.app/Contents/MacOS/lispworks-6-0-0-macos-universal"
 
 # The name of the plug-in (the .fmplugin file)
 name=LispPlugInExample
