@@ -1,5 +1,4 @@
-REM $Header: /usr/local/cvsrep/fm-plugin-tools/build-plugin.cmd,v 1.11 2008/01/12 01:19:14 edi Exp $
-
+REM echo off
 REM +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 REM + Example build script for Windows                            +
 REM +                                                             +
