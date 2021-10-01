@@ -1,7 +1,7 @@
 ;;; -*- Mode: LISP; Syntax: COMMON-LISP; Package: PREPARE-FM-PLUGIN-TOOLS; Base: 10 -*-
-;;; $Header: /usr/local/cvsrep/fm-plugin-tools/prepare-fm-plugin-tools/prepare.lisp,v 1.19 2010/07/22 09:38:10 edi Exp $
 
 ;;; Copyright (c) 2006-2010, Dr. Edmund Weitz.  All rights reserved.
+;;; Copyright (c) 2021, Chun Tian (binghe).  All rights reserved.
 
 ;;; Redistribution and use in source and binary forms, with or without
 ;;; modification, are permitted provided that the following conditions
@@ -178,7 +178,8 @@ the C header files of FileMaker Pro Advanced."
     (with-standard-io-syntax 
       (let ((*package* (find-package :fm-plugin-tools))
             (*print-case* :downcase))
-        (format t ";;; this file was generated automatically~%")
+        (format t ";;; This file was generated automatically from FileMaker Pro's SDK headers.~%")
+        (terpri)        
         (print '(in-package :fm-plugin-tools))
         (terpri)
         ;; let this function do all the work

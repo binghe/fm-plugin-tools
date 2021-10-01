@@ -1,5 +1,4 @@
 #!/bin/sh
-# $Header: /usr/local/cvsrep/fm-plugin-tools/build-plugin.command,v 1.1 2008/01/06 00:21:46 edi Exp $
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # + Example build script for OS X                               +
@@ -12,13 +11,13 @@
 build_dir="/tmp"
 
 # The FileMaker extension directory
-target_dir="/Applications/FileMaker Pro 13 Advanced/Extensions"
+target_dir="/Applications/FileMaker Pro 18 Advanced/Extensions"
 
 # The delivery script
-script="/Users/binghe/Lisp/packages/fm-plugin-tools/deliver.lisp"
+script="/Users/binghe/Lisp/fm-plugin-tools/deliver.lisp"
 
 # The LispWorks executable
-lispworks="/Applications/LispWorks 6.0/LispWorks.app/Contents/MacOS/lispworks-6-0-0-macos-universal"
+lispworks="/Applications/LispWorks 7.1 (64-bit)/LispWorks 7.1.3 64-bit.app/Contents/MacOS/lispworks-7-1-3-64-bit"
 
 # The name of the plug-in (the .fmplugin file)
 name=LispPlugInExample
@@ -45,4 +44,3 @@ then
 else
   echo "Couldn't change to directory $build_dir."
 fi
-
