@@ -10,7 +10,7 @@ downloaded from
 plugin headers from latest SDK headers should also work for old versions of FileMaker Pro
 and FileMaker Pro Advanced.)
 
-# Further processing of FileMaker SDK header files
+## Further processing of FileMaker SDK header files
 
 Please do this on the same platform when you are building your FM plugins:
 
