@@ -28,7 +28,7 @@
 ;;; SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 (asdf:defsystem :prepare-fm-plugin-tools
-  :version "0.2.1"
+  :version "0.3.0"
   :components  ((:module "prepare-fm-plugin-tools"
                          :serial t
                          :components ((:file "packages")

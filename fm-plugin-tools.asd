@@ -30,7 +30,7 @@
 (asdf:defsystem :fm-plugin-tools
   :serial t
   ;; we increase this version even if only the parser has changed
-  :version "0.2.9"
+  :version "0.3.0"
   :components ((:file "packages")
                (:file "specials")
                (:file "utils")
