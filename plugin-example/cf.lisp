@@ -1,5 +1,4 @@
 ;;; -*- Mode: LISP; Syntax: COMMON-LISP; Package: PLUGIN-EXAMPLE; Base: 10 -*-
-;;; $Header: /usr/local/cvsrep/fm-plugin-tools/plugin-example/cf.lisp,v 1.5 2010/07/22 09:38:08 edi Exp $
 
 ;;; Copyright (c) 2006-2010, Dr. Edmund Weitz.  All rights reserved.
 
@@ -33,7 +32,7 @@
 (in-package :plugin-example)
 
 (defconstant +k-cf-string-encoding-iso-latin-1+ #x0201
-  ;; see <http://developer.apple.com/documentation/CoreFoundation/Reference/CFStringRef/Reference/reference.html#//apple_ref/c/tdef/CFStringBuiltInEncodings>
+  ;; see <https://developer.apple.com/documentation/corefoundation/cfstringbuiltinencodings?language=objc>
   "Constant denoting the built-in string enconding for ISO-8859-1.")
 
 (define-foreign-function (cf-release "CFRelease")
