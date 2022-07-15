@@ -31,7 +31,7 @@
 
 (lw:load-all-patches)
 
-(defvar *system-homedir* (user-homedir-pathname))
+(defvar *system-homedir* #+win32 #p"C:/" #-win32 (user-homedir-pathname))
 
 ;;; The following lines added by ql:add-to-init-file:
 #+(not quicklisp)
