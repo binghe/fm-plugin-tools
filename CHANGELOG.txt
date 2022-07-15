@@ -1,3 +1,8 @@
+Version 0.3.0 (by Chun Tian)
+2022-07-15
+PREPARE-FM-PLUGIN-TOOLS now works on further processed Plugin SDK headers (by sed and gcc -E)
+for their later versions (confirmed working with Version 18). See README.md for more details.
+
 Version 0.2.9
 2010-07-22
 Fixed location of fli.lisp (thanks to Chun Tian)
