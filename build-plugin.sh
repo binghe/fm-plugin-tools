@@ -14,13 +14,13 @@ build_dir="/tmp"
 target_dir="/Applications/FileMaker Pro 18 Advanced/Extensions"
 
 # The delivery script
-script="/Users/binghe/Lisp/fm-plugin-tools/deliver.lisp"
+script="${HOME}/Lisp/fm-plugin-tools/deliver.lisp"
 
 # The LispWorks executable
-lispworks="/Applications/LispWorks 7.1 (64-bit)/LispWorks 7.1.3 64-bit.app/Contents/MacOS/lispworks-7-1-3-64-bit"
+lispworks="/Applications/LispWorks 8.0 (64-bit)/LispWorks (64-bit).app/Contents/MacOS/lispworks-8-0-0-macos64-universal"
 
 # The name of the plug-in (the .fmplugin file)
-name=LispPlugInExample
+name=FMPLisp
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # + Don't change anything below this point.                     +

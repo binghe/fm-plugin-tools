@@ -19,7 +19,7 @@ REM The LispWorks executable
 set lispworks="c:\Program Files (x86)\LispWorks\lispworks-6-0-0-x86-win32.exe"
 
 REM The name of the plug-in (the .fmx file)
-set name=LispPlugInExample
+set name=FMPLisp
 
 REM +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 REM + Don't change anything below this point.                     +

@@ -1,5 +1,4 @@
 ;;; -*- Mode: LISP; Syntax: COMMON-LISP; Package: PLUGIN-EXAMPLE; Base: 10 -*-
-;;; $Header: /usr/local/cvsrep/fm-plugin-tools/plugin-example/functions.lisp,v 1.9 2010/07/22 09:38:08 edi Exp $
 
 ;;; Copyright (c) 2006-2010, Dr. Edmund Weitz.  All rights reserved.
 

@@ -31,24 +31,21 @@
 
 (lw:load-all-patches)
 
-;;; Change the values of the following special variables to match your
-;;; settings.
+(defvar *system-homedir* (user-homedir-pathname))
 
-;;; If you want to build the plug-in example that comes with
-;;; FM-PLUGIN-TOOLS, you just need to adjust the first TWO values.
+;;; The following lines added by ql:add-to-init-file:
+#+(not quicklisp)
+(let ((quicklisp-init (merge-pathnames "quicklisp/setup.lisp" (user-homedir-pathname))))
+  (when (probe-file quicklisp-init)
+    (load quicklisp-init)))
 
-(defvar *asdf-location* #+:win32 "c:/Lisp/asdf/build/asdf.lisp"
-                        #+:macosx "/Users/binghe/Lisp/asdf/build/asdf.lisp"
-  "Where ASDF can be found.")
+;;; cl-fad
+(ql:quickload :cl-fad)
 
-(defvar *asdf-base-dirs* #+:win32 '("c:/Lisp/packages/")
-                         #+:macosx '("/Users/binghe/Lisp/packages/")
-  "A list of directories \(note trailing slashes) which contain
-directories that contain ASDF system definitions.
-
-Example: If you have, say, c:/home/lisp/cl-ppcre/cl-ppcre.asd and
-c:/home/lisp/tbnl/tbnl.asd, then \"c:/home/lisp/\" should be in this
-list, and NOT \"c:/home/lisp/cl-ppcre/\".")
+;;; Local ASDF repositories, it's fine some directorie do not exist.
+(dolist (i '("Lisp/fm-plugin-tools/"))
+  (pushnew (merge-pathnames i *system-homedir*)
+           asdf:*central-registry* :test #'equal))
 
 (defvar *asdf-system* :plugin-example
   "The ASDF system which contains the code for the plug-in.  It should
@@ -68,53 +65,6 @@ depend on FM-PLUGIN-TOOLS.")
 
 (defvar *start-function* 'lw:do-nothing
   "The start function of the delivered DLL.")
-
-;;; Usually, you shouldn't need to change anything below this point.
-
-;; load ASDF, compile it if needed
-#-:asdf
-(let ((compilation-target (compile-file-pathname *asdf-location*)))
-  (unless (probe-file compilation-target)
-    (compile-file *asdf-location*))
-  (handler-case
-      (load compilation-target)
-    ;; re-compile if old FASL version
-    (conditions:fasl-error ()
-      (load (compile-file *asdf-location*)))))
-
-;; the following two functions are from LW-ADD-ONS
-(defun walk-directory-for-asdf (dir)
-  "Looks into the directory DIR and all subdirectories and adds all
-directories which contain files of type \"asd\" to
-ASDF:*CENTRAL-REGISTRY*."
-  (dolist (dir-candidate (directory (lw:pathname-location dir)))
-    (when (lw:file-directory-p dir-candidate)
-      (walk-directory-for-asdf dir-candidate)
-      (let ((asd-candidate (merge-pathnames "*.asd" dir-candidate)))
-        (when (directory asd-candidate)
-          (pushnew dir-candidate asdf:*central-registry* :test #'equal))))))
-(compile 'walk-directory-for-asdf)
-
-(defun update-asdf-central-registry ()
-  "Loops through *ASDF-BASE-DIRS* recursively and adds all
-directories containing system definitions to ASDF's central
-registry."
-  (dolist (base-dir *asdf-base-dirs*)
-    (walk-directory-for-asdf base-dir)))
-(compile 'update-asdf-central-registry)
-
-;; tell ASDF about existing system definitions
-(update-asdf-central-registry)
-
-#+:asdf
-(defmethod asdf:perform :around ((o asdf:load-op) (c asdf:cl-source-file))
-  "Makes sure FASL files are re-compiled if they have the wrong
-version."
-  (handler-case
-      (call-next-method o c)
-    (conditions:fasl-error ()
-      (asdf:perform (make-instance 'asdf:compile-op) c)
-      (call-next-method))))
 
 ;; load the code
 (asdf:oos 'asdf:load-op *asdf-system*)
@@ -148,7 +98,7 @@ version."
             (format nil "~A.fmx" (fourth sys:*line-arguments-list*))
             #+:macosx
             (write-macos-application-bundle
-             (format nil "~A/~A.fmplugin"
+             (format nil "~A/~A.fmplugin" ;; NOTE: the output bundle is *.app
                      (fifth sys:*line-arguments-list*)
                      (fourth sys:*line-arguments-list*))
              :template-bundle (make-pathname :name nil

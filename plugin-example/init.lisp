@@ -31,9 +31,9 @@
 
 ;; configure FM-PLUGIN-TOOLS for this particular plug-in
 (setq *plugin-id* "LXmp"
-      *plugin-name* "LispExample"
+      *plugin-name* "FMPLisp"
       #+:macosx #+:macosx
-      *plugin-bundle-identifier* "weitz.de.LispExample"
+      *plugin-bundle-identifier* "weitz.de.FMPLisp"
       *plugin-help-text* "An example plug-in created with FM-PLUGIN-TOOLS."
       ;; see ASDF system definition
       *plugin-version* cl-user:*plugin-example-version*
