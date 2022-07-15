@@ -33,14 +33,14 @@
   "If *FMX-EXTERN-LOCATION* is not set, ask the user to provide a
 value."
   (setq *fmx-extern-location*
-        (or (capi:prompt-for-file "Please select the C header file \"FMXExtern.h\":"
-                                  :filters '("C Header Files" "*.h")
-                                  :filter "*.h"
+        (or (capi:prompt-for-file "Please select the C header file \"FMXExtern.hhh\":"
+                                  :filters '("Processed C++ Header Files" "*.hhh")
+                                  :filter "*.hhh"
                                   :operation :open
                                   :ok-check (lambda (pathspec)
                                               (and (string= (file-namestring pathspec)
-                                                            "FMXExtern.h"))))
-            (error "I can't continue if you don't select the file \"FMXExtern.h\"."))))
+                                                            "FMXExtern.hhh"))))
+            (error "I can't continue if you don't select the file \"FMXExtern.hhh\"."))))
 
 (defun make-fli-type (string)
   "Converts a string like \"unsigned short\" into a corresponding
@@ -49,9 +49,6 @@ instead of a list if the string contained only one word."
   (let ((keyword-list
          (loop for part in (split "\\s+" string)
                collect (intern (string-upcase part) :keyword))))
-    ;; handle deprecated APIs in FMP 13. -- Chun Tian (binghe), 1 sep 2018
-    (when (eq :deprecated (car keyword-list))
-      (setq keyword-list (cdr keyword-list)))
     (if (cdr keyword-list) keyword-list (car keyword-list))))
 
 (defun find-type (type &optional default)

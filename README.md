@@ -6,9 +6,17 @@ A toolset which allows creation of FileMaker plugins based on Common Lisp
 
 The needed FileMaker SDK headers (`fm_plugin_sdk_ver.zip`) can be
 downloaded from
-[FileMaker Plug-in Support](https://www.filemaker.com/support/technologies/). (The
-plugin made from latest SDK headers also work with old versions of FileMaker Pro.)
+[FileMaker Plug-in Support](https://www.claris.com/resources/downloads/). (The
+plugin headers from latest SDK headers should also work for old versions of FileMaker Pro
+and FileMaker Pro Advanced.)
 
-NOTE: When building 32-bit plugins, the use of 64-bit integers in recent FMP API may require LispWorks (32-bit) version at least 7.0 [1].
+# Further processing of FileMaker SDK header files
 
-[1] http://www.lispworks.com/documentation/lw70/RNIG/html/readme-143.htm#pgfId-972771
+Please do this on the same platform when you are building your FM plugins:
+
+1. Open a terminal window and go to the directory `PlugInSDK/Headers/FMWrapper`.
+2. Execute `for i in *.h; do sed 's/^#include.*//' $i > ${i}h; done`.
+3. Execute `for i in *.hh; do gcc -E $i > ${i}h; done`.
+
+At the end, 10 files like `FMXExtern.hhh` are generated and will be used by
+the `prepare-fm-plugin-tools` package.

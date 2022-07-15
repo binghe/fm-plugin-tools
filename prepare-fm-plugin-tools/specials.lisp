@@ -29,8 +29,17 @@
 
 (in-package :prepare-fm-plugin-tools)
 
-(defvar *header-file-names* '("FMXExtern" "FMXClient" "FMXTypes" "FMXText" "FMXCalcEngine"
-                              "FMXBinaryData" "FMXTextStyle" "FMXData" "FMXDateTime" "FMXFixPt")
+(defvar *header-file-names*
+  '("FMXExtern"
+    "FMXClient"
+    "FMXTypes"
+    "FMXText"
+    "FMXCalcEngine"
+    "FMXBinaryData"
+    "FMXTextStyle"
+    "FMXData"
+    "FMXDateTime"
+    "FMXFixPt")
   "The list of all FMWrapper header files in the right order, so
 that we process the needed typedes etc. first.")
 

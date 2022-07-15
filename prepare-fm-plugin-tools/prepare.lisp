@@ -147,7 +147,7 @@ checks for enums, structs or function prototypes and writes the
 corresponding C code to *STANDARD-OUTPUT*."
   (dolist (name *header-file-names*)
     (let* ((header-file (make-pathname :name name
-                                      :defaults *fmx-extern-location*))
+                                       :defaults *fmx-extern-location*))
            (file-string (file-string header-file)))
       (with-open-file (in header-file)
         (loop for line = (read-line in nil nil)
