@@ -12,7 +12,7 @@ and FileMaker Pro Advanced.)
 
 ## Further processing of FileMaker SDK header files
 
-Please do this on the same platform when you are building your FM plugins:
+Please do this on the same platform when you are building your FMP plugins:
 
 1. Open a terminal window and go to the directory `PlugInSDK/Headers/FMWrapper`.
 2. Execute `for i in *.h; do sed 's/^#include.*//' $i > ${i}h; done`.

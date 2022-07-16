@@ -51,6 +51,9 @@
   "The ASDF system which contains the code for the plug-in.  It should
 depend on FM-PLUGIN-TOOLS.")
 
+(defvar *default-name* "FMPLisp"
+  "Default plugin execution name when no command-line arguments are given.")
+
 (defvar *capi-required-p* #+:win32 t #+:macosx nil
   "Whether the plug-in needs CAPI.")
 
@@ -95,7 +98,9 @@ depend on FM-PLUGIN-TOOLS.")
 (lw:deliver *start-function*
             ;; we assume this is called from the build script
             #+:win32
-            (format nil "~A.fmx" (fourth sys:*line-arguments-list*))
+            (format nil #-:lispworks-64bit "~A.fmx"
+                        #+:lispworks-64bit "~A.fmx64"
+                    (or (fourth sys:*line-arguments-list*) *default-name*))
             #+:macosx
             (write-macos-application-bundle
              (format nil "~A/~A.fmplugin" ;; NOTE: the output bundle is *.app
