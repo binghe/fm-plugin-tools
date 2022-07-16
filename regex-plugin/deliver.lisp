@@ -43,5 +43,9 @@ depend on FM-PLUGIN-TOOLS.")
 ;;; (Adapt the path to match your local setup.  Also, don't forget to
 ;;; adapt the paths in the delivery file referenced below as well!)
 
-(load #+:win32 "c:/home/lisp/fm-plugin-tools/deliver.lisp"
-      #+:macosx "/Users/karlpurtz/lisp/fm-plugin-tools/deliver.lisp")
+(defvar *deliver-script*
+  (merge-pathnames "../deliver.lisp"
+                   (load-time-value
+                    (or #.*compile-file-pathname* *load-pathname*))))
+
+(load *deliver-script*)
