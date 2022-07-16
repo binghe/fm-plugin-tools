@@ -31,20 +31,13 @@
 
 (lw:load-all-patches)
 
-#+win32
-(define-action "Initialize LispWorks Tools"
-               "Dismiss Splash Screen Quickly"
-  #'(lambda (screen)
-      (declare (ignore screen))
-      (win32:dismiss-splash-screen t)))
-
-(set-default-character-element-type 'simple-char)
-
-(defvar *system-homedir* #+win32 #p"C:/" #-win32 (user-homedir-pathname))
+(defvar *system-homedir*
+  #+win32 #p"C:/" #-win32 (user-homedir-pathname))
 
 ;;; The following lines added by ql:add-to-init-file:
 #+(not quicklisp)
-(let ((quicklisp-init (merge-pathnames "quicklisp/setup.lisp" (user-homedir-pathname))))
+(let ((quicklisp-init (merge-pathnames "quicklisp/setup.lisp"
+                                       (user-homedir-pathname))))
   (when (probe-file quicklisp-init)
     (load quicklisp-init)))
 
@@ -70,7 +63,7 @@ depend on FM-PLUGIN-TOOLS.")
   "Whether the plug-in needs MP.  This is only relevant if
 *CAPI-REQUIRED-P* is NIL.")
 
-(defvar *deliver-level* 0
+(defvar *deliver-level* 5
   ;; level 0 is good for development - for deployment you most likely
   ;; want higher values for a much smaller DLL file
   "Delivery level for the delivered DLL.")
@@ -103,6 +96,8 @@ depend on FM-PLUGIN-TOOLS.")
               :output-file :temp
               :load t)
 
+(defvar *template* (merge-pathnames "Template.fmplugin/" *load-pathname*))
+
 ;; create shared library
 (lw:deliver *start-function*
             ;; we assume this is called from the build script
@@ -118,8 +113,7 @@ depend on FM-PLUGIN-TOOLS.")
              :template-bundle (make-pathname :name nil
                                              :type nil
                                              :version nil
-                                             :defaults (merge-pathnames "Template.fmplugin/"
-                                                                        *load-pathname*))
+                                             :defaults *template*)
              :identifier fm:*plugin-bundle-identifier*
              :version (fm:version-string)             
              :executable-name (fourth sys:*line-arguments-list*)

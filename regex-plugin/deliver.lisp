@@ -32,20 +32,21 @@
 
 (in-package :cl-user)
 
-(defvar *asdf-system* :regex-plugin
+(defvar *asdf-system* :fm-regex-plugin
   "The ASDF system which contains the code for the plug-in.  It should
 depend on FM-PLUGIN-TOOLS.")
 
 (defvar *deliver-level* 5
   "Delivery level for the delivered DLL.")
 
+(defvar *template*
+  (merge-pathnames "RegexPlugIn.fmplugin/" *load-pathname*))
+
 ;;; Use the "original" delivery script for the rest of the work.
 ;;; (Adapt the path to match your local setup.  Also, don't forget to
 ;;; adapt the paths in the delivery file referenced below as well!)
 
 (defvar *deliver-script*
-  (merge-pathnames "../deliver.lisp"
-                   (load-time-value
-                    (or #.*compile-file-pathname* *load-pathname*))))
+  (merge-pathnames "../deliver.lisp" *load-pathname*))
 
 (load *deliver-script*)
