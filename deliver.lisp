@@ -31,6 +31,15 @@
 
 (lw:load-all-patches)
 
+#+win32
+(define-action "Initialize LispWorks Tools"
+               "Dismiss Splash Screen Quickly"
+  #'(lambda (screen)
+      (declare (ignore screen))
+      (win32:dismiss-splash-screen t)))
+
+(set-default-character-element-type 'simple-char)
+
 (defvar *system-homedir* #+win32 #p"C:/" #-win32 (user-homedir-pathname))
 
 ;;; The following lines added by ql:add-to-init-file:
