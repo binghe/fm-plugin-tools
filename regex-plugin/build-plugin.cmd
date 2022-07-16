@@ -1,5 +1,4 @@
-REM $Header: /usr/local/cvsrep/regex-plugin/build-plugin.cmd,v 1.4 2008/01/07 07:36:02 edi Exp $
-
+@echo off
 REM +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 REM + Build script adapted from FM-PLUGIN-TOOLS example           +
 REM +                                                             +
@@ -8,18 +7,18 @@ REM + local settings:                                             +
 REM +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 REM The directory where the DLL will be built
-set build_dir="c:\tmp"
+set build_dir="C:\Temp"
 
 REM The FileMaker extension directory
-set target_dir="c:\Program Files\FileMaker\FileMaker Pro 8.5 Advanced\Extensions"
+set target_dir="C:\Program Files (x86)\FileMaker\FileMaker Pro 12 Advanced\Extensions"
 
 REM The delivery script
-set script="c:\home\lisp\regex-plugin\deliver.lisp"
+set script="C:\Lisp\fm-plugin-tools\regex-plugin\deliver.lisp"
 
 REM The LispWorks executable
-set lispworks="c:\Program Files\LispWorks\lispworks-5-1-0-x86-win32.exe"
+set lispworks="C:\Program Files (x86)\LispWorks\lispworks-6-1-0-x86-win32.exe"
 
-REM The name of the plug-in (.dll and .fmx files)
+REM The name of the plug-in (the .fmx file)
 set name=RegexPlugIn
 
 REM +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

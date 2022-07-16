@@ -1,5 +1,4 @@
 #!/bin/sh
-# $Header: /usr/local/cvsrep/regex-plugin/build-plugin.command,v 1.1 2008/01/07 20:33:09 edi Exp $
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # + Build script adapted from FM-PLUGIN-TOOLS example           +
@@ -12,13 +11,13 @@
 build_dir="/tmp"
 
 # The FileMaker extension directory
-target_dir="/Applications/FileMaker Pro 9/Extensions"
+target_dir="/Applications/FileMaker Pro 18 Advanced/Extensions"
 
 # The delivery script
-script="/Users/karlpurtz/lisp/regex-plugin/deliver.lisp"
+script="${HOME}/Lisp/fm-plugin-tools/regex-plugin/deliver.lisp"
 
 # The LispWorks executable
-lispworks="/Applications/LispWorks5.1/LispWorks.app/Contents/MacOS/lispworks-5-1-0-macos-universal"
+lispworks="/Applications/LispWorks 8.0 (64-bit)/LispWorks (64-bit).app/Contents/MacOS/lispworks-8-0-0-macos64-universal"
 
 # The name of the plug-in (the .fmplugin file)
 name=RegexPlugIn
@@ -45,4 +44,3 @@ then
 else
   echo "Couldn't change to directory $build_dir."
 fi
-
