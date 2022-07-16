@@ -1,5 +1,4 @@
 ;;; -*- Mode: LISP; Syntax: COMMON-LISP; Package: CL-USER; Base: 10 -*-
-;;; $Header: /usr/local/cvsrep/fm-plugin-tools/plugin-example.asd,v 1.10 2010/07/22 09:38:06 edi Exp $
 
 ;;; Copyright (c) 2006-2010, Dr. Edmund Weitz.  All rights reserved.
 
@@ -29,7 +28,7 @@
 
 (in-package :cl-user)
 
-(defvar *plugin-example-version* '(0 2 1)
+(defvar *plugin-example-version* '(0 3 0)
   "Version number.  Should be a list of three non-negative integers,
 e.g. (4 2 1) would correspond to version \"4.2.1\".")
 
@@ -41,7 +40,7 @@ e.g. (4 2 1) would correspond to version \"4.2.1\".")
 
 (in-package :plugin-example-asd)
 
-(defsystem :plugin-example
+(defsystem fm-plugin-example
   :version #.(format nil "~{~A~^.~}" cl-user:*plugin-example-version*)
   :components  ((:module "plugin-example"
                          :serial t

@@ -56,7 +56,7 @@
   (pushnew (merge-pathnames i *system-homedir*)
            asdf:*central-registry* :test #'equal))
 
-(defvar *asdf-system* :plugin-example
+(defvar *asdf-system* :fm-plugin-example
   "The ASDF system which contains the code for the plug-in.  It should
 depend on FM-PLUGIN-TOOLS.")
 
