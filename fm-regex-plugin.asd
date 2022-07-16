@@ -1,5 +1,4 @@
 ;;; -*- Mode: LISP; Syntax: COMMON-LISP; Package: CL-USER; Base: 10 -*-
-;;; $Header: /usr/local/cvsrep/regex-plugin/regex-plugin.asd,v 1.13 2008/03/27 22:43:29 edi Exp $
 
 ;;; Copyright (c) 2006-2008, Dr. Jens Teich and Dr. Edmund Weitz.  All rights reserved.
 
@@ -29,7 +28,7 @@
 
 (in-package :cl-user)
 
-(defvar *regex-plugin-version* '(0 2 1)
+(defvar *regex-plugin-version* '(0 3 0)
   "Version number.  Should be a list of three non-negative integers,
 e.g. (4 2 1) would correspond to version \"4.2.1\".")
 
@@ -41,15 +40,17 @@ e.g. (4 2 1) would correspond to version \"4.2.1\".")
 
 (in-package :regex-plugin-asd)
 
-(defsystem :regex-plugin
+(defsystem fm-regex-plugin
   :serial t
   :version #.(format nil "~{~A~^.~}" cl-user:*regex-plugin-version*)
-  :components  ((:file "packages")
-                (:file "specials")
-                (:file "utils")
-                (:file "configuration")
-                (:file "functions")
-                (:file "init"))
+  :components ((:module "regex-plugin"
+                        :serial t
+                        :components ((:file "packages")
+                                     (:file "specials")
+                                     (:file "utils")
+                                     (:file "configuration")
+                                     (:file "functions")
+                                     (:file "init"))))
   ;; note: every system which creates a FileMaker plug-in must use the
   ;; :FM-PLUGIN-TOOLS system
   :depends-on (:fm-plugin-tools :cl-ppcre))
