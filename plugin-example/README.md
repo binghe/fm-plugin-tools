@@ -1,4 +1,4 @@
-# A Sample Plug-In
+# A Sample Plug-In (FMPLisp)
 
 With the code in this subdirectory you can create an example plug-in
 that basically does the same stuff the example that comes with

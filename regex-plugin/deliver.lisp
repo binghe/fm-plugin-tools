@@ -32,7 +32,7 @@
 
 (in-package :cl-user)
 
-(defvar *asdf-system* :fm-regex-plugin
+(defvar *asdf-system* :fm-plugin-regex
   "The ASDF system which contains the code for the plug-in.  It should
 depend on FM-PLUGIN-TOOLS.")
 
