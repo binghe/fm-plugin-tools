@@ -130,7 +130,7 @@ refrains from enabling the plug-in."
       ;; register plug-in functions
       (register-plugin-functions)
       ;; set *filemaker-version*, this is the version of hosting FileMaker Pro
-      (setq *filemaker-version* version)
+      (setq *fm-version* version)
       ;; This is essentially the version of SDK headers
       +k-current-extn-version+)))
 

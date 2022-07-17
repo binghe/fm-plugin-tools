@@ -36,6 +36,7 @@
   (:export :*company-name*
            :*copyright-message*
            :*enable-idle-messages*
+           :*fm-version*
            :*fm-logfile*
            :*gc-interval*
            :*init-function*
@@ -47,7 +48,6 @@
            :*plugin-id*
            :*plugin-name*
            :*plugin-version*
-           :*filemaker-version*
            :*preferences-function*
            :*product-name*
            :*results*
