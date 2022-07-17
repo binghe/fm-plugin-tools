@@ -178,7 +178,7 @@ the C header files of FileMaker Pro Advanced."
     (with-standard-io-syntax 
       (let ((*package* (find-package :fm-plugin-tools))
             (*print-case* :downcase))
-        (format t ";;; This file was generated automatically from FileMaker Pro's SDK headers.~%")
+        (format t ";;; This file was generated automatically from FileMaker Pro's SDK headers.")
         (terpri)        
         (print '(in-package :fm-plugin-tools))
         (terpri)
