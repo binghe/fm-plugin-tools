@@ -62,7 +62,8 @@ You should only un-check this if you have lots of different regular expressions.
                 (setf (capi:titled-object-title cache-empty-button)
                       (show-regex-cache-size))
                 ;; GC just in case
-                #+lispworks-32bit (mark-and-sweep 3))
+                (gc-generation #+:lispworks-32bit 3
+                               #+:lispworks-64bit :blocking-gen-num))
     :help-key "Removes all cached regular expressions from the cache, so they have to be re-computed the next time they are used.")
    (ok-button
     capi:push-button
