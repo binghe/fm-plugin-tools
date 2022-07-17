@@ -1,3 +1,5 @@
+# A Sample Plug-In
+
 With the code in this subdirectory you can create an example plug-in
 that basically does the same stuff the example that comes with
 FileMaker Pro Advanced does.

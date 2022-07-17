@@ -1,3 +1,5 @@
+# RegexPlugin (by Jens Teich and Edi Weitz)
+
 This is the source code for the FileMaker Plug-In "RegexPlugIn" which
 was available in binary form from
 
