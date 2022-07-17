@@ -119,14 +119,16 @@ See FileMaker header files for details.")))
 corresponding FLI:DEFINE-C-STRUCT definition.  If PACK is true,
 byte-packing will be used."
   (let (slots)
-    (do-register-groups (type name)
+    (do-register-groups (prefix type name)
         ;; for some reason FMX_PACK isn't used in 8.5 anymore
-        ("(?m)^\\s*(\\w+)\\s+(\\w+)(?:\\s*FMX_PACK)?\\s*;(?:\\s*//.*)?\\s*?$" body)
-      (push (list (if (scan "FMX_" type)
-                    ;; default types which start with `FMX_' to :VOID
-                    (find-type (make-fli-type (regex-replace "FMX_" type ""))
-                               '(:pointer :void))
-                    (find-type (make-fli-type type)))
+        ("(?m)^\\s*(fmx::)?(\\w+)\\s+(\\w+)(?:\\s*FMX_PACK)?\\s*;(?:\\s*//.*)?\\s*?$" body)
+      (declare (ignore prefix)) ; e.g. "fmx::unusedid" in 19
+      (push (list (cond ((scan "FMX_" type)
+                         ;; default types which start with `FMX_' to :VOID
+                         (find-type (make-fli-type (regex-replace "FMX_" type ""))
+                                    '(:pointer :void)))
+                        (t
+                         (find-type (make-fli-type type))))
                   (mangle-name name)
                   pack)
             slots))

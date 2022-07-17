@@ -1,3 +1,7 @@
+Version 0.3.1 (by Chun Tian)
+2022-07-15
+Fixed PREPARE-FM-PLUGIN-TOOLS for SDK Headers version 19
+
 Version 0.3.0 (by Chun Tian)
 2022-07-15
 PREPARE-FM-PLUGIN-TOOLS now works on further processed Plugin SDK headers (by sed and gcc -E)
