@@ -37,6 +37,7 @@
 (defvar *plugin-version*)
 (defvar *copyright-message*)
 (defvar *company-name*)
+(defvar *filemaker-version*)
 
 ;; we set the documentation here so that the values above stay unbound
 (setf (documentation '*plugin-id* 'variable)
@@ -59,7 +60,12 @@ most four integers, e.g. (4 2 1) would correspond to version
 be used for entries into the Windows registry and in the DLL
 version info."
       (documentation '*copyright-message* 'variable)
-      "The copyright message for the DLL version info.")
+      "The copyright message for the DLL version info."
+      (documentation '*filemaker-version* 'variable)
+      "This special variable holds the host version of FileMaker software,
+which essentially decides which SDK functions are available for use.
+See also HANDLE-INIT-MESSAGE."
+      )
 
 (defvar *product-name* nil
   "Will be used as the product name for the DLL version info.
