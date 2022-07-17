@@ -72,7 +72,7 @@ depend on FM-PLUGIN-TOOLS.")
   "The start function of the delivered DLL.")
 
 ;; load the code
-(asdf:oos 'asdf:load-op *asdf-system*)
+(asdf:load-system *asdf-system*)
 
 (fm:set-product-name)
 
