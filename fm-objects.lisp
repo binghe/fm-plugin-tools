@@ -1,5 +1,4 @@
 ;;; -*- Mode: LISP; Syntax: COMMON-LISP; Package: FM-PLUGIN-TOOLS; Base: 10 -*-
-;;; $Header: /usr/local/cvsrep/fm-plugin-tools/fm-objects.lisp,v 1.11 2010/07/22 09:38:06 edi Exp $
 
 ;;; Copyright (c) 2006-2010, Dr. Edmund Weitz.  All rights reserved.
 
@@ -38,6 +37,15 @@
                   +k60extn-version+
                   +k70extn-version+
                   +k80extn-version+
+                  +k110extn-version+
+                  +k120extn-version+
+                  +k130extn-version+
+                  +k140extn-version+
+                  +k150extn-version+
+                  +k160extn-version+
+                  +k170extn-version+
+                  +k180extn-version+
+                  +k190extn-version+
                   +k-min-extn-version+
                   +k-max-extn-version+
                   +k-current-extn-version+
