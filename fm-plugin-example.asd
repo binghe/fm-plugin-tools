@@ -41,6 +41,10 @@ e.g. (4 2 1) would correspond to version \"4.2.1\".")
 (in-package :plugin-example-asd)
 
 (defsystem fm-plugin-example
+  :name "FMPLisp"
+  :description "A Sample FMP Plug-In"
+  :author "Edi Weitz"
+  :license "BSD"
   :version #.(format nil "~{~A~^.~}" cl-user:*plugin-example-version*)
   :components ((:module "plugin-example"
                         :serial t

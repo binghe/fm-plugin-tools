@@ -1,6 +1,6 @@
-# fm-plugin-tools (by Edi Weitz)
+# FM-PLUGIN-TOOLS - A toolkit for FileMaker plug-in development in Common Lisp
 
-A toolset which allows creation of FileMaker plugins based on Common Lisp
+To use FM-PLUGIN-TOOLS you will need the Common Lisp implementation from LispWorks and of course FileMaker Pro (Advanced). You won't need a C or C++ compiler on Windows, though! (On OS X you will need Apple's Xcode which comes for free with every Mac.)
 
 ## Preparing `fli.lisp`
 
@@ -22,7 +22,7 @@ Please do this on the same platform when you are building your FMP plugins:
 
 NOTE: on Windows, the above 2nd command must be `for %i in (*.hh) do cl /E %i > "%i"h` where Microsoft Compiler is used. (GCC doesn't work because FileMaker Pro is not compiled by GCC on Windows.)
 
-NOTE: -std=c++17 is required for processing SDK Headers version 19 (version 0.3.1+ is required).
+NOTE: `-std=c++17` is required for processing SDK Headers version 19 (version 0.3.1+ is required).
 
 At the end, 10 files like `FMXExtern.hhh` are generated and will be used by
 the `prepare-fm-plugin-tools` package.

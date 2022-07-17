@@ -35,14 +35,18 @@ e.g. (4 2 1) would correspond to version \"4.2.1\".")
 ;; we export the name so we can import it later
 (export '*regex-plugin-version*)
 
-(defpackage :regex-plugin-asd
+(defpackage :fm-plugin-regex-system
   (:use :cl :asdf))
 
-(in-package :regex-plugin-asd)
+(in-package :fm-plugin-regex-system)
 
-(defsystem fm-regex-plugin
-  :serial t
+(defsystem fm-plugin-regex
+  :name "RegexPlugin"
+  :description "A Plug-In which enables FileMaker users to work with regular expressions."
+  :author "Jens Teich and Edi Weitz"
+  :license "BSD"
   :version #.(format nil "~{~A~^.~}" cl-user:*regex-plugin-version*)
+  :serial t
   :components ((:module "regex-plugin"
                         :serial t
                         :components ((:file "packages")

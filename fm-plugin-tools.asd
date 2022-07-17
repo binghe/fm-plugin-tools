@@ -27,10 +27,14 @@
 ;;; NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 ;;; SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-(asdf:defsystem :fm-plugin-tools
-  :serial t
+(asdf:defsystem fm-plugin-tools
+  :name "FM-PLUGIN-TOOLS"
+  :description "A toolkit for FileMaker plug-in development in Common Lisp"
+  :author "Dr. Edmund Weitz (Edi Weitz)"
+  :license "BSD"
   ;; we increase this version even if only the parser has changed
   :version "0.3.1"
+  :serial t
   :components ((:file "packages")
                (:file "specials")
                (:file "utils")
