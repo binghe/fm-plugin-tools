@@ -83,17 +83,25 @@ function returns RESULT."))
 (defmethod evaluate ((expression string) &optional (result (make-data-object)))
   (evaluate (make-text-object expression) result))
 
-(defgeneric execute-sql (expression column-separator row-separator &optional result)
-  (:documentation "Executes \(as with FileMaker's `ExecuteSQL') the
+(defgeneric execute-sql (expression file-name column-separator row-separator &optional result)
+  (:documentation "Executes \(as with FileMaker's `ExecuteFileSQLTextResult') the
 expression EXPRESSION using the column separator COLUMN-SEPARATOR and
 the row separator ROW-SEPARATOR \(both of which must be characters).
 The result is stored in the DATA-OBJECT RESULT which is created if
-none is provided.  The function returns RESULT."))
+none is provided.  The function returns RESULT.
 
-(defmethod execute-sql ((expression text-object) column-separator row-separator
+This acts much like the previous deprecated and removed ExecuteSQL method
+but uses the more correct/strict SQL syntax of ExecuteFileSQL.
+"))
+
+(defmethod execute-sql ((expression text-object) (file-name text-object)
+                        column-separator row-separator
                         &optional (result (make-data-object)))
-  (let ((err-code (fm-expr-env-execute-sql (get-environment)
+  (let ((err-code (fm-expr-env-execute-file-sqltext-result
+                                           (get-environment)
                                            (pointer expression)
+                                           (pointer file-name)
+                                           *args*
                                            (pointer result)
                                            (char-code column-separator)
                                            (char-code row-separator))))
@@ -102,7 +110,8 @@ none is provided.  The function returns RESULT."))
              err-code (as-string expression) column-separator row-separator)))
   result)
 
-(defmethod execute-sql ((expression string) column-separator row-separator
+(defmethod execute-sql ((expression string) (file-name text-object)
+                        column-separator row-separator
                         &optional (result (make-data-object)))
   (execute-sql (make-text-object expression) column-separator row-separator result))
 
