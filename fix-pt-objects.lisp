@@ -43,14 +43,14 @@ object is guaranteed to be deleted after the execution of BODY."
              (setq ,ptr (fm-fix-pt-constructor1* :precision ,precision))
              (cond ((floatp ,number)
                     (fm-fix-pt-assign-double ,ptr ,number))
-                   #+fmp17
-                   ((fixnump ,number)
-                    (fm-fix-pt-assign-int ,ptr ,number))
                    ((integerp ,number)
-                    #+fmp17
-                    (fm-fix-pt-assign-int64 ,ptr ,number)
-                    #-fmp17
-                    (fm-fix-pt-assign-int64 ,ptr ,number)))
+                    (cond ((<= +k170extn-version+ *filemaker-version*)
+                           (if (fixnump ,number)
+                               (fm-fix-pt-assign-int   ,ptr ,number)
+                               (fm-fix-pt-assign-int64 ,ptr ,number)))
+                          ;; NOTE: fm-fix-pt-assign-int64 does not exist before FMP 17
+                          (t
+                           (fm-fix-pt-assign-int ,ptr ,number)))))
              ,@body)
          (when ,ptr
            (ignore-errors
@@ -81,21 +81,20 @@ VAL with precision PRECISION."
 
 (defmethod as-integer ((fix-pt-object fix-pt-object))
   "Returns the number represented by FIX-PT-OBJECT as an integer."
-  #+fmp17
-  (fm-fix-pt-as-long64 (pointer fix-pt-object))
-  #-fmp17
-  (fm-fix-pt-as-long (pointer fix-pt-object)))
+  (cond ((<= +k170extn-version+ *filemaker-version*)
+         (fm-fix-pt-as-long64 (pointer fix-pt-object)))
+        (t
+         (fm-fix-pt-as-long   (pointer fix-pt-object)))))
 
 (defmethod (setf as-integer) ((new-value integer) (fix-pt-object fix-pt-object) &key)
   "Sets the number represented by FIX-PT-OBJECT to NEW-VALUE, a
 Lisp integer."
-  #+fmp17
-  (cond ((fixnump new-value)
-         (fm-fix-pt-assign-int (pointer fix-pt-object) new-value))
+  (cond ((<= +k170extn-version+ *filemaker-version*)
+         (if (fixnump new-value)
+             (fm-fix-pt-assign-int   (pointer fix-pt-object) new-value)
+             (fm-fix-pt-assign-int64 (pointer fix-pt-object) new-value)))
         (t
-         (fm-fix-pt-assign-int64 (pointer fix-pt-object) new-value)))
-  #-fmp17
-  (fm-fix-pt-assign-int (pointer fix-pt-object) new-value)
+         (fm-fix-pt-assign-int (pointer fix-pt-object) new-value)))
   new-value)
 
 (defmethod as-float ((fix-pt-object fix-pt-object))

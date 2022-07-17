@@ -47,6 +47,7 @@
            :*plugin-id*
            :*plugin-name*
            :*plugin-version*
+           :*filemaker-version*
            :*preferences-function*
            :*product-name*
            :*results*

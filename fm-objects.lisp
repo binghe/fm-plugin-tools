@@ -46,6 +46,11 @@
                   +k170extn-version+
                   +k180extn-version+
                   +k190extn-version+
+                  +k191extn-version+
+                  +k192extn-version+
+                  +k193extn-version+
+                  +k194extn-version+
+                  +k195extn-version+
                   +k-min-extn-version+
                   +k-max-extn-version+
                   +k-current-extn-version+

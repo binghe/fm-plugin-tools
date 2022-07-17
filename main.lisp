@@ -92,6 +92,10 @@ all functions which were defined with DEFINE-PLUGIN-FUNCTION."
                 (fm-log "Got error code ~A while registering function ~S.~%"
                         err-code (function-name prototype))))))))))
 
+(defvar *filemaker-version* 0
+  "This special variable holds the hosting FileMaker software version,
+which essentially decides which SDK functions are available for use.")
+
 (defun handle-init-message (version)
   "Handles `kFMXT_Init' messages from FileMaker.  Version is the
 database version as sent by FileMaker.  The function is supposed
@@ -129,6 +133,9 @@ refrains from enabling the plug-in."
         (funcall *init-function*))
       ;; register plug-in functions
       (register-plugin-functions)
+      ;; set *filemaker-version*, this is the version of hosting FileMaker Pro
+      (setq *filemaker-version* version)
+      ;; This is essentially the version of SDK headers
       +k-current-extn-version+)))
 
 (defun unregister-plugin-functions ()
