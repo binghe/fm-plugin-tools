@@ -1,9 +1,9 @@
 Version 0.3.2 (by Chun Tian)
-2022-??-??
+2022-07-18
 Added *fm-version* for detecting host FileMaker versions at runtime (so that SDK
  functions provided in higher versions of FileMaker can be used without breaking
  the compatibility or crashing lower versions.)
-Fixed PREPARE-FM-PLUGIN-TOOLS for Windows 64-bit plugin loading issues
+Fixed PREPARE-FM-PLUGIN-TOOLS for building valid Windows 64-bit plugins
 
 Version 0.3.1 (by Chun Tian)
 2022-07-17
