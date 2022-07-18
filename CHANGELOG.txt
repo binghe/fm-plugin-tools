@@ -1,9 +1,8 @@
 Version 0.3.2 (by Chun Tian)
 2022-07-18
-Added *fm-version* for detecting host FileMaker versions at runtime (so that SDK
- functions provided in higher versions of FileMaker can be used without breaking
- the compatibility or crashing lower versions.)
-Fixed PREPARE-FM-PLUGIN-TOOLS for building valid Windows 64-bit plugins
+Added *fm-version* for detecting host FileMaker versions at runtime (so that SDK functions provided in higher versions of FileMaker can be used without breaking the compatibility or crashing lower versions.)
+Added *plugin-help-url* for Help URL for External Functions and Steps. If ends with \"=\" the Function/Step ID will be appended. (New to FileMaker Pro 16)
+Fixed an issue in PREPARE-FM-PLUGIN-TOOLS for generating wrong fli.lisp, causing Windows 64-bit plugins cannot be loaded correctly.
 
 Version 0.3.1 (by Chun Tian)
 2022-07-17
