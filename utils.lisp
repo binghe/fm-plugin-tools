@@ -1,7 +1,7 @@
 ;;; -*- Mode: LISP; Syntax: COMMON-LISP; Package: FM-PLUGIN-TOOLS; Base: 10 -*-
-;;; $Header: /usr/local/cvsrep/fm-plugin-tools/utils.lisp,v 1.27 2010/07/22 09:38:06 edi Exp $
 
 ;;; Copyright (c) 2006-2010, Dr. Edmund Weitz.  All rights reserved.
+;;; Copyright (c) 2022, Chun Tian (binghe).  All rights reserved.
 
 ;;; Redistribution and use in source and binary forms, with or without
 ;;; modification, are permitted provided that the following conditions
@@ -62,11 +62,25 @@ FORMAT."
         (finish-output out))))
   (values))
 
+;; Characters 1-4 are the plug-in ID
+;; Character 5 is always "1"
+;; Character 6
+;;   use "Y" if you want to enable the Configure button for plug-ins in the Preferences dialog box.
+;;   Use "n" if there is no plug-in configuration needed.
+;;   If the flag is set to "Y" then make sure to handle the kFMXT_DoAppPreferences message.
+;; Character 7  is always "n"
+;; Character 8
+;;   Set to "Y" if you want to receive kFMXT_Init/kFMXT_Shutdown messages
+;;   In most cases, you want to set it to 'Y' since it's the best time to register/unregister your plugin functions.
+;; Character 9
+;;   Set to "Y" if the kFMXT_Idle message is required.
+;;   For simple external functions this may not be needed and can be turned off by setting the character to "n"
+;; Character 10
+;;   Set to "Y" to receive kFMXT_SessionShutdown and kFMXT_FileShutdown messages
+;; Character 11 is always "n"
 (defun create-options-string ()
   "Creates an option string which can be sent back to FileMaker
 on request.  See FileMaker documentation."
-  ;; note that character 8 is #\Y although the FileMaker documentation
-  ;; says it must always be #\n - go figure...
   (format nil "~A1~:[n~;Y~]nY~:[n~;Y~]nn"
           *plugin-id*
           #+:win32 *preferences-function* #+:macosx nil
