@@ -1,7 +1,7 @@
 ;;; -*- Mode: LISP; Syntax: COMMON-LISP; Package: FM-PLUGIN-TOOLS; Base: 10 -*-
-;;; $Header: /usr/local/cvsrep/fm-plugin-tools/specials.lisp,v 1.9 2010/07/22 09:38:06 edi Exp $
 
 ;;; Copyright (c) 2006-2010, Dr. Edmund Weitz.  All rights reserved.
+;;; Copyright (c) 2022, Chun Tian (binghe).  All rights reserved.
 
 ;;; Redistribution and use in source and binary forms, with or without
 ;;; modification, are permitted provided that the following conditions
@@ -118,9 +118,14 @@ Set to NIL if you don't want explicit collections.")
   "A list which keeps information about all functions which have
 been defined with DEFINE-PLUGIN-FUNCTION.")
 
+(defparameter *plugin-script-steps* nil
+  "A list which keeps information about all script steps which have
+been defined with DEFINE-PLUGIN-SCRIPT-STEP.")
+
 (defparameter *function-counter* -1
   "A counter used to give a unique numerical ID to each function
-defined with DEFINE-PLUGIN-FUNCTION.")
+(and script step) defined with DEFINE-PLUGIN-FUNCTION (or
+DEFINE-PLUGIN-SCRIPT-STEP).")
 
 (defvar *log-errors-p* t
   "Whether errors occurring during the execution of a plug-in

@@ -1,7 +1,7 @@
 ;; -*- Mode: LISP; Syntax: COMMON-LISP; Package: FM-PLUGIN-TOOLS; Base: 10 -*-
-;;; $Header: /usr/local/cvsrep/fm-plugin-tools/functions.lisp,v 1.19 2010/07/22 09:38:06 edi Exp $
 
 ;;; Copyright (c) 2006-2010, Dr. Edmund Weitz.  All rights reserved.
+;;; Copyright (c) 2022, Chun Tian (binghe).  All rights reserved.
 
 ;;; Redistribution and use in source and binary forms, with or without
 ;;; modification, are permitted provided that the following conditions
@@ -209,11 +209,14 @@ arguments."))
   (start-script file-name (make-text-object script-name)
                 :control control :parameter parameter))
 
-(defun enlist-plugin-function (prototype c-name min-args max-args flags)
+(defun enlist-plugin-function (prototype
+                               description ; new
+                               c-name min-args max-args flags)
   "Adds a new plug-in function with the corresponding parameters
 to the list *PLUGIN-FUNCTIONS*."
   (pushnew (list (next-function-id)
                  prototype
+                 description ; new
                  c-name
                  min-args
                  max-args
@@ -221,6 +224,19 @@ to the list *PLUGIN-FUNCTIONS*."
            *plugin-functions*
            :key (lambda (tuple)
                   (function-name (second tuple)))
+           :test #'string=))
+
+(defun enlist-plugin-script-step (name definition description c-name flags)
+  "Adds a new plug-in script step with the corresponding parameters
+to the list *PLUGIN-SCRIPT-STEPS*."
+  (pushnew (list (next-function-id)
+                 name
+                 definition
+                 description
+                 c-name
+                 flags)
+           *plugin-script-steps*
+           :key (lambda (tuple) (second tuple))
            :test #'string=))
 
 (defun nth-arg (n &optional type)
@@ -341,7 +357,12 @@ TYPE DEFAULT-VALUE)."
     (setq description (list description)))
   (let ((prototype (first description))
         (result-type (getf (rest description) :result-type))
-        (callable-name (next-callable-name)))
+        (callable-name (next-callable-name))
+        documentation) ; new
+    ;; if the first form of body is a literal string, treat it as documentation
+    (when (stringp (first body))
+      (setq documentation (first body))
+      (setq body (rest body)))
     (multiple-value-bind (bindings min-args max-args)
         (create-bindings lambda-list)
       (with-unique-names (func-id result results cond error-occurred)
@@ -378,7 +399,9 @@ TYPE DEFAULT-VALUE)."
            ;; enlist function so it will be registered when the
            ;; plug-in is initialized
            (enlist-plugin-function ,prototype
+                                   ,documentation ; new
                                    ',callable-name
                                    ,min-args
                                    ,(or max-args (getf (rest description) :max-args))
                                    ,(getf (rest description) :flags)))))))
+
