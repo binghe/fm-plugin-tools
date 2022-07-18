@@ -1,7 +1,7 @@
 Version 0.3.0 (by Chun Tian)
 2022-07-16
-Rebuilt with fm-plugin-tools 0.3.0, now it lives together with the sample plugin
-on macOS by having its own bundle identifiers.
+Compiled with released version 0.3.0 of FM-PLUGIN-TOOLS. Now it lives together with the sample plugin on macOS by having its own bundle identifiers.
+Use GC-GENERATION instead of MARK-AND-SWEEP
 
 Version 0.2.1
 2008-03-27
