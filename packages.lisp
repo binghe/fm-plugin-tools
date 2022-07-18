@@ -45,6 +45,7 @@
            #+:macosx
            :*plugin-bundle-identifier*
            :*plugin-help-text*
+           :*plugin-help-url*
            :*plugin-id*
            :*plugin-name*
            :*plugin-version*
