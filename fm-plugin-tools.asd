@@ -1,7 +1,7 @@
 ;;; -*- Mode: LISP; Syntax: COMMON-LISP; Package: CL-USER; Base: 10 -*-
-;;; $Header: /usr/local/cvsrep/fm-plugin-tools/fm-plugin-tools.asd,v 1.29 2010/07/22 09:38:06 edi Exp $
 
 ;;; Copyright (c) 2006-2010, Dr. Edmund Weitz.  All rights reserved.
+;;; Copyright (c) 2022, Chun Tian (binghe).  All rights reserved.
 
 ;;; Redistribution and use in source and binary forms, with or without
 ;;; modification, are permitted provided that the following conditions
@@ -33,7 +33,7 @@
   :author "Dr. Edmund Weitz (Edi Weitz)"
   :license "BSD"
   ;; we increase this version even if only the parser has changed
-  :version "0.3.1"
+  :version "0.3.2"
   :serial t
   :components ((:file "packages")
                (:file "specials")
