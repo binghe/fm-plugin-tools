@@ -160,6 +160,11 @@ byte-packing will be used."
 ;;
 ;; "(?sm)(#pragma\\s+FMX_PACK_ON\\s+)?^\\s*struct (\\w+)$(\\s*){(.*?)\\3}
 ;;
+;; The new pattern below solves the plugin loading issue on FMP Windows (64-bit).
+;;
+;; Note also that, on macOS, even "#pragma FMX_PACK_ON" is there and FMX_PACK_ON
+;; is undefined, it should be understood as still packing, otherwise the plugin
+;; does't load at all.  -- Chun Tian, 18/7/2022
 (defun parse-header-files ()
   "Loops through all C header files in *HEADER-FILE-NAMES*,
 checks for enums, structs or function prototypes and writes the
@@ -182,14 +187,16 @@ corresponding C code to *STANDARD-OUTPUT*."
            file-string)
         (declare (ignore whitespace))
         (handle-struct name struct-body
-                       (cond ((null pack)
-                              nil) ; no #pragma at all
-                             ((scan "FMX_PACK_ON" pack)
-                              nil) ; with #pragma but FMX_PACK_ON is undefined
-                             ((scan "pack \\(push, 1\\)" pack)
-                              1)   ; with #pragma and FMX_PACK_ON is "pack (push, 1)"
-                             (t
-                              (error "new, unknown #pragma occurs now!"))))))))
+          ;; NEW: now we decide if packing is needed in a backward compatible way
+          (cond ((null pack)
+                 nil) ; no #pragma at all, no packing
+                ((scan "FMX_PACK_ON" pack)
+                 #+win32 nil ; with #pragma but FMX_PACK_ON is undefined
+                 #-win32 1)  ; always pack on macOS (or it doesn't load)
+                ((scan "pack \\(push, 1\\)" pack)
+                 1)   ; with #pragma and FMX_PACK_ON is "pack (push, 1)"
+                (t
+                 (error "new, unknown #pragma occurs now!"))))))))
 
 (defun prepare ()
   "Creates the missing file `fli.lisp' for FM-PLUGIN-TOOLS from
