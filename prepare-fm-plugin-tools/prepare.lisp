@@ -116,7 +116,7 @@ See FileMaker header files for details.")))
 
 (defun handle-struct (struct-name body pack)
   "Handles the part between `struct {' and `}' - writes a
-corresponding FLI:DEFINE-C-STRUCT definition.  If PACK is true,
+corresponding FLI:DEFINE-C-STRUCT definition.  If PACK is non-NIL (a number),
 byte-packing will be used."
   (let (slots)
     (do-register-groups (prefix type name)
@@ -134,15 +134,32 @@ byte-packing will be used."
             slots))
     (pprint `(fli:define-c-struct ,(mangle-name struct-name)
                ,@(loop for first = t then nil
-                       for (slot-type slot-name packp) in (nreverse slots)
-                       when (and packp (not first))
-                       collect '(:byte-packing 1)
+                       for (slot-type slot-name pack) in (nreverse slots)
+                       when (and pack (not first))
+                       collect `(:byte-packing ,pack)
                        collect `(,slot-name ,(if (and (string= struct-name "FMX_ExternCallStruct")
                                                       (string-equal slot-name "which-call"))
                                                ;; special for this one slot
                                                '(:unsigned :char)
                                                slot-type)))))))
 
+;; NOTE: something has changed after we changed to prepare on FMXExtern.hhh.
+;; In the original FMXExtern.h, for GCC there's the following definition
+;;
+;; #define FMX_PACK_ON
+;;
+;; Note that there's no whitespaces after the word "FMX_PACK_ON", and it turns
+;; out that "gcc -E" will not replace it at all, leaving "#pragma FMX_PACK_ON"
+;; UNCHANGED in the *.hhh files. On the other hand, for Windows it's defined as
+;;
+;; #define FMX_PACK_ON                 pack (push, 1)
+;;
+;; Now, very funny, "cl /E" will replace all "#pragma FMX_PACK_ON" with
+;; "#pragma pack (push, 1)", causing the pack flag wrongly recognized in the
+;; following code with the original pattern:
+;;
+;; "(?sm)(#pragma\\s+FMX_PACK_ON\\s+)?^\\s*struct (\\w+)$(\\s*){(.*?)\\3}
+;;
 (defun parse-header-files ()
   "Loops through all C header files in *HEADER-FILE-NAMES*,
 checks for enums, structs or function prototypes and writes the
@@ -160,10 +177,19 @@ corresponding C code to *STANDARD-OUTPUT*."
           ("(?s)enum(?:\\s+\\w+)?\\s*\\{\\s*(.*?)\\s*,?\\s*\\}" file-string)
         (handle-enum enum-body))
       (do-register-groups (pack name whitespace struct-body)
-          ;; FMX_PACK_ON is a macro which translates to (:BYTE-PACKING 1)
-          ("(?sm)(#pragma\\s+FMX_PACK_ON\\s+)?^\\s*struct (\\w+)$(\\s*){(.*?)\\3}" file-string)
+          ;; "pack (push, 1)" is a macro which translates to (:BYTE-PACKING 1)
+          ("(?sm)(#pragma.*)?^\\s*struct (\\w+)$(\\s*){(.*?)\\3}"
+           file-string)
         (declare (ignore whitespace))
-        (handle-struct name struct-body pack)))))
+        (handle-struct name struct-body
+                       (cond ((null pack)
+                              nil) ; no #pragma at all
+                             ((scan "FMX_PACK_ON" pack)
+                              nil) ; with #pragma but FMX_PACK_ON is undefined
+                             ((scan "pack \\(push, 1\\)" pack)
+                              1)   ; with #pragma and FMX_PACK_ON is "pack (push, 1)"
+                             (t
+                              (error "new, unknown #pragma occurs now!"))))))))
 
 (defun prepare ()
   "Creates the missing file `fli.lisp' for FM-PLUGIN-TOOLS from
