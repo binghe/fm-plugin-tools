@@ -31,42 +31,42 @@
 ;;; The first eight functions monkey those of the example plug-in
 ;;; that comes with FileMaker Pro Advanced.
 
-;; returns the version string
 (define-plugin-function "Version"
     ()
+  "Returns the version string"
   (version-string))
 
-;; adds two numbers - same as + operator in FM
 (define-plugin-function "Add( number1; number2 )"
     ((number1 :float) (number2 :float))
+  "Adds two numbers - same as + operator in FM"
   (+ number1 number2))
 
-;; appends any positive number of strings - same as & operator in FM
 (define-plugin-function "Append ( textToAppend... )"
     ;; we want at least one argument
     ((first :text) &rest (rest :text))
+  "Appends any positive number of strings - same as & operator in FM"
   ;; note that the character styles of the first argument are
   ;; preserved - compare with FileMaker's own XMpl_Append example
   (dolist (arg rest)
     (append-text first arg))
   first)
 
-;; evaluates the argument - same as `Evaluate' function in FM
 (define-plugin-function ("Evaluate ( calcToEvaluate )" :result-type :void)
     ;; you could as well use :TEXT here - would be less internal work 
     ((calc :string))
+  "Evaluates the argument - same as `Evaluate' function in FM"
   (evaluate calc *results*))
 
-;; starts the script named SCRIPTNAME on the file specified by FILENAME
 (define-plugin-function ("StartScript ( filename; scriptname )" :result-type :void)
     ((filename :string) (scriptname :string))
+  "Starts the script named SCRIPTNAME on the file specified by FILENAME"
   (start-script filename scriptname))
 
-;; returns NUMBER in bank-check format, can handle more than twelve
-;; digits - compare with original XMpl_NumToWords example
 (define-plugin-function "NumToWords ( number )"
     ;; note that we actually want a string here, not a number
     ((number :string))
+  "Returns NUMBER in bank-check format, can handle more than twelve
+digits - compare with original XMpl_NumToWords example"
   (block num-to-words
     (let ((filtered-number (filter-number number t)))
       (when (zerop (length filtered-number))
@@ -92,7 +92,6 @@ are only cosmetic corrections."
             (string-append (normalize-text dollars-text) " and " (normalize-text cents-text))
             (normalize-text cents-text)))))))
 
-;; formats a number according to the mask configured by the user
 (define-plugin-function ("UserFormatNumber( textOrNumber )"
                          ;; use flags like in C++ example
                          :flags (logior +k-display-calc-fields+
@@ -100,40 +99,40 @@ are only cosmetic corrections."
                                         +k-display-custom-functions+
                                         +k-display-generic+))
     ((number :string))
+  "Formats a number according to the mask configured by the user"
   (format-number-with-mask number *user-format*))
 
-;; formats a number according to the mask provided as the first
-;; argument
 (define-plugin-function ("FormatNumber( formatString; textOrNumber )"
                          ;; use flags like in C++ example
                          :flags +k-display-calc-fields+)
     ((format :string) (number :string))
+  "Formats a number according to the mask provided as the first argument"
   (format-number-with-mask number format))
 
 ;;; And now for our own example functions:
 
-;; returns a string with the calendar week and the corresponding year
-;; separated by the string SEPARATOR - compare with FileMaker's function
-;; WeekOfYearFiscal
 (define-plugin-function "CalendarWeek( date {; separator} )"
     ((date :universal-time) &optional (separator :string "/"))
+  "Returns a string with the calendar week and the corresponding year
+separated by the string SEPARATOR - compare with FileMaker's function
+WeekOfYearFiscal"
   (multiple-value-bind (week year)
       (calendar-week date)
     (format nil "~A~A~A" week separator year)))
 
-;; returns a string with the make and model of the camera which took
-;; the picture JPEG, i.e. JPEG should be a container holding a JPEG
-;; taken with a digital camera
 (define-plugin-function "CameraInfo( jpeg )"
     ((jpeg :binary-data))
+  "Returns a string with the make and model of the camera which took
+the picture JPEG, i.e. JPEG should be a container holding a JPEG
+taken with a digital camera"
   (destructuring-bind (&optional make model)
       (get-exif-infos jpeg :make :model)
     (format nil "~@[~A ~]~@[~A~]" make model)))
 
-;; returns the timestamp of the time at which the picture JPEG was
-;; shot, i.e. JPEG should be a container holding a JPEG taken with a
-;; digital camera
 (define-plugin-function ("PictureTakenAt( jpeg )" :result-type :timestamp)
     ((jpeg :binary-data))
+  "Returns the timestamp of the time at which the picture JPEG was
+shot, i.e. JPEG should be a container holding a JPEG taken with a
+digital camera"
   (let ((taken-at (get-exif-infos jpeg "DateTimeOriginal")))
     (make-date-time-object :universal-time taken-at)))
