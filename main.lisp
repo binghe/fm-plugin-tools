@@ -1,7 +1,7 @@
 ;;; -*- Mode: LISP; Syntax: COMMON-LISP; Package: FM-PLUGIN-TOOLS; Base: 10 -*-
-;;; $Header: /usr/local/cvsrep/fm-plugin-tools/main.lisp,v 1.27 2010/07/22 09:38:06 edi Exp $
 
 ;;; Copyright (c) 2006-2010, Dr. Edmund Weitz.  All rights reserved.
+;;; Copyright (c) 2022, Chun Tian (binghe).  All rights reserved.
 
 ;;; Redistribution and use in source and binary forms, with or without
 ;;; modification, are permitted provided that the following conditions
@@ -31,10 +31,10 @@
 
 (defun fm-expr-env-register-external-function*
        (function-id function-name function-prototype func-ptr
-                  &key (min-args 0)
-                       (max-args -1)
-                       (type-flags #.(logior +k-display-in-all-dialogs+
-                                             +k-may-evaluate-on-server+)))
+        &key (min-args 0) (max-args -1)
+             (type-flags #.(logior +k-display-in-all-dialogs+ ; Changed in FileMaker Pro 16v2
+                                   +k-may-evaluate-on-server+ ; DEPRECATED in FileMaker Pro 12
+                                   )))
   "This is just a convenience wrapper for FM-EXPR-ENV-REGISTER-EXTERNAL-FUNCTION."
   (with-quadchar (plugin-id *plugin-id*)
     (fm-expr-env-register-external-function plugin-id function-id function-name
@@ -46,28 +46,35 @@
   (with-quadchar (plugin-id *plugin-id*)
     (fm-expr-env-un-register-external-function plugin-id function-id)))
 
-(defun handle-get-string-message (which-string result-size result-ptr)
+(defun handle-get-string-message (which-string lang-id result-size result-ptr)
   "Handles `kFMXT_GetString' messages from FileMaker.
 WHICH-STRING is the ID for the information FileMaker wants to
 have, RESULT-PTR is where the answer string is supposed to be
 stored, and RESULT-SIZE is the maximal size of the result."
-  (when-let (string (case which-string
-                      (#.+k-fmxt-name-str+ *plugin-name*)
-                      (#.+k-fmxt-app-config-str+ *plugin-help-text*)
-                      (#.+k-fmxt-options-str+ (create-options-string))))
-    #+:win32
-    (convert-to-foreign-string string
-                               :limit (1- result-size)
-                               :external-format :unicode
-                               :into (make-pointer :address result-ptr
-                                                   :type :wchar-t))
-    #-:win32
-    (loop with ptr = (make-pointer :address result-ptr
-                                   :type :unsigned-short)
-          for index from 0 below (1- result-size)
-          for char across string
-          do (setf (dereference ptr :index index) (char-code char))
-          finally (setf (dereference ptr :index index) #\Null))))
+  (declare (ignore lang-id))
+  (let* ((string (case which-string
+                   (#.+k-fmxt-name-str+       *plugin-name*)
+                   (#.+k-fmxt-app-config-str+ *plugin-help-text*)
+                   (#.+k-fmxt-help-urlstr+    *plugin-help-url*)
+                   (#.+k-fmxt-options-str+    (create-options-string))))
+         (pointer (make-pointer :address result-ptr
+                                :type #+win32 :wchar-t
+                                      #-win32 :unsigned-short)))
+    (if string
+        (progn
+          #+:win32
+          (convert-to-foreign-string string
+                                     :limit (1- result-size)
+                                     :external-format :unicode
+                                     :into pointer)
+          #-:win32
+          (loop with ptr = pointer
+                for index from 0 below (1- result-size)
+                for char across string
+                do (setf (dereference ptr :index index) (char-code char))
+                finally (setf (dereference ptr :index index) 0))) ; was: #\Null
+      ;; else... mainly for the future
+      (setf (dereference pointer :index 0) 0))))
 
 (defun register-plugin-functions ()
   "Loops through *PLUGIN-FUNCTIONS* and registers with FileMaker
@@ -79,7 +86,8 @@ all functions which were defined with DEFINE-PLUGIN-FUNCTION."
         (with-text (name% (string-append prefix (function-name prototype)))
           (with-text (prototype% (string-append prefix (string-trim " " prototype)))
             (let* ((type-flags (or flags
-                                   #.(logior +k-display-in-all-dialogs+ +k-may-evaluate-on-server+)))
+                                   #.(logior +k-display-in-all-dialogs+
+                                             +k-may-evaluate-on-server+)))
                    (err-code
                     (fm-expr-env-register-external-function* function-id
                                                              name%
@@ -121,7 +129,7 @@ refrains from enabling the plug-in."
                 *plugin-name* version)
         (return-from handle-init-message +k-bad-extn-version+))
       ;; prepare for Windows registy entries
-      (set-product-name)      
+      (set-product-name)
       (setf (sys:product-registry-path :fm-plugin-tools)
             (list "Software" *company-name* *product-name*))
       ;; call user-provided init function first if there is one
@@ -176,9 +184,10 @@ DEFINE-PLUGIN-FUNCTION."
   (when *preferences-function*
     (funcall *preferences-function*)))
 
-(defun handle-idle-message-internal (idle-level)
+(defun handle-idle-message-internal (idle-level &optional session-id)
   "Handles `kFMXT_Idle' messages from FileMaker.  Calls
 HANDLE-IDLE-MESSAGE."
+  (declare (ignore session-id))
   ;; collect all generations \(but not too often, see *GC-INTERVAL*) if
   ;; the user is idle.
   (when (and (= idle-level +k-fmxt-user-idle+)
@@ -213,13 +222,18 @@ documentation for details."
   ;; dispatch to handlers defined above
   (case (which-call)
     (#.+k-fmxt-get-string+
-     (handle-get-string-message (parm1) (parm3) (result)))
+     (handle-get-string-message (parm1) (parm2) (parm3) (result)))
     (#.+k-fmxt-idle+
-     (handle-idle-message-internal (parm1)))
+     (handle-idle-message-internal (parm1) (parm2)))
     (#.+k-fmxt-init+
      (setf (result)
            (handle-init-message (extn-version))))
     (#.+k-fmxt-shutdown+
      (handle-shutdown-message))
     (#.+k-fmxt-do-app-preferences+
-     (handle-app-preferences-message))))
+     (handle-app-preferences-message))
+    (#.+k-fmxt-session-shutdown+
+     nil)
+    (#.+k-fmxt-file-shutdown+
+     nil)))
+

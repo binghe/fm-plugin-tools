@@ -34,6 +34,7 @@
 #+:macosx
 (defvar *plugin-bundle-identifier*)
 (defvar *plugin-help-text*)
+(defvar *plugin-help-url* "http://httpbin.org/get?id=")
 (defvar *plugin-version*)
 (defvar *copyright-message*)
 (defvar *company-name*)
@@ -51,6 +52,9 @@ FileMaker documentation."
       (documentation '*plugin-help-text* 'variable)
       "The help text for the plug-in to display in FileMaker's
 preferences dialog box."
+      (documentation '*plugin-help-url* 'variable)
+      "(New to FileMaker Pro 16 (API VERSION 57) and later)
+Help URL for External Functions and Steps. If ends with \"=\" the Function/Step ID will be appended."
       (documentation '*plugin-version* 'variable)
       "Version number of the plug-in.  Should be a list of at
 most four integers, e.g. (4 2 1) would correspond to version
