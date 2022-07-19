@@ -150,7 +150,7 @@ digital camera"
 (define-plugin-script-step "Convert To Base"
     ((nil    :text    (:type :target) (:label "Destination") (:inline t))
      (number :integer (:type :calc) (:inline t) (:label "Number"))
-     (fake   :boolean (:type :bool) (:label "Fake") (:default nil))
+     (fake-p :boolean (:type :bool) (:label "Fake") (:default nil))
      (base   :integer (:type :list) (:inline t) (:label "Base") (:default 16)
                       (:contents ((2  "Binary")
                                   (3  "Ternary")
@@ -158,7 +158,7 @@ digital camera"
                                   (12 "Duodecimal")
                                   (16 "Hexadecimal")))))
   "Converts the number into a string using the specified base"
-  (if fake "FAKE VALUE"
+  (if fake-p "FAKE VALUE" ; for test purposes only
     (if (< 0 base)
         (let ((format-string (format nil "~~~DR" base)))
           (format nil format-string number))

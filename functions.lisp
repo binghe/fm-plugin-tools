@@ -490,7 +490,7 @@ it, and returns a list of corresponding LET bindings."
              (type (second thing))    ; one of the above types, including nil
              (alist (cddr thing))
              (ptype (second (assoc :type alist))))
-        ;; Target parameter does not enter bindings
+        ;; :target parameter does not enter into bindings
         (unless (eq ptype :target)
           (push `(,variable (nth-arg ,counter ,type)) bindings))
         (push `("Parameter" (,@(unless (eq ptype :target)
@@ -498,12 +498,12 @@ it, and returns a list of corresponding LET bindings."
                              ("Type" ,(string-downcase (symbol-name ptype)))
                              ,@(when (member ptype '(:target :calc))
                                  `(("DataType" ,(case type
-                                                  ((nil :text :string) "Text")
-                                                  ((:integer :float) "Number")
-                                                  (:date "Date")
+                                                  ((nil :text :string)     "Text")
+                                                  ((:integer :float)       "Number")
+                                                  (:date                   "Date")
                                                   ((:time :universal-time) "Time")
-                                                  ((:timestamp "Timestamp"))
-                                                  (:binary-data "Container")))))
+                                                  ((:timestamp             "Timestamp"))
+                                                  (:binary-data            "Container")))))
                              ,@(when-let (label (second (assoc :label alist)))
                                  `(("Label" ,label)))
                              ,@(when-let (inlinep (second (assoc :inline alist)))
@@ -557,11 +557,9 @@ TYPE DEFAULT-VALUE)."
         documentation)
     ;; if the first form of body is a literal string, treat it as documentation
     (when (stringp (first body))
-      (setq documentation (first body))
-      (setq body (rest body)))
+      (setq documentation (first body) body (rest body)))
     (multiple-value-bind (bindings parameters)
         (create-script-step-bindings lambda-list)
-      (declare (ignore min-args max-args))
       (with-unique-names (func-id result results cond error-occurred)
         `(progn
            ;; create the actual C stub which will be called by
