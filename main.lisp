@@ -365,6 +365,18 @@ is idle.  Can be specialized by plug-in authors."))
 (define-c-typedef fmx-extern-call-ptr
   (:pointer fmx-extern-call-struct))
 
+;; The meanings of parm1..parm3 in terms of the various messages:
+;;  Msg =                   Parm1                  Parm2                    Parm3
+;;  --------------------------------------------------------------------------------
+;;  kFMXT_Init              FMX_Application value  App vers unicode c str*  [unused]
+;;  kFMXT_Idle              FMX_IdleLevel value    Session ID               [unused]
+;; [kFMXT_External]         [unused]               Funct str index          Parameter text**
+;;  kFMXT_Shutdown          [unused]               [unused]                 [unused]
+;;  kFMXT_DoAppPreferences  [unused]               [unused]                 [unused]
+;;  kFMXT_GetString         FMX_Strings value      Windows lang ID          Maximum size of string to return
+;;  kFMXT_SessionShutdown   [unused]               Session ID               [unused]
+;;  kFMXT_FileShutdown      [unused]               Session ID               File ID
+
 (define-foreign-callable ("FMExternCallProc" :result-type :void
                                              :calling-convention :cdecl)
     ((parameter-block fmx-extern-call-ptr))
@@ -375,18 +387,20 @@ documentation for details."
   (setq *parameter-block* parameter-block)
   ;; dispatch to handlers defined above
   (case (which-call)
-    (#.+k-fmxt-get-string+
+    (#.+k-fmxt-get-string+         ; REQUIRED to be handled
      (handle-get-string-message (parm1) (parm2) (parm3) (result)))
-    (#.+k-fmxt-idle+
+    (#.+k-fmxt-idle+               ; Enabled by kFMXT_OptionsStr character 9
      (handle-idle-message-internal (parm1) (parm2)))
-    (#.+k-fmxt-init+
+    (#.+k-fmxt-init+               ; Enabled by kFMXT_OptionsStr character 8
      (setf (result)
            (handle-init-message (extn-version))))
-    (#.+k-fmxt-shutdown+
+    (#.+k-fmxt-shutdown+           ; Enabled by kFMXT_OptionsStr character 8
      (handle-shutdown-message))
-    (#.+k-fmxt-do-app-preferences+
+    (#.+k-fmxt-do-app-preferences+ ; Enabled by kFMXT_OptionsStr character 6
      (handle-app-preferences-message))
-    (#.+k-fmxt-session-shutdown+
-     nil)
-    (#.+k-fmxt-file-shutdown+
-     nil)))
+    ;; Below are new to FileMaker Pro 15 (API VERSION 56) and later
+    (#.+k-fmxt-session-shutdown+   ; Enabled by kFMXT_OptionsStr character 10
+     nil)   ; not implemented
+    (#.+k-fmxt-file-shutdown+      ; Enabled by kFMXT_OptionsStr character 10
+     nil)   ; not implemented
+    ))
