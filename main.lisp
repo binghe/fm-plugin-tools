@@ -254,6 +254,26 @@ all functions which were defined with DEFINE-PLUGIN-FUNCTION."
                 (fm-log "Got error code ~A while registering function ~S.~%"
                         err-code (function-name prototype))))))))))
 
+(defun register-plugin-script-steps ()
+  "Loops through *PLUGIN-SCRIPT-STEPS* and registers with FileMaker
+all script steps which were defined with DEFINE-PLUGIN-SCRIPT-STEP."
+  (dolist (tuple *plugin-script-steps*)
+    (destructuring-bind (script-step-id script-step-name
+                         definition documentation c-name flags)
+        tuple
+      (with-text (name% script-step-name)
+        (with-text (definition% definition)
+          (with-text (description% documentation)
+            (let* ((type-flags (or flags #.*default-type-flags*))
+                   (err-code
+                    (fm-expr-env-register-script-step*
+                       script-step-id name% definition% description%
+                       (make-pointer :symbol-name c-name)
+                       :type-flags type-flags)))
+              (unless (zerop err-code)
+                (fm-log "Got error code ~A while registering script step ~S.~%"
+                        err-code script-step-name)))))))))
+
 (defun handle-init-message (version)
   "Handles `kFMXT_Init' messages from FileMaker.  Version is the
 database version as sent by FileMaker.  The function is supposed
@@ -291,6 +311,9 @@ refrains from enabling the plug-in."
         (funcall *init-function*))
       ;; register plug-in functions
       (register-plugin-functions version)
+      ;; register plug-in script steps
+      (when (<= +k150extn-version+ version)
+        (register-plugin-script-steps))
       ;; set *filemaker-version*, this is the version of hosting FileMaker Pro
       (setq *fm-version* version)
       ;; This is essentially the version of SDK headers
@@ -308,11 +331,27 @@ DEFINE-PLUGIN-FUNCTION."
         (unless (zerop err-code)
           (fm-log "Got error code ~A while unregistering function ~S.~%"
                   err-code (function-name prototype)))))))
-        
-(defun handle-shutdown-message ()
+
+(defun unregister-plugin-script-steps ()
+  "Loops through *PLUGIN-SCRIPT-STEPS* and unregisters with
+FileMaker all script steps which were defined with
+DEFINE-PLUGIN-SCRIPT-STEP."
+  (dolist (tuple *plugin-script-steps*)
+    (destructuring-bind (script-step-id script-step-name &rest rest)
+        tuple
+      (declare (ignore rest))
+      (let ((err-code (fm-expr-env-un-register-script-step* script-step-id)))
+        (unless (zerop err-code)
+          (fm-log "Got error code ~A while unregistering script step ~S.~%"
+                  err-code script-step-name))))))
+
+(defun handle-shutdown-message (version)
   "Handles `kFMXT_Shutdown' messages from FileMaker."
   ;; unregister plug-in functions
   (unregister-plugin-functions)
+  ;; unregister plug-in script steps
+  (when (<= +k150extn-version+ version)
+    (unregister-plugin-script-steps))
   ;; call user-provided shutdown function if there is one
   (when *shutdown-function*
     (funcall *shutdown-function*))
@@ -392,10 +431,9 @@ documentation for details."
     (#.+k-fmxt-idle+               ; Enabled by kFMXT_OptionsStr character 9
      (handle-idle-message-internal (parm1) (parm2)))
     (#.+k-fmxt-init+               ; Enabled by kFMXT_OptionsStr character 8
-     (setf (result)
-           (handle-init-message (extn-version))))
+     (setf (result) (handle-init-message (extn-version))))
     (#.+k-fmxt-shutdown+           ; Enabled by kFMXT_OptionsStr character 8
-     (handle-shutdown-message))
+     (handle-shutdown-message (extn-version)))
     (#.+k-fmxt-do-app-preferences+ ; Enabled by kFMXT_OptionsStr character 6
      (handle-app-preferences-message))
     ;; Below are new to FileMaker Pro 15 (API VERSION 56) and later

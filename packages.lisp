@@ -85,6 +85,7 @@
            :data-object
            :date-time-object
            :define-plugin-function
+           :define-plugin-script-step
            :delete-text
            :disable-all
            :disable-all-faces
