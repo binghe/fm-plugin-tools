@@ -1,6 +1,7 @@
 ;;; -*- Mode: LISP; Syntax: COMMON-LISP; Package: PLUGIN-EXAMPLE; Base: 10 -*-
 
 ;;; Copyright (c) 2006-2010, Dr. Edmund Weitz.  All rights reserved.
+;;; Copyright (c) 2022, Chun Tian (binghe).  All rights reserved.
 
 ;;; Redistribution and use in source and binary forms, with or without
 ;;; modification, are permitted provided that the following conditions
@@ -30,6 +31,10 @@
 
 ;;; The first eight functions monkey those of the example plug-in
 ;;; that comes with FileMaker Pro Advanced.
+
+;;; NOTE: The DEFUN-like documentation strings of plugin functions will
+;;; appear as descriptions of the functions being defined, in FileMaker
+;;; version 15 or later. This is a new feature since version 0.3.3.
 
 (define-plugin-function "Version"
     ()
@@ -136,3 +141,27 @@ shot, i.e. JPEG should be a container holding a JPEG taken with a
 digital camera"
   (let ((taken-at (get-exif-infos jpeg "DateTimeOriginal")))
     (make-date-time-object :universal-time taken-at)))
+
+;; New to FileMaker Pro 16 (API VERSION 57) and later
+;; Dynamic Registration of Script Steps
+;;
+;; This is the Lisp version of the sample script step from FMMiniPlugIn
+;;
+(define-plugin-script-step "Convert To Base"
+    "<PluginStep>
+       <Parameter Type=\"target\" Label=\"Destination\" ShowInline=\"true\"/>
+       <Parameter Type=\"calc\" DataType=\"number\" ShowInline=\"true\" Label=\"Number\" ID=\"0\"/>
+       <Parameter Type=\"list\" ShowInline=\"true\" Label=\"Base\" Default=\"16\" ID=\"1\">
+         <Value ID=\"2\">Binary</Value>
+         <Value ID=\"3\">Ternary</Value>
+         <Value ID=\"8\">Octal</Value>
+         <Value ID=\"12\">Duodecimal</Value>
+         <Value ID=\"16\">Hexadecimal</Value>
+       </Parameter>
+     </PluginStep>"
+    ((number :integer) (base :integer))
+  "Converts the number into a string using the specified base"
+  (if (< 0 base)
+      (let ((format-string (format nil "~~~DR" base)))
+        (format nil format-string number))
+    "BAD BASE VALUE"))

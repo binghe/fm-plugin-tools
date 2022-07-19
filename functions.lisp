@@ -210,13 +210,13 @@ arguments."))
                 :control control :parameter parameter))
 
 (defun enlist-plugin-function (prototype
-                               description ; new
+                               documentation ; new
                                c-name min-args max-args flags)
   "Adds a new plug-in function with the corresponding parameters
 to the list *PLUGIN-FUNCTIONS*."
   (pushnew (list (next-function-id)
                  prototype
-                 description ; new
+                 documentation ; new
                  c-name
                  min-args
                  max-args
@@ -226,13 +226,13 @@ to the list *PLUGIN-FUNCTIONS*."
                   (function-name (second tuple)))
            :test #'string=))
 
-(defun enlist-plugin-script-step (name definition description c-name flags)
+(defun enlist-plugin-script-step (name definition documentation c-name flags)
   "Adds a new plug-in script step with the corresponding parameters
 to the list *PLUGIN-SCRIPT-STEPS*."
   (pushnew (list (next-function-id)
                  name
                  definition
-                 description
+                 documentation
                  c-name
                  flags)
            *plugin-script-steps*
@@ -405,3 +405,77 @@ TYPE DEFAULT-VALUE)."
                                    ,(or max-args (getf (rest description) :max-args))
                                    ,(getf (rest description) :flags)))))))
 
+;; New to FileMaker Pro 16 (API VERSION 57) and later
+;; Dynamic Registration of Script Steps
+(defmacro define-plugin-script-step (description definition lambda-list &body body)
+  "Defines a plug-in script step (new to FileMaker Pro 16 and later).
+
+DESCRIPTION is either the name of the script step as it should appear in the
+scripting workspace, or a list where the first element is this name string followed
+by a plist.
+
+The plist can have the properties :FLAGS and :RESULT-TYPE.
+RESULT-TYPE will be interpreted as by SET-VALUE.
+FLAGS is a boolean combination of flags describing
+the behaviour of the function - see the FileMaker documentation.
+
+DEFINITION is the XML definition of what parameters should be displayed for
+the script step. (TODO)
+
+LAMBDA-LIST is like a simplified version of a Lisp lambda list
+where only &OPTIONAL and &REST are allowed.  Each parameter is
+either a symbol or a pair \(NAME TYPE) where TYPE is interpreted
+as by NTH-ARG.  Optional parameters can also look like \(NAME
+TYPE DEFAULT-VALUE)."
+  ;; we want to always treat DESCRIPTION like a list
+  (when (atom description)
+    (setq description (list description)))
+  (let ((script-step-name (first description))
+        (result-type (getf (rest description) :result-type))
+        (callable-name (next-callable-name))
+        documentation)
+    ;; if the first form of body is a literal string, treat it as documentation
+    (when (stringp (first body))
+      (setq documentation (first body))
+      (setq body (rest body)))
+    (multiple-value-bind (bindings min-args max-args)
+        (create-bindings lambda-list)
+      (declare (ignore min-args max-args))
+      (with-unique-names (func-id result results cond error-occurred)
+        `(progn
+           ;; create the actual C stub which will be called by
+           ;; FileMaker
+           (define-foreign-callable (,callable-name :result-type :short
+                                                    :calling-convention :stdcall)
+               ((,func-id :short)
+                ;; bind special variables
+                (*environment* (:pointer :void))
+                (*args* (:pointer :void))
+                (,results (:pointer :void)))
+             (declare (ignore ,func-id))
+             (catch ',error-occurred
+               (handler-bind
+                   ((error (lambda (,cond)
+                             (maybe-log-error ,cond ,script-step-name)
+                             ;; return -1 to FileMaker in case of an error
+                             (throw ',error-occurred -1))))
+                 (let* ((*results* (make-instance 'data-object
+                                                  :pointer ,results
+                                                  :do-not-delete t))
+                        ,@bindings
+                        (,result (progn ,@body)))
+                   ,@(unless (eq result-type :void)
+                       ;; set return value
+                       `((set-value ,result :result-type ,result-type)))
+                   ;; return 0 for "no error"
+                   0))))
+           ;; the name of the callable must be kept if the delivery
+           ;; level is 5
+           (push ',callable-name *symbols-to-keep*)
+           ;; enlist function so it will be registered when the
+           ;; plug-in is initialized
+           (enlist-plugin-script-step ,script-step-name
+                                      ,definition
+                                      ,documentation
+                                      ',callable-name
+                                      ,(getf (rest description) :flags)))))))
