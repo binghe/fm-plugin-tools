@@ -31,6 +31,7 @@
   :name "FM-PLUGIN-TOOLS"
   :description "A toolkit for FileMaker plug-in development in Common Lisp"
   :author "Dr. Edmund Weitz (Edi Weitz)"
+  :maintainer "Chun Tian (binghe)"
   :license "BSD"
   ;; we increase this version even if only the parser has changed
   :version "0.4.0"
@@ -49,4 +50,5 @@
                (:file "binary-data-objects")
                (:file "data-objects")
                (:file "functions")
-               (:file "main")))
+               (:file "main"))
+  :depends-on (:cxml/xml))

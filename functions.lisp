@@ -474,28 +474,61 @@ TYPE DEFAULT-VALUE)."
   "Accepts a lambda list as for DEFINE-PLUGIN-FUNCTION, checks
 it, and returns a list of corresponding LET bindings."
   (let ((counter 0)
-        (state :required)
-        (bindings nil))
+        (bindings nil)
+        (parameters nil))
     (dolist (thing lambda-list)
       (when (atom thing)
         (unless (symbolp thing)
           (error "Expected symbol in lambda list but got ~S." thing))
-        (setq thing (list thing nil)))
+        (setq thing (list thing :text '(:type :calc))))
       (unless (and (<= 2 (list-length thing))
                    (symbolp (first thing))
-                   (member (second thing) '(:text :string :fix-pt :integer :float :boolean :date
+                   (member (second thing) '(:text :string :integer :float :boolean :date
                                             :time :timestamp :universal-time :binary-data nil)))
         (error "Illegal parameter specifier ~S." thing))
-      (unless (eq nil (first thing))
-        (push (list (first thing)
-                    `(nth-arg ,counter ,(second thing)))
-              bindings)
-        (incf counter)))
-    (values (nreverse bindings) )))
+      (let* ((variable (first thing)) ; symbolp
+             (type (second thing))    ; one of the above types, including nil
+             (alist (cddr thing))
+             (ptype (second (assoc :type alist))))
+        ;; Target parameter does not enter bindings
+        (unless (eq ptype :target)
+          (push `(,variable (nth-arg ,counter ,type)) bindings))
+        (push `("Parameter" (,@(unless (eq ptype :target)
+                                 `(("ID" ,(format nil "~A" counter))))
+                             ("Type" ,(string-downcase (symbol-name ptype)))
+                             ,@(when (member ptype '(:target :calc))
+                                 `(("DataType" ,(case type
+                                                  ((nil :text :string) "Text")
+                                                  ((:integer :float) "Number")
+                                                  (:date "Date")
+                                                  ((:time :universal-time) "Time")
+                                                  ((:timestamp "Timestamp"))
+                                                  (:binary-data "Container")))))
+                             ,@(when-let (label (second (assoc :label alist)))
+                                 `(("Label" ,label)))
+                             ,@(when-let (inlinep (second (assoc :inline alist)))
+                                 `(("ShowInline" ,(if inlinep "true" "false"))))
+                             ,@(when (member ptype '(:list :bool))
+                                 (when-let (default (second (assoc :default alist)))
+                                   `(("Default" ,(cond ((eq ptype :bool)
+                                                        (if default "true" "false"))
+                                                       (t
+                                                        (format nil "~A" default))))))))
+                ,@(when (eq ptype :list)
+                    (let ((contents (second (assoc :contents alist)))
+                           (acc nil))
+                       (loop for (id value) in contents do
+                         (push `("Value" (("ID" ,(format nil "~A" id))) ,value) acc))
+                       (nreverse acc))))
+              parameters)
+        (unless (eq ptype :target)
+          (incf counter))))
+    (values (nreverse bindings)
+            (append (list "PluginStep" nil) (nreverse parameters)))))
 
 ;; New to FileMaker Pro 16 (API VERSION 57) and later
 ;; Dynamic Registration of Script Steps
-(defmacro define-plugin-script-step (description definition lambda-list &body body)
+(defmacro define-plugin-script-step (description lambda-list &body body)
   "Defines a plug-in script step (new to FileMaker Pro 16 and later).
 
 DESCRIPTION is either the name of the script step as it should appear in the
@@ -526,7 +559,7 @@ TYPE DEFAULT-VALUE)."
     (when (stringp (first body))
       (setq documentation (first body))
       (setq body (rest body)))
-    (multiple-value-bind (bindings min-args max-args)
+    (multiple-value-bind (bindings parameters)
         (create-script-step-bindings lambda-list)
       (declare (ignore min-args max-args))
       (with-unique-names (func-id result results cond error-occurred)
@@ -563,7 +596,7 @@ TYPE DEFAULT-VALUE)."
            ;; enlist function so it will be registered when the
            ;; plug-in is initialized
            (enlist-plugin-script-step ,script-step-name
-                                      ,definition
+                                      ,(write-xml parameters)
                                       ,documentation
                                       ',callable-name
                                       ,(getf (rest description) :flags)))))))

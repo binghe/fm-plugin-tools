@@ -292,3 +292,9 @@ automatic error handling."
       (mp:with-lock (*global-environment-lock*)
         *global-environment*)
       (error "No environment available.")))
+
+;; This is learnt from CXML web site
+(defun write-xml (node &key indent)
+  (let ((sink (cxml:make-string-sink
+               :canonical nil :indentation indent)))
+    (cxml-xmls:map-node sink node :include-namespace-uri nil)))

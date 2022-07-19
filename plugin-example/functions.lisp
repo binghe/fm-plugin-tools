@@ -148,20 +148,18 @@ digital camera"
 ;; This is the Lisp version of the sample script step from FMMiniPlugIn
 ;;
 (define-plugin-script-step "Convert To Base"
-    "<PluginStep>
-       <Parameter Type=\"target\" Label=\"Destination\" ShowInline=\"true\"/>
-       <Parameter Type=\"calc\" DataType=\"number\" ShowInline=\"true\" Label=\"Number\" ID=\"0\"/>
-       <Parameter Type=\"list\" ShowInline=\"true\" Label=\"Base\" Default=\"16\" ID=\"1\">
-         <Value ID=\"2\">Binary</Value>
-         <Value ID=\"3\">Ternary</Value>
-         <Value ID=\"8\">Octal</Value>
-         <Value ID=\"12\">Duodecimal</Value>
-         <Value ID=\"16\">Hexadecimal</Value>
-       </Parameter>
-     </PluginStep>"
-    ((number :integer) (base :integer))
+    ((nil    :text    (:type :target) (:label "Destination") (:inline t))
+     (number :integer (:type :calc) (:inline t) (:label "Number"))
+     (fake   :boolean (:type :bool) (:label "Fake") (:default nil))
+     (base   :integer (:type :list) (:inline t) (:label "Base") (:default 16)
+                      (:contents ((2  "Binary")
+                                  (3  "Ternary")
+                                  (8  "Octal")
+                                  (12 "Duodecimal")
+                                  (16 "Hexadecimal")))))
   "Converts the number into a string using the specified base"
-  (if (< 0 base)
-      (let ((format-string (format nil "~~~DR" base)))
-        (format nil format-string number))
-    "BAD BASE VALUE"))
+  (if fake "FAKE VALUE"
+    (if (< 0 base)
+        (let ((format-string (format nil "~~~DR" base)))
+          (format nil format-string number))
+      "BAD BASE VALUE")))
