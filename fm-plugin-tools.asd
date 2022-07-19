@@ -33,7 +33,7 @@
   :author "Dr. Edmund Weitz (Edi Weitz)"
   :license "BSD"
   ;; we increase this version even if only the parser has changed
-  :version "0.3.2"
+  :version "0.4.0"
   :serial t
   :components ((:file "packages")
                (:file "specials")
