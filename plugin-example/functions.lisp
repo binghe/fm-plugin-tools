@@ -97,7 +97,7 @@ are only cosmetic corrections."
             (string-append (normalize-text dollars-text) " and " (normalize-text cents-text))
             (normalize-text cents-text)))))))
 
-(define-plugin-function ("UserFormatNumber( textOrNumber )"
+(define-plugin-function ("UserFormatNumber ( textOrNumber )"
                          ;; use flags like in C++ example
                          :flags (logior +k-display-calc-fields+
                                         +k-display-auto-enter+
@@ -107,7 +107,7 @@ are only cosmetic corrections."
   "Formats a number according to the mask configured by the user"
   (format-number-with-mask number *user-format*))
 
-(define-plugin-function ("FormatNumber( formatString; textOrNumber )"
+(define-plugin-function ("FormatNumber ( formatString; textOrNumber )"
                          ;; use flags like in C++ example
                          :flags +k-display-calc-fields+)
     ((format :string) (number :string))
@@ -116,7 +116,7 @@ are only cosmetic corrections."
 
 ;;; And now for our own example functions:
 
-(define-plugin-function "CalendarWeek( date {; separator} )"
+(define-plugin-function "CalendarWeek ( date {; separator} )"
     ((date :universal-time) &optional (separator :string "/"))
   "Returns a string with the calendar week and the corresponding year
 separated by the string SEPARATOR - compare with FileMaker's function
@@ -125,7 +125,7 @@ WeekOfYearFiscal"
       (calendar-week date)
     (format nil "~A~A~A" week separator year)))
 
-(define-plugin-function "CameraInfo( jpeg )"
+(define-plugin-function "CameraInfo ( jpeg )"
     ((jpeg :binary-data))
   "Returns a string with the make and model of the camera which took
 the picture JPEG, i.e. JPEG should be a container holding a JPEG
@@ -134,7 +134,7 @@ taken with a digital camera"
       (get-exif-infos jpeg :make :model)
     (format nil "~@[~A ~]~@[~A~]" make model)))
 
-(define-plugin-function ("PictureTakenAt( jpeg )" :result-type :timestamp)
+(define-plugin-function ("PictureTakenAt ( jpeg )" :result-type :timestamp)
     ((jpeg :binary-data))
   "Returns the timestamp of the time at which the picture JPEG was
 shot, i.e. JPEG should be a container holding a JPEG taken with a
