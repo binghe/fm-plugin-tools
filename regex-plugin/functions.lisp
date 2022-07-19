@@ -1,7 +1,7 @@
 ;;; -*- Mode: LISP; Syntax: COMMON-LISP; Package: REGEX-PLUGIN; Base: 10 -*-
-;;; $Header: /usr/local/cvsrep/regex-plugin/functions.lisp,v 1.23 2008/01/07 07:36:02 edi Exp $
 
 ;;; Copyright (c) 2006-2008, Dr. Jens Teich and Dr. Edmund Weitz.  All rights reserved.
+;;; Copyright (c) 2022, Chun Tian (binghe).  All rights reserved.
 
 ;;; Redistribution and use in source and binary forms, with or without
 ;;; modification, are permitted provided that the following conditions
@@ -31,19 +31,20 @@
 
 (define-plugin-function "Version"
     ()
-  ;; just return the version string
+  "Returns the version of RegexPlugIn as a string."
   (version-string))
 
-;; this function just scans a string and returns a boolean result
-;; this is obviously very easy - just four lines
 (define-plugin-function "Scan ( regex ; target {; flags} )"
     ((regex :string) (target :string) &optional (flags :string))
+  "Searches the text target from start to end and tries to match the regular
+expression regex. Returns True (1) on success, False (0) otherwise."
   (with-flags (flags)
     (boolean-value (ppcre:scan (get-cached-regex regex) target))))
 
 ;; for the rest of the functions see the documentation for RegexPlugIn
 (define-plugin-function "GetText ( regex ; target {; flags; register} )"
     ((regex :string) (target :text) &optional (flags :string) (register :integer))
+  "Extracts the first match of pattern regex in target string"
   (with-flags (flags)
     (multiple-value-bind (match-start match-end reg-starts reg-ends)
         (ppcre:scan (get-cached-regex regex) (as-string target))
@@ -65,6 +66,8 @@ TARGET from position FROM to position TO."
 
 (define-plugin-function "MatchStart ( regex ; target {; flags; register} )"
     ((regex :string) (target :string) &optional (flags :string) (register :integer))
+  "Returns the start positions of the matching substring within target if the regular
+ expression matches, otherwise they return -1. See Scan for the optional flags."
   (with-flags (flags)
     (multiple-value-bind (match-start match-end reg-starts reg-ends)
         (ppcre:scan (get-cached-regex regex) target)
@@ -76,6 +79,9 @@ TARGET from position FROM to position TO."
 
 (define-plugin-function "MatchEnd ( regex ; target {; flags; register} )"
     ((regex :string) (target :string) &optional (flags :string) (register :integer))
+  "Returns the end positions of the matching substring within target if the regular
+ expression matches, otherwise they return -1.  See MatchStart and Scan for the
+ optional flags and register."
   (with-flags (flags)
     (multiple-value-bind (match-start match-end reg-starts reg-ends)
         (ppcre:scan (get-cached-regex regex) target)
@@ -87,6 +93,10 @@ TARGET from position FROM to position TO."
 
 (define-plugin-function "Positions ( regex ; target {; flags} )"
     ((regex :string) (target :string) &optional (flags :string))
+  "This function kind of combines RegP_MatchStart and RegP_MatchEnd. If there is
+ no match, it returns False (0). Otherwise it returns a string of the start and
+ end positions of the match itself followed by the start and end positions of all
+ register groups."
   (with-flags (flags)
     (multiple-value-bind (match-start match-end reg-starts reg-ends)
         (ppcre:scan (get-cached-regex regex) target)
@@ -298,6 +308,10 @@ enclosed in braces in FileMaker."
 
 (define-plugin-function "Replace ( regex ; target ; replacement {; flags} )"
     ((regex :string) (target-text :text) (replacement-text :text) &optional (flags :string))
+  "Returns the text target with all substrings that match regex replaced with replacement.
+ Replacement can contain the special substrings  \& for the whole match, \` for the part
+ of target before the match, \' for the part of target after the match, or \N or \{N} for
+ the Nth register group where N is a positive integer."
   (with-flags (flags)
     (let ((result-text
            (regex-replace-all (get-cached-regex regex) target-text replacement-text)))
@@ -307,6 +321,7 @@ enclosed in braces in FileMaker."
 
 (define-plugin-function "ReplaceOne ( regex ; target ; replacement {; flags} )"
     ((regex :string) (target-text :text) (replacement-text :text) &optional (flags :string))
+  "Similar with Replace but replaces only the first match."
   (with-flags (flags)
     (let ((result-text
            (regex-replace (get-cached-regex regex) target-text replacement-text)))
