@@ -29,6 +29,52 @@
 
 (in-package :fm-plugin-tools)
 
+;; About "compatibleOnFlags"
+;;
+;; DEPRECATED in FileMaker Pro 12. The server database process no longer loads
+;; plug-ins. Stored calculations containing plug-in functions will not evaluate
+;; the same way they do on a client with the plug-in if a schema change forces
+;; the server to recalculate the stored calculation's value.
+;;
+;;     kMayEvaluateOnServer    = 0x00000001,
+
+;; DEPRECATED in FileMaker Pro 16. All the following flags will be ignored for
+;; the commented purpose in version 16 and later.
+;; Note the change of kDisplayInAllDialogs further below.
+;;
+;;     kDisplayCalcFields      = 0x00000100,   // Calculated fields
+;;     kDisplayAutoEnter       = 0x00000200,   // Auto enter calculation
+;;     kDisplayValidation      = 0x00000400,   // Validation by calculation
+;;     kDisplayCustomFunctions = 0x00000800,   // Custom function definition
+;;     kDisplayPrivileges      = 0x00001000,   // Row level access calculations
+;;     kDisplayInFuture1       = 0x00002000,   // As yet undefined calculation dialog
+;;     kDisplayInFuture2       = 0x00004000,   // As yet undefined calculation dialog
+;;     kDisplayGeneric         = 0x00008000,   // Dialog used by scripting and replace
+;;
+;; Changed in FileMaker Pro 16v2. If any of these bits are set, the function
+;; will be displayed in any picking UI control. Future functions should use this
+;; constant if they want to be displayed. The function can always be typed in manually.
+;;     kDisplayInAllDialogs    = 0x0000FF00,
+
+;; New to FileMaker Pro 16 (API VERSION 57) and later. Bits used in the renamed/new
+;; compatibleOnFlags parameter. If all the kFutureCompatible bits are zero then it is
+;; treated as if all the kFutureCompatible bits were set.
+;;     kMacCompatible          = 0x00000002,
+;;     kWinCompatible          = 0x00000004,
+;;     kServerCompatible       = 0x00000008,
+;;     kIOSCompatible          = 0x00000010,
+;;     kCustomWebCompatible    = 0x00000020,
+;;     kWebDirectCompatible    = 0x00000040,
+;;     kAllDeviceCompatible    = kMacCompatible | kWinCompatible | kServerCompatible
+;;                             | kIOSCompatible | kCustomWebCompatible | kWebDirectCompatible,
+;;     kFutureCompatible       = kAllDeviceCompatible | 0x00FF0000,
+(eval-when (:compile-toplevel :load-toplevel :execute)
+  (defparameter *default-type-flags*
+    (logior +k-display-in-all-dialogs+ ; Changed in FileMaker Pro 16v2
+            +k-may-evaluate-on-server+ ; DEPRECATED in FileMaker Pro 12
+            +k-all-device-compatible+
+            +k-future-compatible+)))
+
 ;; Dynamic Registration of Plug-in Functions
 ;;
 ;; RegisterExternalFunction enables the plug-in to register a function with
@@ -59,11 +105,7 @@
 ;;
 (defun fm-expr-env-register-external-function*
        (function-id function-name function-prototype func-ptr
-        &key (min-args 0) (max-args -1)
-             (type-flags
-              #.(logior +k-display-in-all-dialogs+ ; Changed in FileMaker Pro 16v2
-                        +k-may-evaluate-on-server+ ; DEPRECATED in FileMaker Pro 12
-                        )))
+        &key (min-args 0) (max-args -1) (type-flags #.*default-type-flags*))
   "This is just a convenience wrapper for FM-EXPR-ENV-REGISTER-EXTERNAL-FUNCTION."
   (with-quadchar (plugin-id *plugin-id*)
     (fm-expr-env-register-external-function plugin-id
@@ -91,8 +133,7 @@
        (function-id function-name function-prototype
         function-description ; new
         func-ptr
-        &key (min-args 0) (max-args -1)
-             (type-flags #.(logior +k-display-in-all-dialogs+)))
+        &key (min-args 0) (max-args -1) (type-flags #.*default-type-flags*))
   "This is just a convenience wrapper for FM-EXPR-ENV-REGISTER-EXTERNAL-FUNCTION."
   (with-quadchar (plugin-id *plugin-id*)
     (fm-expr-env-register-external-function-ex plugin-id
@@ -131,8 +172,7 @@
         script-step-name
         script-step-definition
         script-step-description
-        func-ptr
-        &key (type-flags #.(logior +k-display-in-all-dialogs+)))
+        func-ptr &key (type-flags #.*default-type-flags*))
   "This is just a convenience wrapper for FM-EXPR-ENV-REGISTER-SCRIPT-STEP"
   (with-quadchar (plugin-id *plugin-id*)
     (fm-expr-env-register-script-step
@@ -188,9 +228,7 @@ all functions which were defined with DEFINE-PLUGIN-FUNCTION."
           tuple
         (with-text (name% (string-append prefix (function-name prototype)))
           (with-text (prototype% (string-append prefix (string-trim " " prototype)))
-            (let* ((type-flags (or flags
-                                   #.(logior +k-display-in-all-dialogs+
-                                             +k-may-evaluate-on-server+)))
+            (let* ((type-flags (or flags #.*default-type-flags*))
                    (err-code
                     (cond ((and documentation (<= +k150extn-version+ version))
                            (with-text (documentation% documentation)
