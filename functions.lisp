@@ -405,6 +405,94 @@ TYPE DEFAULT-VALUE)."
                                    ,(or max-args (getf (rest description) :max-args))
                                    ,(getf (rest description) :flags)))))))
 
+;; Plug-in XML UI definition
+;;
+;; This XML is the text that will be passed to the scriptStepDefinition parameter
+;; of the RegisterScriptStep function. Up to ten script parameters can be specified
+;; in addition to the optional target parameter. All the parameters are defined with
+;; <Parameter> tags in a <PluginStep> grouping.
+;;
+;; The attributes for a <Parameter> tag include:
+;;
+;;  * Type - If not one of the following four types, the parameter is ignored.
+;;
+;;    1. Calc - A standard Specify button that brings up the calculation dialog. When
+;;              the script step is executed, the calculation will be evaluated and its
+;;              results passed to the plug-in.
+;;    2. Bool - Simple check box that returns the value of 0 or 1.
+;;    3. List - A static drop-down or pop-up list in which the ID of the item selected
+;;              is returned. The size limit of this list is limited by the capabilities
+;;              of the UI widgets used to display it. A List type parameter expects to
+;;              contain <Value> tags as specified below.
+;;    4. Target - Will include a specify button that uses the new Insert From Target field
+;;              targeting dialog that allows a developer to put the results of a script
+;;              step into a field (whether or not it is on a layout), into a variable, or
+;;              insert into the current active field on a layout. If no Target is defined
+;;              then the result Data object is ignored. If there are multiple Target
+;;              definitions, only the first one will be honored.
+;;
+;;  * ID - A value in the range of 0 to 9, which is used as an index into the
+;;         DataVect& parms object for the plug-in to retrieve the value of the parameter.
+;;         Indexes that are not in range or duplicated will cause the parameter to be
+;;         ignored. A parameter of type Target ignores this attribute if specified.
+;;
+;;  * Label - The name of parameter or control that is displayed in the UI.
+;;
+;;  * DataType - Only used by the Calc and Target parameter types. If not specified or not
+;;               one of the six data types, the type Text will be used.
+;;    1. Text
+;;    2. Number
+;;    3. Date
+;;    4. Time
+;;    5. Timestamp
+;;    6. Container 
+;;
+;;  * ShowInline - Value is either true or false. If defined and true, will cause the
+;;          parameter to show up inlined with the script step in the Script Workspace.
+;;
+;;  * Default - Either the numeric index of the default list item or the true/false
+;;              value for a bool item. Ignored for calc and target parameters.
+;;
+;; Parameters of type List are expected to contain <Value> tags whose values are used to
+;; construct the drop-down or pop-up list. The ID of a value starts at zero, but a
+;; specific ID can be given to a value by defining an "ID" attribute. If later values do
+;; not have an "ID" attribute, the ID will be set to the previous value's ID plus one.
+;;
+;; Sample XML description:
+;;
+;;  <PluginStep>
+;;    <Parameter ID="0" Type="Calc" DataType="text" ShowInline="true" Label="Mood"/>
+;;    <Parameter ID="1" Type="List" ShowInline="true" Label="Color">
+;;      <Value ID="0">Red</Value>
+;;      <Value ID="1">Green</Value>
+;;      <Value ID="2">Blue</Value>
+;;    </Parameter>
+;;    <Parameter ID="2" Type="Bool" Label="Beep when happy"/>
+;;  </PluginStep>
+;;
+(defun create-script-step-bindings (lambda-list)
+  "Accepts a lambda list as for DEFINE-PLUGIN-FUNCTION, checks
+it, and returns a list of corresponding LET bindings."
+  (let ((counter 0)
+        (state :required)
+        (bindings nil))
+    (dolist (thing lambda-list)
+      (when (atom thing)
+        (unless (symbolp thing)
+          (error "Expected symbol in lambda list but got ~S." thing))
+        (setq thing (list thing nil)))
+      (unless (and (<= 2 (list-length thing))
+                   (symbolp (first thing))
+                   (member (second thing) '(:text :string :fix-pt :integer :float :boolean :date
+                                            :time :timestamp :universal-time :binary-data nil)))
+        (error "Illegal parameter specifier ~S." thing))
+      (unless (eq nil (first thing))
+        (push (list (first thing)
+                    `(nth-arg ,counter ,(second thing)))
+              bindings)
+        (incf counter)))
+    (values (nreverse bindings) )))
+
 ;; New to FileMaker Pro 16 (API VERSION 57) and later
 ;; Dynamic Registration of Script Steps
 (defmacro define-plugin-script-step (description definition lambda-list &body body)
@@ -439,7 +527,7 @@ TYPE DEFAULT-VALUE)."
       (setq documentation (first body))
       (setq body (rest body)))
     (multiple-value-bind (bindings min-args max-args)
-        (create-bindings lambda-list)
+        (create-script-step-bindings lambda-list)
       (declare (ignore min-args max-args))
       (with-unique-names (func-id result results cond error-occurred)
         `(progn
