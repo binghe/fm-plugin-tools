@@ -254,6 +254,8 @@ all functions which were defined with DEFINE-PLUGIN-FUNCTION."
                 (fm-log "Got error code ~A while registering function ~S.~%"
                         err-code (function-name prototype))))))))))
 
+;; New to FileMaker Pro 16 (API VERSION 57) and later
+;; Dynamic Registration of Script Steps
 (defun register-plugin-script-steps ()
   "Loops through *PLUGIN-SCRIPT-STEPS* and registers with FileMaker
 all script steps which were defined with DEFINE-PLUGIN-SCRIPT-STEP."
@@ -312,7 +314,7 @@ refrains from enabling the plug-in."
       ;; register plug-in functions
       (register-plugin-functions version)
       ;; register plug-in script steps
-      (when (<= +k150extn-version+ version)
+      (when (<= +k160extn-version+ version)
         (register-plugin-script-steps))
       ;; set *filemaker-version*, this is the version of hosting FileMaker Pro
       (setq *fm-version* version)
@@ -350,7 +352,7 @@ DEFINE-PLUGIN-SCRIPT-STEP."
   ;; unregister plug-in functions
   (unregister-plugin-functions)
   ;; unregister plug-in script steps
-  (when (<= +k150extn-version+ version)
+  (when (<= +k160extn-version+ version)
     (unregister-plugin-script-steps))
   ;; call user-provided shutdown function if there is one
   (when *shutdown-function*
