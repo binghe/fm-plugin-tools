@@ -7,7 +7,6 @@ Sample code for defining a plugin function:
     ((number1 :float) (number2 :float))
   "Adds two numbers - same as + operator in FM"
   (+ number1 number2))
-
 ```
 
 Sample code for defining a plugin script step with UI (New to FileMaker Pro 16):
@@ -16,7 +15,6 @@ Sample code for defining a plugin script step with UI (New to FileMaker Pro 16):
 (define-plugin-script-step "Convert To Base"
     ((nil    :text    (:type :target) (:label "Destination") (:inline t))
      (number :integer (:type :calc) (:inline t) (:label "Number"))
-     (fake-p :boolean (:type :bool) (:label "Fake") (:default nil))
      (base   :integer (:type :list) (:inline t) (:label "Base") (:default 16)
                       (:contents ((2  "Binary")
                                   (3  "Ternary")
@@ -24,14 +22,15 @@ Sample code for defining a plugin script step with UI (New to FileMaker Pro 16):
                                   (12 "Duodecimal")
                                   (16 "Hexadecimal")))))
   "Converts the number into a string using the specified base"
-  (if fake-p "FAKE VALUE" ; for test purposes only
-    (if (< 0 base)
-        (let ((format-string (format nil "~~~DR" base)))
-          (format nil format-string number))
-      "BAD BASE VALUE")))
+  (if (< 0 base)
+      (let ((format-string (format nil "~~~DR" base)))
+        (format nil format-string number))
+    "BAD BASE VALUE"))
 ```
 
-To use FM-PLUGIN-TOOLS you will need the Common Lisp implementation from LispWorks and of course FileMaker Pro (Advanced). You won't need a C or C++ compiler on Windows, though! (On OS X you will need Apple's Xcode which comes for free with every Mac.)
+To use FM-PLUGIN-TOOLS you will need the Common Lisp implementation from LispWorks and of course FileMaker Pro (Advanced).
+
+On Windows, Microsoft C/C++ compiler (e.g., from any version of Visual Studio community edition) is now required once, when preparing `fli.lisp`. On macOS you will need the free Apple's Xcode for preparing `fli.lisp` and (possibly) for code signing.
 
 ## Preparing `fli.lisp`
 

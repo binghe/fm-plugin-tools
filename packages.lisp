@@ -1,7 +1,7 @@
 ;;; -*- Mode: LISP; Syntax: COMMON-LISP; Package: CL-USER; Base: 10 -*-
-;;; $Header: /usr/local/cvsrep/fm-plugin-tools/packages.lisp,v 1.16 2010/07/22 09:38:06 edi Exp $
 
 ;;; Copyright (c) 2006-2010, Dr. Edmund Weitz.  All rights reserved.
+;;; Copyright (c) 2022, Chun Tian (binghe).  All rights reserved.
 
 ;;; Redistribution and use in source and binary forms, with or without
 ;;; modification, are permitted provided that the following conditions
