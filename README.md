@@ -1,5 +1,36 @@
 # FM-PLUGIN-TOOLS - A toolkit for FileMaker plug-in development in Common Lisp
 
+Sample code for defining a plugin function:
+
+```
+(define-plugin-function "Add( number1; number2 )"
+    ((number1 :float) (number2 :float))
+  "Adds two numbers - same as + operator in FM"
+  (+ number1 number2))
+
+```
+
+Sample code for defining a plugin script step with UI (New to FileMaker Pro 16):
+
+```
+(define-plugin-script-step "Convert To Base"
+    ((nil    :text    (:type :target) (:label "Destination") (:inline t))
+     (number :integer (:type :calc) (:inline t) (:label "Number"))
+     (fake-p :boolean (:type :bool) (:label "Fake") (:default nil))
+     (base   :integer (:type :list) (:inline t) (:label "Base") (:default 16)
+                      (:contents ((2  "Binary")
+                                  (3  "Ternary")
+                                  (8  "Octal")
+                                  (12 "Duodecimal")
+                                  (16 "Hexadecimal")))))
+  "Converts the number into a string using the specified base"
+  (if fake-p "FAKE VALUE" ; for test purposes only
+    (if (< 0 base)
+        (let ((format-string (format nil "~~~DR" base)))
+          (format nil format-string number))
+      "BAD BASE VALUE")))
+```
+
 To use FM-PLUGIN-TOOLS you will need the Common Lisp implementation from LispWorks and of course FileMaker Pro (Advanced). You won't need a C or C++ compiler on Windows, though! (On OS X you will need Apple's Xcode which comes for free with every Mac.)
 
 ## Preparing `fli.lisp`
