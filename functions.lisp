@@ -367,8 +367,7 @@ TYPE DEFAULT-VALUE)."
         (create-bindings lambda-list)
       (with-unique-names (func-id result results cond error-occurred)
         `(progn
-           ;; create the actual C stub which will be called by
-           ;; FileMaker
+           ;; create the actual C stub which will be called by FileMaker
            (define-foreign-callable (,callable-name :result-type :short
                                                     :calling-convention :stdcall)
                ((,func-id :short)
@@ -393,7 +392,7 @@ TYPE DEFAULT-VALUE)."
                        ;; set return value
                        `((set-value ,result :result-type ,result-type)))
                    ;; return 0 for "no error"
-                   *errno*))))
+                   (if (<= +k160extn-version+ *fm-version*) *errno* 0)))))
            ;; the name of the callable must be kept if the delivery
            ;; level is 5
            (push ',callable-name *symbols-to-keep*)
@@ -563,8 +562,7 @@ TYPE DEFAULT-VALUE)."
         (create-script-step-bindings lambda-list)
       (with-unique-names (func-id result results cond error-occurred)
         `(progn
-           ;; create the actual C stub which will be called by
-           ;; FileMaker
+           ;; create the actual C stub which will be called by FileMaker
            (define-foreign-callable (,callable-name :result-type :short
                                                     :calling-convention :stdcall)
                ((,func-id :short)
@@ -589,7 +587,7 @@ TYPE DEFAULT-VALUE)."
                        ;; set return value
                        `((set-value ,result :result-type ,result-type)))
                    ;; return 0 for "no error"
-                   *errno*))))
+                   (if (<= +k160extn-version+ *fm-version*) *errno* 0)))))
            ;; the name of the callable must be kept if the delivery
            ;; level is 5
            (push ',callable-name *symbols-to-keep*)
