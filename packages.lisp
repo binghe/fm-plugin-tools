@@ -36,6 +36,7 @@
   (:export :*company-name*
            :*copyright-message*
            :*enable-idle-messages*
+           :*errno*
            :*fm-version*
            :*fm-logfile*
            :*gc-interval*

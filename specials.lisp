@@ -147,6 +147,7 @@ GET-ENVIRONMENT function.")
 
 (defvar *args*)
 (defvar *results*)
+(defvar *errno*)
 
 ;; we set the documentation here so that the values above stay unbound
 (setf (documentation '*args* 'variable)
@@ -155,7 +156,13 @@ is bound to the argument vector.  See function NTH-ARG."
       (documentation '*results* 'variable)
       "During the execution of a plug-in function this variable
 is bound to the object which will eventually contain the return
-value.  See function SET-VALUE.")
+value.  See function SET-VALUE."
+      (documentation '*errno* 'variable)
+      "New to FileMaker Pro 16 (API VERSION 57) and later. If one
+of +k-plugin-err-result1+ .. +k-plugin-err-result8+ errcodes are
+returned by either a calc or script step function call, the results
+will be used to set the value of the Get(LastExternalErrorDetail) calc."
+      )
 
 (defvar *global-environment* nil
   "A fallback environment which can stand in for *ENVIRONMENT* if it's

@@ -386,13 +386,14 @@ TYPE DEFAULT-VALUE)."
                  (let* ((*results* (make-instance 'data-object
                                                   :pointer ,results
                                                   :do-not-delete t))
+                        (*errno* 0)
                         ,@bindings
-                        (,result (progn ,@body)))
+                        (,result (block nil ,@body)))
                    ,@(unless (eq result-type :void)
                        ;; set return value
                        `((set-value ,result :result-type ,result-type)))
                    ;; return 0 for "no error"
-                   0))))
+                   *errno*))))
            ;; the name of the callable must be kept if the delivery
            ;; level is 5
            (push ',callable-name *symbols-to-keep*)
@@ -581,13 +582,14 @@ TYPE DEFAULT-VALUE)."
                  (let* ((*results* (make-instance 'data-object
                                                   :pointer ,results
                                                   :do-not-delete t))
+                        (*errno* 0)
                         ,@bindings
-                        (,result (progn ,@body)))
+                        (,result (block nil ,@body)))
                    ,@(unless (eq result-type :void)
                        ;; set return value
                        `((set-value ,result :result-type ,result-type)))
                    ;; return 0 for "no error"
-                   0))))
+                   *errno*))))
            ;; the name of the callable must be kept if the delivery
            ;; level is 5
            (push ',callable-name *symbols-to-keep*)
