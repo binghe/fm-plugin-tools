@@ -308,7 +308,7 @@ refrains from enabling the plug-in."
       (set-product-name)
       (setf (sys:product-registry-path :fm-plugin-tools)
             (list "Software" *company-name* *product-name*))
-      ;; set *filemaker-version*, this is the version of hosting FileMaker Pro
+      ;; This is the version of the hosting FileMaker application
       (setq *fm-version* version)
       ;; call user-provided init function first if there is one
       (when *init-function*
@@ -318,7 +318,8 @@ refrains from enabling the plug-in."
       ;; register plug-in script steps
       (when (<= +k160extn-version+ version)
         (register-plugin-script-steps))
-      ;; This is essentially the version of SDK headers
+      ;; This is required, but essentially is the version of SDK headers,
+      ;; perhaps FileMaker wants to know if the plugin was built by old SDKs.
       +k-current-extn-version+)))
 
 (defun unregister-plugin-functions ()
