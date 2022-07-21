@@ -36,6 +36,7 @@
   (:export :*company-name*
            :*copyright-message*
            :*enable-idle-messages*
+           :*enable-shutdown-messages*
            :*errno*
            :*fm-version*
            :*fm-logfile*
@@ -53,6 +54,7 @@
            :*preferences-function*
            :*product-name*
            :*results*
+           :*session-id*
            :*shutdown-function*
            :*symbols-to-keep*
            :add-data
@@ -118,6 +120,8 @@
            :get-year
            :green
            :handle-idle-message
+           :handle-session-shutdown
+           :handle-file-shutdown
            :insert-text
            :kdeflt-fixed-precision
            :locale-object

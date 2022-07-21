@@ -81,10 +81,12 @@ FORMAT."
 (defun create-options-string ()
   "Creates an option string which can be sent back to FileMaker
 on request.  See FileMaker documentation."
-  (format nil "~A1~:[n~;Y~]nY~:[n~;Y~]nn"
-          *plugin-id*
-          #+:win32 *preferences-function* #+:macosx nil
-          *enable-idle-messages*))
+  (format nil "~A1~:[n~;Y~]nY~:[n~;Y~]~:[n~;Y~]n"
+          *plugin-id* ; char 1-4
+          #+:win32 *preferences-function* #+:macosx nil ; char 6
+          *enable-idle-messages* ; char 9
+          (when (<= +k150extn-version+ (extn-version))
+            *enable-shutdown-messages*))) ; char 10
 
 (defun next-function-id ()
   "Returns the next unused function ID, an integer."

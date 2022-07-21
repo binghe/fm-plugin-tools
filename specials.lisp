@@ -77,8 +77,13 @@ The default value is NIL.  If no name is set, *PLUGIN-NAME* is
 used instead.")
 
 (defvar *enable-idle-messages* nil
-  "Whether we want to receive \(and handle) kFMXT_Idle messages from
+  "Whether we want to receive (and handle) kFMXT_Idle messages from
 FileMaker.")
+
+(defvar *enable-shutdown-messages* nil
+  "New to FileMaker Pro 15 (API VERSION 56) and later.
+Whether we want to receive (and handle) kFMXT_SessionShutdown
+and kFMXT_FileShutdown messages.")
 
 (defvar *fm-logfile* t
   "Target file for the FM-LOG function.  A pathname designator,
@@ -93,7 +98,7 @@ FMX-START-SCRIPT.")
 
 (defvar *preferences-function* nil
   "A function designator for a 0-ary function to handle
-configuration options \(in FileMaker's preferences dialog box)
+configuration options (in FileMaker's preferences dialog box)
 for the plug-in user - or NIL if we don't want to do that.")
 
 (defvar *init-function* nil
@@ -148,8 +153,9 @@ GET-ENVIRONMENT function.")
 (defvar *args*)
 (defvar *results*)
 (defvar *errno*)
+(defvar *session-id*)
 
-;; we set the documentation here so that the values above stay unbound
+;; We set the documentation here so that the values above stay unbound
 (setf (documentation '*args* 'variable)
       "During the execution of a plug-in function this variable
 is bound to the argument vector.  See function NTH-ARG."
@@ -162,6 +168,11 @@ value.  See function SET-VALUE."
 of +k-plugin-err-result1+ .. +k-plugin-err-result8+ errcodes are
 returned by either a calc or script step function call, the results
 will be used to set the value of the Get(LastExternalErrorDetail) calc."
+      (documentation '*session-id* 'variable)
+      "New to FileMaker Pro 15 (API VERSION 56) and later. It can be used
+ to keep track of multiple FileMaker users/clients that are performing
+ tasks in the same process on different threads. A value of zero means
+ that there isn't one of those objects available in the current environment."
       )
 
 (defvar *global-environment* nil

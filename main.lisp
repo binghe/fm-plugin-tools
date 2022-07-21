@@ -380,10 +380,26 @@ DEFINE-PLUGIN-SCRIPT-STEP."
   (when *preferences-function*
     (funcall *preferences-function*)))
 
-(defun handle-idle-message-internal (idle-level &optional session-id)
-  "Handles `kFMXT_Idle' messages from FileMaker.  Calls
-HANDLE-IDLE-MESSAGE."
-  (declare (ignore session-id))
+(defgeneric handle-session-shutdown (session-id)
+  (:documentation "Handles kFMXT_SessionShutdown message from FileMaker.
+Can be specialized by plug-in authors. *enable-shutdown-messages* must
+be enabled for getting this message."))
+   
+(defmethod handle-session-shutdown (session-id)
+  "The default method which does nothing."
+  nil)
+
+(defgeneric handle-file-shutdown (session-id file-id)
+  (:documentation "Handles kFMXT_SessionShutdown message from FileMaker.
+Can be specialized by plug-in authors. *enable-shutdown-messages* must
+be enabled for getting this message."))
+   
+(defmethod handle-file-shutdown (session-id file-id)
+  "The default method which does nothing."
+  nil)
+
+(defun handle-idle-message-internal (idle-level &optional (session-id 0))
+  "Handles `kFMXT_Idle' messages from FileMaker.  Calls HANDLE-IDLE-MESSAGE."
   ;; collect all generations \(but not too often, see *GC-INTERVAL*) if
   ;; the user is idle.
   (when (and (= idle-level +k-fmxt-user-idle+)
@@ -394,14 +410,17 @@ HANDLE-IDLE-MESSAGE."
                    #+:lispworks-64bit :blocking-gen-num)
     (setq *last-gc* (get-universal-time)))
   ;; maybe some user code will be called here
-  (handle-idle-message idle-level))
+  (let ((*session-id* session-id))
+    (handle-idle-message idle-level)))
 
 (defgeneric handle-idle-message (idle-level)
   (:documentation "Called with corresponding level when FileMaker
-is idle.  Can be specialized by plug-in authors."))
+is idle.  Can be specialized by plug-in authors.
+*SESSION-ID* can be accessed in scope of this function."))
 
 (defmethod handle-idle-message (idle-level)
-  "The default method which does nothing.")
+  "The default method which does nothing."
+  nil)
 
 ;; a pointer to the C struct define by PREPARE-FM-PLUGIN-TOOLS
 (define-c-typedef fmx-extern-call-ptr
@@ -432,7 +451,10 @@ documentation for details."
     (#.+k-fmxt-get-string+         ; REQUIRED to be handled
      (handle-get-string-message (parm1) (parm2) (parm3) (result)))
     (#.+k-fmxt-idle+               ; Enabled by kFMXT_OptionsStr character 9
-     (handle-idle-message-internal (parm1) (parm2)))
+     (cond ((<= +k150extn-version+ (extn-version))
+            (handle-idle-message-internal (parm1) (parm2)))
+           (t
+            (handle-idle-message-internal (parm1)))))
     (#.+k-fmxt-init+               ; Enabled by kFMXT_OptionsStr character 8
      (setf (result) (handle-init-message (extn-version))))
     (#.+k-fmxt-shutdown+           ; Enabled by kFMXT_OptionsStr character 8
@@ -441,7 +463,7 @@ documentation for details."
      (handle-app-preferences-message))
     ;; Below are new to FileMaker Pro 15 (API VERSION 56) and later
     (#.+k-fmxt-session-shutdown+   ; Enabled by kFMXT_OptionsStr character 10
-     nil)   ; not implemented
+     (handle-session-shutdown (parm2)))      ; Session ID
     (#.+k-fmxt-file-shutdown+      ; Enabled by kFMXT_OptionsStr character 10
-     nil)   ; not implemented
+     (handle-file-shutdown (parm2) (parm3))) ; Session ID + File ID
     ))
