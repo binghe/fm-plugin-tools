@@ -39,7 +39,7 @@
 (define-plugin-function "Version"
     ()
   "Returns the version string"
-  (version-string))
+  (format nil "~A on ~A" (version-string) *fm-application*))
 
 (define-plugin-function "Add( number1; number2 )"
     ((number1 :float) (number2 :float))

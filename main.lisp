@@ -276,10 +276,25 @@ all script steps which were defined with DEFINE-PLUGIN-SCRIPT-STEP."
                 (fm-log "Got error code ~A while registering script step ~S.~%"
                         err-code script-step-name)))))))))
 
-(defun handle-init-message (version)
+(defun fm-app-type (application)
+  "Convert +k-fmxt- constants into Lisp keywords"
+  (case application
+    (#.+k-fmxt-developer+ :developer) ; FileMaker Pro Advanced
+    (#.+k-fmxt-pro+       :pro)       ; FileMaker Pro
+    (#.+k-fmxt-runtime+   :runtime)   ; FileMaker Runtime
+    (#.+k-fmxt-server+    :server)    ; FileMaker Server
+    (#.+k-fmxt-web+       :web)       ; Web Publishing process
+    (#.+k-fmxt-mobile+    :mobile)    ; FileMaker Go
+    (#.+k-fmxt-xdbc+      :xdbc)      ; xDBC listener
+    (#.+k-fmxt-sase+      :sase)      ; Serveer scripting process
+    (#.+k-fmxt-iwp+       :iwp)       ; Instant Web Process (IWP)
+    (#.+k-fmxt-fmdapi+    :fmdapi)))  ; FileMaker Data API process
+
+(defun handle-init-message (application version version-string)
   "Handles `kFMXT_Init' messages from FileMaker.  Version is the
 database version as sent by FileMaker.  The function is supposed
 to return +K-CURRENT-EXTN-VERSION+ if everything is OK."
+  (declare (ignore version-string))
   (flet ((do-not-enable (condition)
            "Local handler which logs errors during this phase and
 refrains from enabling the plug-in."
@@ -309,7 +324,8 @@ refrains from enabling the plug-in."
       (setf (sys:product-registry-path :fm-plugin-tools)
             (list "Software" *company-name* *product-name*))
       ;; This is the version of the hosting FileMaker application
-      (setq *fm-version* version)
+      (setq *fm-version*        version)
+      (setq *fm-application*    (fm-app-type application))
       ;; call user-provided init function first if there is one
       (when *init-function*
         (funcall *init-function*))
@@ -398,6 +414,17 @@ be enabled for getting this message."))
   "The default method which does nothing."
   nil)
 
+#|
+typedef FMX_UChar   FMX_IdleLevel;
+enum
+{
+	kFMXT_UserIdle          = 0,        // The user hasn't done anything for 30 seconds or more.
+	kFMXT_UserNotIdle       = 1,        // The user has done something within 30 seconds.
+	kFMXT_ScriptPaused      = 2,        // The user is running a script that is paused.
+	kFMXT_ScriptRunning     = 3,        // The user is running a script.
+	kFMXT_Unsafe            = 4         // Same as if unsafeCalls is set to true.
+};
+|#
 (defun handle-idle-message-internal (idle-level &optional (session-id 0))
   "Handles `kFMXT_Idle' messages from FileMaker.  Calls HANDLE-IDLE-MESSAGE."
   ;; collect all generations \(but not too often, see *GC-INTERVAL*) if
@@ -456,7 +483,7 @@ documentation for details."
            (t
             (handle-idle-message-internal (parm1)))))
     (#.+k-fmxt-init+               ; Enabled by kFMXT_OptionsStr character 8
-     (setf (result) (handle-init-message (extn-version))))
+     (setf (result) (handle-init-message (parm1) (extn-version) (parm2))))
     (#.+k-fmxt-shutdown+           ; Enabled by kFMXT_OptionsStr character 8
      (handle-shutdown-message (extn-version)))
     (#.+k-fmxt-do-app-preferences+ ; Enabled by kFMXT_OptionsStr character 6

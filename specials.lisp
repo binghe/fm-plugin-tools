@@ -38,6 +38,7 @@
 (defvar *plugin-version*)
 (defvar *copyright-message*)
 (defvar *company-name*)
+(defvar *fm-application*)
 (defvar *fm-version*)
 
 ;; we set the documentation here so that the values above stay unbound
@@ -69,7 +70,18 @@ version info."
       "This special variable holds the host version of FileMaker software,
 which essentially decides which SDK functions are available for use.
 See also HANDLE-INIT-MESSAGE."
-      )
+      (documentation '*fm-application* 'variable)
+      "FileMaker Application Type:
+   :developer  ; FileMaker Pro Advanced
+   :pro        ; FileMaker Pro
+   :runtime    ; FileMaker Runtime
+   :server     ; FileMaker Server
+   :web        ; Web Publishing process
+   :mobile     ; FileMaker Go
+   :xdbc       ; xDBC listener
+   :sase       ; Serveer scripting process
+   :iwp        ; Instant Web Process (IWP)
+   :fmdapi     ; FileMaker Data API process.")
 
 (defvar *product-name* nil
   "Will be used as the product name for the DLL version info.

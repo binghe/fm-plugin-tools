@@ -38,6 +38,7 @@
            :*enable-idle-messages*
            :*enable-shutdown-messages*
            :*errno*
+           :*fm-application*
            :*fm-version*
            :*fm-logfile*
            :*gc-interval*
