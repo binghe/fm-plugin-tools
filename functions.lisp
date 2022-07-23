@@ -85,146 +85,163 @@ function returns RESULT."))
 
 ;; New to FileMaker Pro 18 (API VERSION 60) and later.
 ;; Values for each of the calculation engine's Get() functions
-;; kGet_ApplicationVersion = 1001,
-;; kGet_CurrentDate        = 1002,
-;; kGet_LastError          = 1003,
-;; kGet_ActiveFieldName    = 1004,
-;; kGet_FileName           = 1005,
-;; kGet_FileSize           = 1006,
-;; kGet_FoundCount         = 1007,
-;; kGet_HostName           = 1008,
-;; kGet_LayoutCount        = 1009,
-;; kGet_LayoutName         = 1010,
-;; kGet_LayoutNumber       = 1011,
-;; kGet_SystemLanguage     = 1012,
-;; kGet_WindowMode         = 1013,
-;; kGet_MultiUserState     = 1014,
-;; kGet_PageNumber         = 1015,
-;; kGet_SystemPlatform     = 1016,
-;; kGet_ActivePortalRowNumber = 1017,
-;; kGet_PrinterName        = 1018,
-;; kGet_TotalRecordCount   = 1019,
-;; kGet_RecordNumber       = 1020,
-;; kGet_ActiveRepetitionNumber = 1021,
-;; kGet_RequestCount       = 1022,
-;; kGet_ScreenDepth        = 1023,
-;; kGet_ScreenHeight       = 1024,
-;; kGet_ScreenWidth        = 1025,
-;; kGet_ScriptName         = 1026,
-;; kGet_SortState          = 1027,
-;; kGet_SystemVersion      = 1028,
-;; kGet_CurrentTime        = 1029,
-;; kGet_UserCount          = 1030,
-;; kGet_UserName           = 1031,
-;; kGet_AccountName        = 1032,
-;; kGet_LastMessageChoice  = 1033,
-;; kGet_CurrentPrivilegeSetName = 1034,
-;; kGet_ActiveModifierKeys = 1035,
-;; kGet_NetworkProtocol    = 1036,
-;; kGet_RecordID           = 1037,
-;; kGet_RecordModificationCount = 1038,
-;; kGet_ActiveFieldContents = 1039,
-;; kGet_FilePath           = 1040,
-;; kGet_LastExternalErrorDetail = 1041,
-;; kGet_LayoutAccess       = 1042,
-;; kGet_RecordAccess       = 1043,
-;; kGet_HighContrastState  = 1044,
-;; kGet_HighContrastColor  = 1045,
-;; kGet_StatusAreaState    = 1046,
-;; kGet_LayoutViewState    = 1047,
-;; kGet_WindowName         = 1048,
-;; kGet_WindowHeight       = 1049,
-;; kGet_WindowLeft         = 1050,
-;; kGet_WindowTop          = 1051,
-;; kGet_WindowVisible      = 1052,
-;; kGet_WindowWidth        = 1053,
-;; kGet_SystemNICAddress   = 1054,
-;; kGet_SystemIpAddress    = 1055,
-;; kGet_ActiveFieldTableName = 1056,
-;; kGet_ActiveSelectionSize = 1057,
-;; kGet_ActiveSelectionStart = 1058,
-;; kGet_ApplicationLanguage = 1059,
-;; kGet_CurrentHostTimestamp = 1060,
-;; kGet_LayoutTableName    = 1061,
-;; kGet_ScriptParameter    = 1062,
-;; kGet_CurrentTimeStamp   = 1063,
-;; kGet_WindowDesktopHeight = 1064,
-;; kGet_WindowDesktopWidth = 1065,
-;; kGet_WindowContentHeight = 1066,
-;; kGet_WindowContentWidth = 1067,
-;; kGet_CalculationRepetitionNumber = 1068,
-;; kGet_CurrentExtendedPrivileges = 1069,
-;; kGet_AllowAbortState    = 1070,
-;; kGet_ErrorCaptureState  = 1071,
-;; kGet_DesktopPath        = 1072,
-;; kGet_DocumentsPath      = 1073,
-;; kGet_FileMakerPath      = 1074,
-;; kGet_HostIPAddress      = 1075,
-;; kGet_RequestOmitState   = 1076,
-;; kGet_PreferencesPath    = 1077,
-;; kGet_RecordOpenCount    = 1078,
-;; kGet_RecordOpenState    = 1079,
-;; kGet_ScriptResult       = 1080,
-;; kGet_SystemDrive        = 1081,
-;; kGet_TextRulerVisible   = 1082,
-;; kGet_AllowFormattingBarState = 1083,
-;; kGet_UseSystemFormatsState = 1084,
-;; kGet_WindowZoomLevel    = 1085,
-;; kGet_CustomMenuSetName  = 1086,
-;; kGet_ActiveLayoutObjectName = 1088,
-;; kGet_TemporaryPath      = 1089,
-;; kGet_HostApplicationVersion = 1090,
-;; kGet_TriggerModifierKeys = 1091,
-;; kGet_TriggerKeystroke   = 1092,
-;; kGet_DocumentsPathListing = 1093,
-;; kGet_AccountPrivilegeSet  = 1094,
-;; kGet_AccountExtendedPrivileges = 1095,
-;; kGet_QuickFindText      = 1096,
-;; kGet_TriggerCurrentPanel = 1097,
-;; kGet_TriggerTargetPanel = 1098,
-;; kGet_WindowStyle        = 1099,
-;; kGet_InstalledFMPlugins = 1100,
-;; kGet_UUID               = 1101,
-;; kGet_PersistentID       = 1102,
-;; kGet_ConnectionState    = 1103,
-;; kGet_CurrentTimeUTCMilliseconds = 1104,
-;; kGet_Device             = 1105,
-;; kGet_WindowOrientation  = 1106,
-;; kGet_TriggerGestureInfo = 1107,
-;; kGet_EncryptionState    = 1108,
-;; kGet_ScriptAnimation    = 1109,
-;; kGet_ModifiedFields     = 1110,
-;; kGet_NetworkType        = 1111,
-;; kGet_ConnectionAttributes = 1112,
-;; kGet_ScreenScaleFactor  = 1113,
-;; kGet_ApplicationArchitecture = 1115,
-;; kGet_TriggerExternalEvent = 1116,
-;; kGet_TouchKeyboardState = 1117,
-;; kGet_MenubarState       = 1118,
-;; kGet_RegionMonitorEvents = 1119,
-;; kGet_AccountGroupName   = 1120,
-;; kGet_ActiveRecordNumber = 1121,
-;; kGet_UUIDNumber         = 1122,
-;; kGet_OpenDataFileInfo   = 1123,
-;; kGet_AccountType        = 1124,
-;; kGet_PageCount          = 1125,
-;; kGet_SystemLocaleElements = 1126,
-;; kGet_FileLocaleElements = 1127,
-;; kGet_InstalledFMPluginsAsJSON = 1128,
+(defparameter *get-function-value-map*
+  '((#.+k-get-application-version+ "ApplicationVersion" :application-version)
+    (#.+k-get-current-date+        "CurrentDate"        :current-date)
+    (#.+k-get-last-error+          "LastError"          :last-error)
+    (#.+k-get-active-field-name+   "ActiveFieldName"    :active-field-name)
+    (#.+k-get-file-name+           "FileName"           :file-name)
+    (#.+k-get-file-size+           "FileSize"           :file-size)
+    (#.+k-get-found-count+         "FoundCount"         :found-count)
+    (#.+k-get-host-name+           "HostName"           :host-name)
+    (#.+k-get-layout-count+        "LayoutCount"        :layout-count)
+    (#.+k-get-layout-name+         "LayoutName"         :layout-name)
+    (#.+k-get-layout-number+       "LayoutNumber"       :layout-number)
+    (#.+k-get-system-language+     "SystemLanguage"     :system-language)
+    (#.+k-get-window-mode+         "WindowMode"         :window-mode)
+    (#.+k-get-multi-user-state+    "MultiUserState"     :multi-user-state)
+    (#.+k-get-page-number+         "PageNumber"         :page-number)
+    (#.+k-get-system-platform+     "SystemPlatform"     :system-platform)
+    (#.+k-get-active-portal-row-number+
+                                   "ActivePortalRowNumber" :active-portal-rwo-number)
+    (#.+k-get-printer-name+        "PrinterName"        :printer-name)
+    (#.+k-get-total-record-count+  "TotalRecordCount"   :total-record-count)
+    (#.+k-get-record-number+       "RecordNumber"       :record-number)
+    (#.+k-get-active-repetition-number+ "ActiveRepetitionNumber" :active-repetition-number)
+    (#.+k-get-request-count+       "RequestCount"       :request-count)
+    (#.+k-get-screen-depth+        "ScreenDepth"        :screen-depth)
+    (#.+k-get-screen-height+       "ScreenHeight"       :screen-height)
+    (#.+k-get-screen-width+        "ScreenWidth"        :screen-width)
+    (#.+k-get-script-name+         "ScriptName"         :script-name)
+    (#.+k-get-sort-state+          "SortState"          :sort-state)
+    (#.+k-get-system-version+      "SystemVersion"      :system-version)
+    (#.+k-get-current-time+        "CurrentTime"        :current-time)
+    (#.+k-get-user-count+          "UserCount"          :user-count)
+    (#.+k-get-user-name+           "UserName"           :user-name)
+    (#.+k-get-account-name+        "AccountName"        :account-name)
+    (#.+k-get-last-message-choice+ "LastMessageChoice"  :last-message-choice)
+    (#.+k-get-current-privilege-set-name+
+                                   "CurrentPrivilegeSetName" :current-privilege-set-name)
+    (#.+k-get-active-modifier-keys+ "ActiveModifierKeys" :active-modifier-keys)
+    (#.+k-get-network-protocol+    "NetworkProtocol"    :network-protocol)
+    (#.+k-get-record-id+           "RecordID"           :record-id)
+    (#.+k-get-record-modification-count+ "RecordModificationCount" :record-modification-count)
+    (#.+k-get-active-field-contents+ "ActiveFieldContents" :active-field-contents)
+    (#.+k-get-file-path+           "FilePath"           :file-path)
+    (#.+k-get-last-external-error-detail+
+                                   "LastExternalErrorDetail" :last-external-error-detail)
+    (#.+k-get-layout-access+       "LayoutAccess"       :layout-access)
+    (#.+k-get-record-access+       "RecordAccess"       :record-accees)
+    (#.+k-get-high-contrast-state+ "HighContrastState"  :high-contrast-state)
+    (#.+k-get-high-contrast-color+ "HighContrastColor"  :high-contrast-color)
+    (#.+k-get-status-area-state+   "StatusAreaState"    :status-area-state)
+    (#.+k-get-layout-view-state+   "LayoutViewState"    :layout-view-state)
+    (#.+k-get-window-name+         "WindowName"         :window-name)
+    (#.+k-get-window-height+       "WindowHeight"       :window-height)
+    (#.+k-get-window-left+         "WindowLeft"         :window-left)
+    (#.+k-get-window-top+          "WindowTop"          :window-top)
+    (#.+k-get-window-visible+      "WindowVisible"      :window-visible)
+    (#.+k-get-window-width+        "WindowWidth"        :window-width)
+    (#.+k-get-system-nicaddress+   "SystemNICAddress"   :system-nic-address)
+    (#.+k-get-system-ip-address+   "SystemIpAddress"    :system-ip-address)
+    (#.+k-get-active-field-table-name+ "ActiveFieldTableName" :active-field-table-name)
+    (#.+k-get-active-selection-size+   "ActiveSelectionSize" :active-selection-size)
+    (#.+k-get-active-selection-start+  "ActiveSelectionStart" :active-selection-start)
+    (#.+k-get-application-language+ "ApplicationLanguage" :application-language)
+    (#.+k-get-current-host-timestamp+ "CurrentHostTimestamp" :current-host-timestamp)
+    (#.+k-get-layout-table-name+    "LayoutTableName"   :layout-table-name)
+    (#.+k-get-script-parameter+     "ScriptParameter"   :script-parameter)
+    (#.+k-get-current-time-stamp+   "CurrentTimeStamp"  :current-time-stamp)
+    (#.+k-get-window-desktop-height+ "WindowDesktopHeight" :window-desktop-height)
+    (#.+k-get-window-desktop-width+  "WindowDesktopWidth"  :window-desktop-width)
+    (#.+k-get-window-content-height+ "WindowContentHeight" :window-content-height)
+    (#.+k-get-window-content-width+  "WindowContentWidth"  :window-content-width)
+    (#.+k-get-calculation-repetition-number+
+                                   "CalculationRepetitionNumber" :calculation-repetition-number)
+    (#.+k-get-current-extended-privileges+
+                                   "CurrentExtendedPrivileges" :current-extended-privileges+)
+    (#.+k-get-allow-abort-state+   "AllowAbortState"    :allow-abort-state)
+    (#.+k-get-error-capture-state+ "ErrorCaptureState"  :error-capture-state)
+    (#.+k-get-desktop-path+        "DesktopPath"        :desktop-path)
+    (#.+k-get-documents-path+      "DocumentsPath"      :documents-path)
+    (#.+k-get-file-maker-path+     "FileMakerPath"      :filemaker-path)
+    (#.+k-get-host-ipaddress+      "HostIPAddress"      :host-ip-address)
+    (#.+k-get-request-omit-state+  "RequestOmitState"   :request-omit-state)
+    (#.+k-get-preferences-path+    "PreferencesPath"    :preferences-path)
+    (#.+k-get-record-open-count+   "RecordOpenCount"    :record-open-count)
+    (#.+k-get-record-open-state+   "RecordOpenState"    :record-open-state)
+    (#.+k-get-script-result+       "ScriptResult"       :script-result)
+    (#.+k-get-system-drive+        "SystemDrive"        :system-drive)
+    (#.+k-get-text-ruler-visible+  "TextRulerVisible"   :text-ruler-visible)
+    (#.+k-get-allow-formatting-bar-state+
+                                   "AllowFormattingBarState"
+                                   :allow-formatting-bar-state)
+    (#.+k-get-use-system-formats-state+
+                                   "UseSystemFormatsState"
+                                   :use-system-formats-state)
+    (#.+k-get-window-zoom-level+   "WindowZoomLevel"    :window-zoom-level)
+    (#.+k-get-custom-menu-set-name+ "CustomMenuSetName" :custom-menu-set-name)
+    (#.+k-get-active-layout-object-name+
+                                   "ActiveLayoutObjectName" :active-layout-object-name)
+    (#.+k-get-temporary-path+      "TemporaryPath"      :temporary-path)
+    (#.+k-get-host-application-version+
+                                   "HostApplicationVersion"
+                                   :host-application-version)
+    (#.+k-get-trigger-modifier-keys+ "TriggerModifierKeys" :trigger-modifier-keys)
+    (#.+k-get-trigger-keystroke+   "TriggerKeystroke"   :trigger-keystroke)
+    (#.+k-get-documents-path-listing+ "DocumentsPathListing" :documents-path-listing)
+    (#.+k-get-account-privilege-set+ "AccountPrivilegeSet" :account-privilege-set)
+    (#.+k-get-account-extended-privileges+
+                                   "AccountExtendedPrivileges"
+                                   :account-extended-privileges)
+    (#.+k-get-quick-find-text+     "QuickFindText"      :quick-find-text)
+    (#.+k-get-trigger-current-panel+ "TriggerCurrentPanel" :trigger-current-panel)
+    (#.+k-get-trigger-target-panel+  "TriggerTargetPanel" :trigger-target-panel)
+    (#.+k-get-window-style+        "WindowStyle"        :window-style)
+    (#.+k-get-installed-fmplugins+ "InstalledFMPlugins" :installed-fmplugins)
+    (#.+k-get-uuid+                "UUID"               :uuid)
+    (#.+k-get-persistent-id+       "PersistentID"       :persistent-id)
+    (#.+k-get-connection-state+    "ConnectionState"    :connection-state)
+    (#.+k-get-current-time-utcmilliseconds+
+                                   "CurrentTimeUTCMilliseconds"
+                                   :current-time-utc-milliseconds)
+    (#.+k-get-device+              "Device"             :device)
+    (#.+k-get-window-orientation+  "WindowOrientation"  :window-orientation)
+    (#.+k-get-trigger-gesture-info+ "TriggerGestureInfo" :trigger-gesture-info)
+    (#.+k-get-encryption-state+    "EncryptionState"    :encryption-state)
+    (#.+k-get-script-animation+    "ScriptAnimation"    :script-animation)
+    (#.+k-get-modified-fields+     "ModifiedFields"     :modified-fields)
+    (#.+k-get-network-type+        "NetworkType"        :network-type)
+    (#.+k-get-connection-attributes+ "ConnectionAttributes" :connection-attributes)
+    (#.+k-get-screen-scale-factor+ "ScreenScaleFactor"  :screen-scale-factor)
+    (#.+k-get-application-architecture+
+                                   "ApplicationArchitecture" :application-architecture)
+    (#.+k-get-trigger-external-event+ "TriggerExternalEvent" :trigger-external-event)
+    (#.+k-get-touch-keyboard-state+ "TouchKeyboardState" :touch-keyboard-state)
+    (#.+k-get-menubar-state+       "MenubarState"       :menubar-state)
+    (#.+k-get-region-monitor-events+ "RegionMonitorEvents" :region-monitor-events)
+    (#.+k-get-account-group-name+  "AccountGroupName"   :account-group-name)
+    (#.+k-get-active-record-number+ "ActiveRecordNumber" :active-record-number)
+    (#.+k-get-uuidnumber+          "UUIDNumber"         :uuid-number)
+    (#.+k-get-open-data-file-info+ "OpenDataFileInfo"   :open-data-file-info)
+    (#.+k-get-account-type+        "AccountType"        :account-type)
+    (#.+k-get-page-count+          "PageCount"          :page-count)
+    (#.+k-get-system-locale-elements+ "SystemLocaleElements" :system-locale-elements)
+    (#.+k-get-file-locale-elements+ "FileLocaleElements" :file-locale-elements)
+    (#.+k-get-installed-fmplugins-as-json+
+                                   "InstalledFMPluginsAsJSON"
+                                   :installed-fmplugins-as-json)
+    ;; New to FileMaker Pro 19.4.1
+    (#.+k-get-session-identifier+  "SessionIdentifier"  :session-identifier)
+    ))
 
-;; This function maps the above function values to their textual names for
-;; backward compatibilities of FileMaker Pro 17 and earlier
+;; These functions map between above functions' values, names and symbols
 (defun function-value-to-name (function-value)
-  (case function-value
-    (#.+k-get-application-version+ "ApplicationVersion")
-    (#.+k-get-current-date+        "CurrentDate")
-    (#.+k-get-last-error+          "LastError")
-    (#.+k-get-active-field-name+   "ActiveFieldName")
-    (#.+k-get-file-name+           "FileName")
-    (#.+k-get-file-size+           "FileSize")
-    (#.+k-get-found-count+         "FoundCount")
-    (#.+k-get-host-name+           "HostName")
-  ))
+  (second (find function-value *get-function-value-map* :key #'first :test #'eql)))
+(defun function-symbol-to-value (function-symbol)
+  (first (find function-symbol *get-function-value-map* :key #'third :test #'eq)))
+(defun function-symbol-to-name (function-symbol)
+  (second (find function-symbol *get-function-value-map* :key #'third :test #'eq)))
 
 (defgeneric evaluate-get (function-value &optional result)
   (:documentation "Retrieve the results of a calculation engine's Get() function.
@@ -245,6 +262,18 @@ The function returns RESULT."))
          (let ((expression (format nil "Get ( ~A )"
                                    (function-value-to-name function-value))))
            (evaluate expression result))))
+  result)
+
+(defmethod evaluate-get ((function-value symbol)
+                         &optional (result (make-data-object)))
+  (when (keywordp function-value)
+    (cond ((<= +k180extn-version+ *fm-version*)
+           (when-let (value-integer (function-symbol-to-value function-value))
+             (evaluate-get value-integer result)))
+          (t
+           (let ((expression (format nil "Get ( ~A )"
+                                   (function-symbol-to-name function-value))))
+             (evaluate expression result)))))
   result)
 
 (defgeneric execute-sql (expression file-name column-separator row-separator &optional result)
