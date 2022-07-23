@@ -1,5 +1,7 @@
 # FM-PLUGIN-TOOLS - A toolkit for FileMaker plug-in development in Common Lisp
 
+See the [documentation](https://binghe.github.io/fm-plugin-tools/).
+
 Sample code for defining a plugin function:
 
 ```
@@ -86,3 +88,14 @@ The reason the Linux and Windows folders are inside the Resources folder is due 
   xar -cf MyCoolPlugin.fmplugin.xar MyCoolPlugin.fmplugin
   gzip -c MyCoolPlugin.fmplugin.xar > MyCoolPlugin.fmplugin.gz
 ```
+
+# License and copyrights
+
+Licensed under the BSD License.
+
+## fm-plugin-tools
+Copyright (c) 2006-2010, Dr. Edmund Weitz.  All rights reserved.
+Copyright (c) 2018,2022,  Chun Tian (binghe).  All rights reserved.
+
+## fm-plugin-regex
+Copyright (c) 2006-2010, Dr. Jens Teich and Dr. Edmund Weitz.  All rights reserved.
