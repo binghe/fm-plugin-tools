@@ -233,21 +233,18 @@ The function returns RESULT."))
 
 (defmethod evaluate-get ((function-value integer)
                          &optional (result (make-data-object)))
-  (let ((err-code
-         (cond ((<= +k180extn-version+ *fm-version*)
+  (cond ((<= +k180extn-version+ *fm-version*)
+         (let ((err-code
                 (fm-expr-env-evaluate-get-function (get-environment)
                                                    function-value
-                                                   (pointer result)))
-               (t
-                (let ((expression (format nil "Get ( ~A )"
-                                          (function-value-to-name function-value)))
-                      (text-object (make-text-object expression)))
-                  (fm-expr-env-evaluate (get-environment)
-                                        (pointer text-object)
-                                        (pointer result)))))))
-    (unless (zerop err-code)
-      (error "Got error code ~A while evaluating \"Get ( ~A )\"."
-             err-code (function-value-to-name function-value))))
+                                                   (pointer result))))
+           (unless (zerop err-code)
+             (error "Got error code ~A while evaluating \"Get ( ~A )\"."
+                    err-code (function-value-to-name function-value)))))
+        (t
+         (let ((expression (format nil "Get ( ~A )"
+                                   (function-value-to-name function-value))))
+           (evaluate expression result))))
   result)
 
 (defgeneric execute-sql (expression file-name column-separator row-separator &optional result)
