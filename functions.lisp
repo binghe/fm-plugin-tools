@@ -83,6 +83,173 @@ function returns RESULT."))
 (defmethod evaluate ((expression string) &optional (result (make-data-object)))
   (evaluate (make-text-object expression) result))
 
+;; New to FileMaker Pro 18 (API VERSION 60) and later.
+;; Values for each of the calculation engine's Get() functions
+;; kGet_ApplicationVersion = 1001,
+;; kGet_CurrentDate        = 1002,
+;; kGet_LastError          = 1003,
+;; kGet_ActiveFieldName    = 1004,
+;; kGet_FileName           = 1005,
+;; kGet_FileSize           = 1006,
+;; kGet_FoundCount         = 1007,
+;; kGet_HostName           = 1008,
+;; kGet_LayoutCount        = 1009,
+;; kGet_LayoutName         = 1010,
+;; kGet_LayoutNumber       = 1011,
+;; kGet_SystemLanguage     = 1012,
+;; kGet_WindowMode         = 1013,
+;; kGet_MultiUserState     = 1014,
+;; kGet_PageNumber         = 1015,
+;; kGet_SystemPlatform     = 1016,
+;; kGet_ActivePortalRowNumber = 1017,
+;; kGet_PrinterName        = 1018,
+;; kGet_TotalRecordCount   = 1019,
+;; kGet_RecordNumber       = 1020,
+;; kGet_ActiveRepetitionNumber = 1021,
+;; kGet_RequestCount       = 1022,
+;; kGet_ScreenDepth        = 1023,
+;; kGet_ScreenHeight       = 1024,
+;; kGet_ScreenWidth        = 1025,
+;; kGet_ScriptName         = 1026,
+;; kGet_SortState          = 1027,
+;; kGet_SystemVersion      = 1028,
+;; kGet_CurrentTime        = 1029,
+;; kGet_UserCount          = 1030,
+;; kGet_UserName           = 1031,
+;; kGet_AccountName        = 1032,
+;; kGet_LastMessageChoice  = 1033,
+;; kGet_CurrentPrivilegeSetName = 1034,
+;; kGet_ActiveModifierKeys = 1035,
+;; kGet_NetworkProtocol    = 1036,
+;; kGet_RecordID           = 1037,
+;; kGet_RecordModificationCount = 1038,
+;; kGet_ActiveFieldContents = 1039,
+;; kGet_FilePath           = 1040,
+;; kGet_LastExternalErrorDetail = 1041,
+;; kGet_LayoutAccess       = 1042,
+;; kGet_RecordAccess       = 1043,
+;; kGet_HighContrastState  = 1044,
+;; kGet_HighContrastColor  = 1045,
+;; kGet_StatusAreaState    = 1046,
+;; kGet_LayoutViewState    = 1047,
+;; kGet_WindowName         = 1048,
+;; kGet_WindowHeight       = 1049,
+;; kGet_WindowLeft         = 1050,
+;; kGet_WindowTop          = 1051,
+;; kGet_WindowVisible      = 1052,
+;; kGet_WindowWidth        = 1053,
+;; kGet_SystemNICAddress   = 1054,
+;; kGet_SystemIpAddress    = 1055,
+;; kGet_ActiveFieldTableName = 1056,
+;; kGet_ActiveSelectionSize = 1057,
+;; kGet_ActiveSelectionStart = 1058,
+;; kGet_ApplicationLanguage = 1059,
+;; kGet_CurrentHostTimestamp = 1060,
+;; kGet_LayoutTableName    = 1061,
+;; kGet_ScriptParameter    = 1062,
+;; kGet_CurrentTimeStamp   = 1063,
+;; kGet_WindowDesktopHeight = 1064,
+;; kGet_WindowDesktopWidth = 1065,
+;; kGet_WindowContentHeight = 1066,
+;; kGet_WindowContentWidth = 1067,
+;; kGet_CalculationRepetitionNumber = 1068,
+;; kGet_CurrentExtendedPrivileges = 1069,
+;; kGet_AllowAbortState    = 1070,
+;; kGet_ErrorCaptureState  = 1071,
+;; kGet_DesktopPath        = 1072,
+;; kGet_DocumentsPath      = 1073,
+;; kGet_FileMakerPath      = 1074,
+;; kGet_HostIPAddress      = 1075,
+;; kGet_RequestOmitState   = 1076,
+;; kGet_PreferencesPath    = 1077,
+;; kGet_RecordOpenCount    = 1078,
+;; kGet_RecordOpenState    = 1079,
+;; kGet_ScriptResult       = 1080,
+;; kGet_SystemDrive        = 1081,
+;; kGet_TextRulerVisible   = 1082,
+;; kGet_AllowFormattingBarState = 1083,
+;; kGet_UseSystemFormatsState = 1084,
+;; kGet_WindowZoomLevel    = 1085,
+;; kGet_CustomMenuSetName  = 1086,
+;; kGet_ActiveLayoutObjectName = 1088,
+;; kGet_TemporaryPath      = 1089,
+;; kGet_HostApplicationVersion = 1090,
+;; kGet_TriggerModifierKeys = 1091,
+;; kGet_TriggerKeystroke   = 1092,
+;; kGet_DocumentsPathListing = 1093,
+;; kGet_AccountPrivilegeSet  = 1094,
+;; kGet_AccountExtendedPrivileges = 1095,
+;; kGet_QuickFindText      = 1096,
+;; kGet_TriggerCurrentPanel = 1097,
+;; kGet_TriggerTargetPanel = 1098,
+;; kGet_WindowStyle        = 1099,
+;; kGet_InstalledFMPlugins = 1100,
+;; kGet_UUID               = 1101,
+;; kGet_PersistentID       = 1102,
+;; kGet_ConnectionState    = 1103,
+;; kGet_CurrentTimeUTCMilliseconds = 1104,
+;; kGet_Device             = 1105,
+;; kGet_WindowOrientation  = 1106,
+;; kGet_TriggerGestureInfo = 1107,
+;; kGet_EncryptionState    = 1108,
+;; kGet_ScriptAnimation    = 1109,
+;; kGet_ModifiedFields     = 1110,
+;; kGet_NetworkType        = 1111,
+;; kGet_ConnectionAttributes = 1112,
+;; kGet_ScreenScaleFactor  = 1113,
+;; kGet_ApplicationArchitecture = 1115,
+;; kGet_TriggerExternalEvent = 1116,
+;; kGet_TouchKeyboardState = 1117,
+;; kGet_MenubarState       = 1118,
+;; kGet_RegionMonitorEvents = 1119,
+;; kGet_AccountGroupName   = 1120,
+;; kGet_ActiveRecordNumber = 1121,
+;; kGet_UUIDNumber         = 1122,
+;; kGet_OpenDataFileInfo   = 1123,
+;; kGet_AccountType        = 1124,
+;; kGet_PageCount          = 1125,
+;; kGet_SystemLocaleElements = 1126,
+;; kGet_FileLocaleElements = 1127,
+;; kGet_InstalledFMPluginsAsJSON = 1128,
+
+;; This function maps the above function values to their textual names for
+;; backward compatibilities of FileMaker Pro 17 and earlier
+(defun function-value-to-name (function-value)
+  (case function-value
+    (+k-get-application-version+ "ApplicationVersion")
+    (+k-get-current-date+        "CurrentDate")
+    (+k-get-last-error+          "LastError")
+    (+k-get-active-field-name+   "ActiveFieldName")
+    (+k-get-file-name+           "FileName")
+    (+k-get-file-size+           "FileSize")
+    (+k-get-found-count+         "FoundCount")
+    (+k-get-host-name+           "HostName")
+  ))
+
+(defgeneric evaluate-get (function-value &optional result)
+  (:documentation "Retrieve the results of a calculation engine's Get() function.
+The result is stored in the DATA-OBJECT RESULT which is created if none is provided.
+The function returns RESULT."))
+
+(defmethod evaluate-get ((function-value integer)
+                         &optional (result (make-data-object)))
+  (let ((err-code
+         (cond ((<= +k180extn-version+ *fm-version*)
+                (fm-expr-env-evaluate-get-function (get-environment)
+                                                   function-value
+                                                   (pointer result)))
+               (t
+                (let ((expression (format nil "Get ( ~A )"
+                                          (function-value-to-name function-value)))
+                      (text-object (make-text-object expression)))
+                  (fm-expr-env-evaluate (get-environment)
+                                        (pointer text-object)
+                                        (pointer result)))))))
+    (unless (zerop err-code)
+      (error "Got error code ~A while evaluating \"Get ( ~A )\"."
+             err-code (function-value-to-name function-value))))
+  result)
+
 (defgeneric execute-sql (expression file-name column-separator row-separator &optional result)
   (:documentation "Executes \(as with FileMaker's `ExecuteFileSQLTextResult') the
 expression EXPRESSION using the column separator COLUMN-SEPARATOR and

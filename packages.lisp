@@ -94,6 +94,7 @@
            :disable-all
            :disable-all-faces
            :evaluate
+           :evaluate-get
            :execute-sql
            :face
            :face-enabled-p
