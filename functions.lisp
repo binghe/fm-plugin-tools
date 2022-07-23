@@ -405,6 +405,7 @@ TYPE DEFAULT-VALUE)."
                                    ,(or max-args (getf (rest description) :max-args))
                                    ,(getf (rest description) :flags)))))))
 
+;; New to FileMaker Pro 16 (API VERSION 57) and later
 ;; Plug-in XML UI definition
 ;;
 ;; This XML is the text that will be passed to the scriptStepDefinition parameter

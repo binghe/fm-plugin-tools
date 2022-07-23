@@ -1,7 +1,7 @@
 ;;; -*- Mode: LISP; Syntax: COMMON-LISP; Package: CL-USER; Base: 10 -*-
 
 ;;; Copyright (c) 2006-2010, Dr. Edmund Weitz.  All rights reserved.
-;;; Copyright (c) 2022, Chun Tian (binghe).  All rights reserved.
+;;; Copyright (c) 2018,2022, Chun Tian (binghe).  All rights reserved.
 
 ;;; Redistribution and use in source and binary forms, with or without
 ;;; modification, are permitted provided that the following conditions
@@ -51,4 +51,5 @@
                (:file "data-objects")
                (:file "functions")
                (:file "main"))
+  ;; cxml is for generating XML code when registering script steps (FMP 16+)
   :depends-on (:cxml/xml))
