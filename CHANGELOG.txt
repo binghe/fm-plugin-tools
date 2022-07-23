@@ -1,9 +1,12 @@
 Version 0.4.0 (by Chun Tian)
-2022-07-??
+2022-07-23
 Use DEFINE-PLUGIN-SCRIPT-STEP to define new script steps (New to FileMaker Pro 16 and later)
 DEFINE-PLUGIN-FUNCTION and DEFINE-PLUGIN-SCRIPT-STEP now support DEFUN-like documentation strings which appears as Description in FileMaker. (New to FileMaker Pro 15 and later)
 RETURN (or RETURN-FROM nil) can be used to return from a calc function or script step with a return value
 Use *errno* (range from +k-plugin-err-result1+ to +k-plugin-err-result8+) to set the value of the Get(LastExternalErrorDetail).
+Use *fm-application* to get the type of FileMaker applications (:developer, :pro, :server, etc.)
+New generic functions: HANDLE-SESSION-SHUTDOWN and HANDLE-FILE-SHUTDOWN (when *ENABLE-SHUTDOWN-MESSAGES* is T)
+New function: (EVALUATE-GET :application-version) for EVALUATE "Get ( ApplicationVersion )", etc.
 
 Version 0.3.2 (by Chun Tian)
 2022-07-18
