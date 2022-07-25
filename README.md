@@ -44,6 +44,8 @@ downloaded from
 plugin headers from latest SDK headers should also work for old versions of FileMaker Pro
 and FileMaker Pro Advanced.)
 
+NOTE: SDK Headers before 18 may not work, 19 is confirmed working, future versions may or may not.
+
 ### Further processing of SDK Headers
 
 Please do this on the same platform when you are building your FMP plugins:
