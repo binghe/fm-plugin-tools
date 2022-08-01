@@ -33,7 +33,7 @@ then
   if [ $? -eq 0 ]
   then
     rm -rf "$target_dir/$name.fmplugin"
-    mv "$build_dir/$name.app" "$target_dir/$name.fmplugin"
+    mv "$build_dir/$name.fmplugin" "$target_dir/$name.fmplugin"
    if [ $? -ne 0 ]
    then
       echo "Couldn't copy the bundle to $target_dir."

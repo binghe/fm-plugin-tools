@@ -107,7 +107,7 @@ depend on FM-PLUGIN-TOOLS.")
                     (or (fourth sys:*line-arguments-list*) *default-name*))
             #+:macosx
             (write-macos-application-bundle
-             (format nil "~A/~A.fmplugin" ;; NOTE: the output bundle is *.app
+             (format nil "~A/~A.fmplugin"
                      (fifth sys:*line-arguments-list*)
                      (fourth sys:*line-arguments-list*))
              :template-bundle (make-pathname :name nil
@@ -117,6 +117,8 @@ depend on FM-PLUGIN-TOOLS.")
              :identifier fm:*plugin-bundle-identifier*
              :version (fm:version-string)             
              :executable-name (fourth sys:*line-arguments-list*)
+             :package-type "BNDL"
+             :extension "fmplugin"
              :document-types nil)
             *deliver-level*
             ;; we need a loadable bundle, not a Mach-O shared library
@@ -128,5 +130,5 @@ depend on FM-PLUGIN-TOOLS.")
             :versioninfo *versioninfo*
             :dll-exports '("FMExternCallProc")
             :interface (and *capi-required-p* :capi)
-            :multiprocessing (or *capi-required-p* *mp-required-p*))))
+            :multiprocessing (or *capi-required-p* *mp-required-p*))
 

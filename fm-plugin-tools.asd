@@ -28,7 +28,6 @@
 ;;; SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 (asdf:defsystem fm-plugin-tools
-  :name "FM-PLUGIN-TOOLS"
   :description "A toolkit for FileMaker plug-in development in Common Lisp"
   :author "Dr. Edmund Weitz (Edi Weitz)"
   :maintainer "Chun Tian (binghe)"
