@@ -165,12 +165,13 @@ byte-packing will be used."
 ;; Note also that, on macOS, even "#pragma FMX_PACK_ON" is there and FMX_PACK_ON
 ;; is undefined, it should be understood as still packing, otherwise the plugin
 ;; does't load at all.  -- Chun Tian, 18/7/2022
+
 (defun parse-header-files ()
   "Loops through all C header files in *HEADER-FILE-NAMES*,
 checks for enums, structs or function prototypes and writes the
 corresponding C code to *STANDARD-OUTPUT*."
   (dolist (name *header-file-names*)
-    (let* ((header-file (make-pathname :name name
+    (let* ((header-file (make-pathname :name name :type "hhh"
                                        :defaults *fmx-extern-location*))
            (file-string (file-string header-file)))
       (with-open-file (in header-file)

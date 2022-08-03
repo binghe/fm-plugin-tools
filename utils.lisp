@@ -150,7 +150,7 @@ Also logs a backtrace if *LOG-BACKTRACES-P* is true as well."
             prototype (function-name prototype) cond)
     (when *log-backtraces-p*
       (fm-log "Backtrace:~% ~A~%" (get-backtrace)))))
-               
+
 (defun top-level-hook (fn interface)
   "A function which can be used as a top-level hook for
 interfaces to make them more robust against unhandled conditions.

@@ -33,14 +33,12 @@
   "If *FMX-EXTERN-LOCATION* is not set, ask the user to provide a
 value."
   (setq *fmx-extern-location*
-        (or (capi:prompt-for-file "Please select the C header file \"FMXExtern.hhh\":"
-                                  :filters '("Processed C++ Header Files" "*.hhh")
-                                  :filter "*.hhh"
-                                  :operation :open
-                                  :ok-check (lambda (pathspec)
-                                              (and (string= (file-namestring pathspec)
-                                                            "FMXExtern.hhh"))))
-            (error "I can't continue if you don't select the file \"FMXExtern.hhh\"."))))
+        (or (capi:prompt-for-directory
+              "Please select the directory \"FMWrapper\" (under \"Headers\"):"
+              :ok-check (lambda (pathspec)
+                          (and (string= (file-namestring pathspec)
+                                        "FMWrapper"))))
+            (error "I can't continue if you don't select the directory \"FMWrapper\"."))))
 
 (defun make-fli-type (string)
   "Converts a string like \"unsigned short\" into a corresponding
