@@ -58,4 +58,6 @@ e.g. (4 2 1) would correspond to version \"4.2.1\".")
                                      (:file "init"))))
   ;; note: every system which creates a FileMaker plug-in must use the
   ;; :FM-PLUGIN-TOOLS system
-  :depends-on (:fm-plugin-tools :cl-ppcre :flexi-streams :zpb-exif))
+  :depends-on (:fm-plugin-tools
+               :cl-ppcre-unicode
+               :flexi-streams :zpb-exif))
