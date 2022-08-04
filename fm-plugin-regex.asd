@@ -1,6 +1,7 @@
 ;;; -*- Mode: LISP; Syntax: COMMON-LISP; Package: CL-USER; Base: 10 -*-
 
 ;;; Copyright (c) 2006-2008, Dr. Jens Teich and Dr. Edmund Weitz.  All rights reserved.
+;;; Copyright (c) 2022, Chun Tian (binghe).  All rights reserved.
 
 ;;; Redistribution and use in source and binary forms, with or without
 ;;; modification, are permitted provided that the following conditions
@@ -28,7 +29,7 @@
 
 (in-package :cl-user)
 
-(defvar *regex-plugin-version* '(0 3 0)
+(defvar *regex-plugin-version* '(0 3 1)
   "Version number.  Should be a list of three non-negative integers,
 e.g. (4 2 1) would correspond to version \"4.2.1\".")
 
