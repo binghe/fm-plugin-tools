@@ -166,19 +166,123 @@ byte-packing will be used."
 ;; is undefined, it should be understood as still packing, otherwise the plugin
 ;; does't load at all.  -- Chun Tian, 18/7/2022
 
+(defparameter *if-regex1*
+  (create-scanner "#ifdef\\s+(.*)"))
+
+(defparameter *if-regex2*
+  (create-scanner "#(el)?if\\s+(!)?([\\w\\s\\|\\(\\)<>!=_&]+)(?<!\\s)\\s*$"))
+
 (defun parse-header-files ()
   "Loops through all C header files in *HEADER-FILE-NAMES*,
 checks for enums, structs or function prototypes and writes the
 corresponding C code to *STANDARD-OUTPUT*."
   (dolist (name *header-file-names*)
-    (let* ((header-file (make-pathname :name name :type "hhh"
+    (let ((header-file (make-pathname :name name :type "h"
                                        :defaults *fmx-extern-location*))
-           (file-string (file-string header-file)))
+          (file-string (make-array '(0)
+                                   :element-type 'simple-char
+                                   :fill-pointer 0
+                                   :adjustable t))
+          (*line-number* 0))
+      (format t "~%;; #include <~A.h>" name)
+      (format *error-output* "Processing ~A.h...~%" name)
       (with-open-file (in header-file)
-        (loop for line = (read-line in nil nil)
-              while line
-              do (handle-typedef line)
-                 (handle-function line)))
+        (with-output-to-string (out file-string)
+          (loop with contexts = '(:error)     ; the polarity of the current #if context
+                with pos-contexts = '(:error) ; the current #if context when polarity is T
+                with neg-contexts = '(:error) ; the current #if context when polarity is NIL
+                for line = (read-line in nil nil)
+                while line do
+            (incf *line-number*)
+            (cond ((scan "#ifndef.*" line) ; usually only first line of a header
+                   (push :enable contexts))
+                  ;; ifdef ...
+                  ((scan *if-regex1* line)
+                   (register-groups-bind (context) (*if-regex1* line)
+                     (setq context (regex-replace-all "\\s+" context " "))
+                     (if (member context *negative-macros* :test 'equal)
+                         (push :disable contexts)
+                         (push :enable contexts))))
+                  ;; (el)if [!]...
+                  ((scan *if-regex2* line)
+                   (register-groups-bind (elif-p neg-p context) (*if-regex2* line)
+                     (when elif-p ; #elif = #endif + #if (not #else + #if !!!)
+                       (let ((context (pop contexts)))
+                         (ecase context
+                           ((:enable :disable)
+                            t)
+                           (:positive
+                            (pop pos-contexts))
+                           (:negative
+                            (pop neg-contexts)))))
+                     (setq context (regex-replace-all "\\s+" context " "))
+                     (if (or (member context *positive-macros* :test 'equal)
+                             (member context *negative-macros* :test 'equal))
+                         (cond (neg-p
+                                (push context neg-contexts)
+                                (push :negative contexts))
+                               (t
+                                (push context pos-contexts)
+                                (push :positive contexts)))
+                       ;; an irrelevant condition, we choose the first branch
+                       (push :enable contexts))))
+                  ((scan "#(el)?if\\s+.*" line) ; the fallback case of #if
+                   (register-groups-bind (elif-p)
+                       ("#(el)?if\\s+.*" line)
+                     (when elif-p ; #elif = #else + #if
+                       (let ((context (pop contexts)))
+                         (ecase context
+                           ((:enable :disable)
+                            t)
+                           (:positive
+                            (pop pos-contexts))
+                           (:negative
+                            (pop neg-contexts)))))
+                     ;; :enable by default for dont-care #if
+                     (push :enable contexts)))
+                  ;; turn over the context if we met #else
+                  ((scan "#else" line)
+                   (let ((context (pop contexts)))
+                     (ecase context
+                       (:enable  (push :disable contexts))
+                       (:disable (push :enable  contexts))
+                       (:positive
+                        (push (pop pos-contexts) neg-contexts)
+                        (push :negative contexts))
+                       (:negative
+                        (push (pop neg-contexts) pos-contexts)
+                        (push :positive contexts)))))
+                  ;; pop the current context
+                  ((scan "#endif" line)
+                   (let ((context (pop contexts)))
+                     (ecase context
+                       ((:enable :disable)
+                        t)
+                       (:positive
+                        (pop pos-contexts))
+                       (:negative
+                        (pop neg-contexts)))))
+                  (t
+                   (cond ((not (null (intersection *negative-macros* pos-contexts :test 'equal)))
+                          ;; (format *error-output* "ignored this line~%")
+                          nil) ; ignore this line
+                         ((not (null (intersection *positive-macros* neg-contexts :test 'equal)))
+                          ;; (format *error-output* "ignored this line~%")
+                          nil) ; ignore this line
+                         ((member :disable contexts)
+                          ;; (format *error-output* "ignored this line~%")
+                          nil)
+                         (t
+                          ;; single-line processing
+                          (handle-typedef line)
+                          (handle-function line)
+                          ;; multi-line processing (preparation)
+                          (format out "~A~%" line)))))
+                ;; still inside the loop
+                #+ignore
+                (format *error-output* "L~D contexts: ~A, pos-contexts: ~A, neg-contexts: ~A~%"
+                        *line-number* contexts pos-contexts neg-contexts)
+                )))
       (do-register-groups (enum-body)
           ("(?s)enum(?:\\s+\\w+)?\\s*\\{\\s*(.*?)\\s*,?\\s*\\}" file-string)
         (handle-enum enum-body))
@@ -197,7 +301,8 @@ corresponding C code to *STANDARD-OUTPUT*."
                 ((scan "pack \\(push, 1\\)" pack)
                  1)   ; with #pragma and FMX_PACK_ON is "pack (push, 1)"
                 (t
-                 (error "new, unknown #pragma occurs now!"))))))))
+                 (error "new, unknown #pragma occurs now!")))))
+      (terpri))))
 
 (defun prepare ()
   "Creates the missing file `fli.lisp' for FM-PLUGIN-TOOLS from
