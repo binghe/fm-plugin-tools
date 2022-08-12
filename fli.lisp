@@ -2,6 +2,7 @@
 
 (in-package :fm-plugin-tools) 
 
+;; #include <FMXExtern.h>
 (eval-when (:compile-toplevel :load-toplevel :execute)
   (defconstant +k-fmxt-halt+ 0
     "This constant was generated automatically.
@@ -305,6 +306,8 @@ See FileMaker header files for details."))
                  (c-start-script (:pointer :void))
                  (:byte-packing 1)
                  (c-current-env (:pointer :void)))
+
+;; #include <FMXClient.h>
 (eval-when (:compile-toplevel :load-toplevel :execute)
   (defconstant +k-no-err+ 0
     "This constant was generated automatically.
@@ -321,101 +324,93 @@ See FileMaker header files for details."))
 See FileMaker header files for details."))
 (export (quote +k-unknown+) :fm-plugin-tools) 
 (define-c-struct fmxcpt (m-vers :int) (m-code :int))
-(define-fmxcpt-function
- (fm-quad-char-constructor1 "FM_QuadChar_Constructor1")
- nil
- :result-type
- (:pointer :void))
-(define-fmxcpt-function
- (fm-quad-char-constructor2 "FM_QuadChar_Constructor2")
- ((c0 :char) (c1 :char) (c2 :char) (c3 :char))
- :result-type
- (:pointer :void))
-(define-fmxcpt-function
- (fm-quad-char-constructor3 "FM_QuadChar_Constructor3")
- ((value (:pointer :void)))
- :result-type
- (:pointer :void))
-(define-fmxcpt-function
- (fm-quad-char-operator-as "FM_QuadChar_operatorAS")
- ((self (:pointer :void)) (value (:pointer :void)))
- :result-type
- (:pointer :void))
-(define-fmxcpt-function
- (fm-quad-char-operator-ar "FM_QuadChar_operatorAR")
- ((self (:pointer :void)) (i :int))
- :result-type
- (:unsigned :char))
-(define-fmxcpt-function
- (fm-quad-char-operator-car "FM_QuadChar_operatorCAR")
- ((self (:pointer :void)) (i :int))
- :result-type
- (:unsigned :char))
-(define-fmxcpt-function
- (fm-quad-char-operator-eq "FM_QuadChar_operatorEQ")
- ((self (:pointer :void)) (value (:pointer :void)))
- :result-type
- :boolean)
-(define-fmxcpt-function
- (fm-quad-char-operator-ne "FM_QuadChar_operatorNE")
- ((self (:pointer :void)) (value (:pointer :void)))
- :result-type
- :boolean)
-(define-fmxcpt-function
- (fm-quad-char-operator-lt "FM_QuadChar_operatorLT")
- ((self (:pointer :void)) (value (:pointer :void)))
- :result-type
- :boolean)
-(define-fmxcpt-function
- (fm-quad-char-operator-le "FM_QuadChar_operatorLE")
- ((self (:pointer :void)) (value (:pointer :void)))
- :result-type
- :boolean)
-(define-fmxcpt-function
- (fm-quad-char-operator-gt "FM_QuadChar_operatorGT")
- ((self (:pointer :void)) (value (:pointer :void)))
- :result-type
- :boolean)
-(define-fmxcpt-function
- (fm-quad-char-operator-ge "FM_QuadChar_operatorGE")
- ((self (:pointer :void)) (value (:pointer :void)))
- :result-type
- :boolean)
-(define-fmxcpt-function
- (fm-quad-char-get-mac-type "FM_QuadChar_GetMacType")
- ((self (:pointer :void)))
- :result-type
- (:unsigned :int))
-(define-fmxcpt-function
- (fm-quad-char-set-mac-type "FM_QuadChar_SetMacType")
- ((self (:pointer :void)) (value (:unsigned :int)))
- :result-type
- :void)
-(define-fmxcpt-function
- (fm-quad-char-delete "FM_QuadChar_Delete")
- ((self (:pointer :void)))
- :result-type
- :void)
-(define-fmxcpt-function
- (fm-locale-constructor1 "FM_Locale_Constructor1")
- ((input-type :int))
- :result-type
- (:pointer :void))
-(define-fmxcpt-function
- (fm-locale-constructor2 "FM_Locale_Constructor2")
- ((copy-construct (:pointer :void)))
- :result-type
- (:pointer :void))
-(define-fmxcpt-function
- (fm-locale-operator-as "FM_Locale_operatorAS")
- ((self (:pointer :void)) (rhs (:pointer :void)))
- :result-type
- (:pointer :void))
-(define-fmxcpt-function
- (fm-locale-delete "FM_Locale_Delete")
- ((self (:pointer :void)))
- :result-type
- :void)
+
+;; #include <FMXTypes.h>
+(define-fmxcpt-function (fm-quad-char-constructor1 "FM_QuadChar_Constructor1")
+                        nil
+                        :result-type
+                        (:pointer :void))
+(define-fmxcpt-function (fm-quad-char-constructor2 "FM_QuadChar_Constructor2")
+                        ((c0 :char) (c1 :char) (c2 :char) (c3 :char))
+                        :result-type
+                        (:pointer :void))
+(define-fmxcpt-function (fm-quad-char-constructor3 "FM_QuadChar_Constructor3")
+                        ((value (:pointer :void)))
+                        :result-type
+                        (:pointer :void))
+(define-fmxcpt-function (fm-quad-char-operator-as "FM_QuadChar_operatorAS")
+                        ((self (:pointer :void))
+                         (value (:pointer :void)))
+                        :result-type
+                        (:pointer :void))
+(define-fmxcpt-function (fm-quad-char-operator-ar "FM_QuadChar_operatorAR")
+                        ((self (:pointer :void)) (i :int))
+                        :result-type
+                        (:unsigned :char))
+(define-fmxcpt-function (fm-quad-char-operator-car "FM_QuadChar_operatorCAR")
+                        ((self (:pointer :void)) (i :int))
+                        :result-type
+                        (:unsigned :char))
+(define-fmxcpt-function (fm-quad-char-operator-eq "FM_QuadChar_operatorEQ")
+                        ((self (:pointer :void))
+                         (value (:pointer :void)))
+                        :result-type
+                        :boolean)
+(define-fmxcpt-function (fm-quad-char-operator-ne "FM_QuadChar_operatorNE")
+                        ((self (:pointer :void))
+                         (value (:pointer :void)))
+                        :result-type
+                        :boolean)
+(define-fmxcpt-function (fm-quad-char-operator-lt "FM_QuadChar_operatorLT")
+                        ((self (:pointer :void))
+                         (value (:pointer :void)))
+                        :result-type
+                        :boolean)
+(define-fmxcpt-function (fm-quad-char-operator-le "FM_QuadChar_operatorLE")
+                        ((self (:pointer :void))
+                         (value (:pointer :void)))
+                        :result-type
+                        :boolean)
+(define-fmxcpt-function (fm-quad-char-operator-gt "FM_QuadChar_operatorGT")
+                        ((self (:pointer :void))
+                         (value (:pointer :void)))
+                        :result-type
+                        :boolean)
+(define-fmxcpt-function (fm-quad-char-operator-ge "FM_QuadChar_operatorGE")
+                        ((self (:pointer :void))
+                         (value (:pointer :void)))
+                        :result-type
+                        :boolean)
+(define-fmxcpt-function (fm-quad-char-get-mac-type "FM_QuadChar_GetMacType")
+                        ((self (:pointer :void)))
+                        :result-type
+                        (:unsigned :int))
+(define-fmxcpt-function (fm-quad-char-set-mac-type "FM_QuadChar_SetMacType")
+                        ((self (:pointer :void))
+                         (value (:unsigned :int)))
+                        :result-type
+                        :void)
+(define-fmxcpt-function (fm-quad-char-delete "FM_QuadChar_Delete")
+                        ((self (:pointer :void)))
+                        :result-type
+                        :void)
+(define-fmxcpt-function (fm-locale-constructor1 "FM_Locale_Constructor1")
+                        ((input-type :int))
+                        :result-type
+                        (:pointer :void))
+(define-fmxcpt-function (fm-locale-constructor2 "FM_Locale_Constructor2")
+                        ((copy-construct (:pointer :void)))
+                        :result-type
+                        (:pointer :void))
+(define-fmxcpt-function (fm-locale-operator-as "FM_Locale_operatorAS")
+                        ((self (:pointer :void))
+                         (rhs (:pointer :void)))
+                        :result-type
+                        (:pointer :void))
+(define-fmxcpt-function (fm-locale-delete "FM_Locale_Delete")
+                        ((self (:pointer :void)))
+                        :result-type
+                        :void)
 (eval-when (:compile-toplevel :load-toplevel :execute)
   (defconstant +k-type-none+ 0
     "This constant was generated automatically.
@@ -751,214 +746,194 @@ See FileMaker header files for details."))
     "This constant was generated automatically.
 See FileMaker header files for details."))
 (export (quote +k-type-invalid+) :fm-plugin-tools) 
-(define-fmxcpt-function
- (fm-text-constructor1 "FM_Text_Constructor1")
- nil
- :result-type
- (:pointer :void))
-(define-fmxcpt-function
- (fm-text-get-size "FM_Text_GetSize")
- ((self (:pointer :void)))
- :result-type
- (:unsigned :int))
-(define-fmxcpt-function
- (fm-text-assign "FM_Text_Assign")
- ((self (:pointer :void)) (s (:pointer :char)) (encoding :int))
- :result-type
- :void)
-(define-fmxcpt-function
- (fm-text-get-bytes "FM_Text_GetBytes")
- ((self (:pointer :void))
-  (buffer (:pointer :char))
-  (buffersize (:unsigned :int))
-  (position (:unsigned :int))
-  (size (:unsigned :int))
-  (encoding :int))
- :result-type
- :void)
-(define-fmxcpt-function
- (fm-text-get-bytes-ex "FM_Text_GetBytesEx")
- ((self (:pointer :void))
-  (buffer (:pointer :char))
-  (buffersize (:unsigned :int))
-  (position (:unsigned :int))
-  (size (:unsigned :int))
-  (encoding :int))
- :result-type
- (:unsigned :int))
-(define-fmxcpt-function
- (fm-text-assign-wide "FM_Text_AssignWide")
- ((self (:pointer :void)) (s (:pointer :wchar-t)))
- :result-type
- :void)
-(define-fmxcpt-function
- (fm-text-assign-unicode% "FM_Text_AssignUnicode")
- ((self (:pointer :void)) (s (:pointer :void)))
- :result-type
- :void)
-(define-fmxcpt-function
- (fm-text-assign-with-length "FM_Text_AssignWithLength")
- ((self (:pointer :void))
-  (s (:pointer :char))
-  (strlength (:unsigned :int))
-  (encoding :int))
- :result-type
- :void)
-(define-fmxcpt-function
- (fm-text-assign-wide-with-length "FM_Text_AssignWideWithLength")
- ((self (:pointer :void))
-  (s (:pointer :wchar-t))
-  (strlength (:unsigned :int)))
- :result-type
- :void)
-(define-fmxcpt-function
- (fm-text-assign-unicode-with-length "FM_Text_AssignUnicodeWithLength")
- ((self (:pointer :void))
-  (s (:pointer :void))
-  (strlength (:unsigned :int)))
- :result-type
- :void)
-(define-fmxcpt-function
- (fm-text-get-unicode "FM_Text_GetUnicode")
- ((self (:pointer :void))
-  (s (:pointer :void))
-  (position (:unsigned :int))
-  (size (:unsigned :int)))
- :result-type
- :void)
-(define-fmxcpt-function
- (fm-text-set-text "FM_Text_SetText")
- ((self (:pointer :void))
-  (other (:pointer :void))
-  (position (:unsigned :int))
-  (size (:unsigned :int)))
- :result-type
- :void)
-(define-fmxcpt-function
- (fm-text-append-text "FM_Text_AppendText")
- ((self (:pointer :void))
-  (other (:pointer :void))
-  (position (:unsigned :int))
-  (size (:unsigned :int)))
- :result-type
- :void)
-(define-fmxcpt-function
- (fm-text-insert-text "FM_Text_InsertText")
- ((self (:pointer :void))
-  (other (:pointer :void))
-  (position (:unsigned :int)))
- :result-type
- :void)
-(define-fmxcpt-function
- (fm-text-delete-text "FM_Text_DeleteText")
- ((self (:pointer :void))
-  (position-to-delete (:unsigned :int))
-  (size-to-delete (:unsigned :int)))
- :result-type
- :void)
-(define-fmxcpt-function
- (fm-text-find "FM_Text_Find")
- ((self (:pointer :void))
-  (other (:pointer :void))
-  (position (:unsigned :int)))
- :result-type
- (:unsigned :int))
-(define-fmxcpt-function
- (fm-text-find-prev "FM_Text_FindPrev")
- ((self (:pointer :void))
-  (other (:pointer :void))
-  (position (:unsigned :int)))
- :result-type
- (:unsigned :int))
-(define-fmxcpt-function
- (fm-text-find-ignoring-case "FM_Text_FindIgnoringCase")
- ((self (:pointer :void))
-  (other (:pointer :void))
-  (position (:unsigned :int)))
- :result-type
- (:unsigned :int))
-(define-fmxcpt-function
- (fm-text-find-prev-ignoring-case "FM_Text_FindPrevIgnoringCase")
- ((self (:pointer :void))
-  (other (:pointer :void))
-  (position (:unsigned :int)))
- :result-type
- (:unsigned :int))
-(define-fmxcpt-function
- (fm-text-uppercase "FM_Text_Uppercase")
- ((self (:pointer :void)))
- :result-type
- :void)
-(define-fmxcpt-function
- (fm-text-lowercase "FM_Text_Lowercase")
- ((self (:pointer :void)))
- :result-type
- :void)
-(define-fmxcpt-function
- (fm-text-get-style "FM_Text_GetStyle")
- ((self (:pointer :void))
-  (style (:pointer :void))
-  (position (:unsigned :int)))
- :result-type
- :void)
-(define-fmxcpt-function
- (fm-text-get-default-style "FM_Text_GetDefaultStyle")
- ((self (:pointer :void)) (style (:pointer :void)))
- :result-type
- :void)
-(define-fmxcpt-function
- (fm-text-set-style "FM_Text_SetStyle")
- ((self (:pointer :void))
-  (style (:pointer :void))
-  (position (:unsigned :int))
-  (size (:unsigned :int)))
- :result-type
- :void)
-(define-fmxcpt-function
- (fm-text-remove-style "FM_Text_RemoveStyle")
- ((self (:pointer :void)) (style (:pointer :void)))
- :result-type
- :void)
-(define-fmxcpt-function
- (fm-text-reset-all-style-buffers "FM_Text_ResetAllStyleBuffers")
- ((self (:pointer :void)))
- :result-type
- :void)
-(define-fmxcpt-function
- (fm-text-operator-eq "FM_Text_operatorEQ")
- ((self (:pointer :void)) (that (:pointer :void)))
- :result-type
- :boolean)
-(define-fmxcpt-function
- (fm-text-operator-ne "FM_Text_operatorNE")
- ((self (:pointer :void)) (that (:pointer :void)))
- :result-type
- :boolean)
-(define-fmxcpt-function
- (fm-text-operator-lt "FM_Text_operatorLT")
- ((self (:pointer :void)) (that (:pointer :void)))
- :result-type
- :boolean)
-(define-fmxcpt-function
- (fm-text-operator-le "FM_Text_operatorLE")
- ((self (:pointer :void)) (that (:pointer :void)))
- :result-type
- :boolean)
-(define-fmxcpt-function
- (fm-text-operator-gt "FM_Text_operatorGT")
- ((self (:pointer :void)) (that (:pointer :void)))
- :result-type
- :boolean)
-(define-fmxcpt-function
- (fm-text-operator-ge "FM_Text_operatorGE")
- ((self (:pointer :void)) (that (:pointer :void)))
- :result-type
- :boolean)
-(define-fmxcpt-function
- (fm-text-delete "FM_Text_Delete")
- ((self (:pointer :void)))
- :result-type
- :void)
+
+;; #include <FMXText.h>
+(define-fmxcpt-function (fm-text-constructor1 "FM_Text_Constructor1")
+                        nil
+                        :result-type
+                        (:pointer :void))
+(define-fmxcpt-function (fm-text-get-size "FM_Text_GetSize")
+                        ((self (:pointer :void)))
+                        :result-type
+                        (:unsigned :int))
+(define-fmxcpt-function (fm-text-assign "FM_Text_Assign")
+                        ((self (:pointer :void))
+                         (s (:pointer :char))
+                         (encoding :int))
+                        :result-type
+                        :void)
+(define-fmxcpt-function (fm-text-get-bytes "FM_Text_GetBytes")
+                        ((self (:pointer :void))
+                         (buffer (:pointer :char))
+                         (buffersize (:unsigned :int))
+                         (position (:unsigned :int))
+                         (size (:unsigned :int))
+                         (encoding :int))
+                        :result-type
+                        :void)
+(define-fmxcpt-function (fm-text-get-bytes-ex "FM_Text_GetBytesEx")
+                        ((self (:pointer :void))
+                         (buffer (:pointer :char))
+                         (buffersize (:unsigned :int))
+                         (position (:unsigned :int))
+                         (size (:unsigned :int))
+                         (encoding :int))
+                        :result-type
+                        (:unsigned :int))
+(define-fmxcpt-function (fm-text-assign-wide "FM_Text_AssignWide")
+                        ((self (:pointer :void))
+                         (s (:pointer :wchar-t)))
+                        :result-type
+                        :void)
+(define-fmxcpt-function (fm-text-assign-unicode% "FM_Text_AssignUnicode")
+                        ((self (:pointer :void)) (s (:pointer :void)))
+                        :result-type
+                        :void)
+(define-fmxcpt-function (fm-text-assign-with-length "FM_Text_AssignWithLength")
+                        ((self (:pointer :void))
+                         (s (:pointer :char))
+                         (strlength (:unsigned :int))
+                         (encoding :int))
+                        :result-type
+                        :void)
+(define-fmxcpt-function (fm-text-assign-wide-with-length "FM_Text_AssignWideWithLength")
+                        ((self (:pointer :void))
+                         (s (:pointer :wchar-t))
+                         (strlength (:unsigned :int)))
+                        :result-type
+                        :void)
+(define-fmxcpt-function (fm-text-assign-unicode-with-length "FM_Text_AssignUnicodeWithLength")
+                        ((self (:pointer :void))
+                         (s (:pointer :void))
+                         (strlength (:unsigned :int)))
+                        :result-type
+                        :void)
+(define-fmxcpt-function (fm-text-get-unicode "FM_Text_GetUnicode")
+                        ((self (:pointer :void))
+                         (s (:pointer :void))
+                         (position (:unsigned :int))
+                         (size (:unsigned :int)))
+                        :result-type
+                        :void)
+(define-fmxcpt-function (fm-text-set-text "FM_Text_SetText")
+                        ((self (:pointer :void))
+                         (other (:pointer :void))
+                         (position (:unsigned :int))
+                         (size (:unsigned :int)))
+                        :result-type
+                        :void)
+(define-fmxcpt-function (fm-text-append-text "FM_Text_AppendText")
+                        ((self (:pointer :void))
+                         (other (:pointer :void))
+                         (position (:unsigned :int))
+                         (size (:unsigned :int)))
+                        :result-type
+                        :void)
+(define-fmxcpt-function (fm-text-insert-text "FM_Text_InsertText")
+                        ((self (:pointer :void))
+                         (other (:pointer :void))
+                         (position (:unsigned :int)))
+                        :result-type
+                        :void)
+(define-fmxcpt-function (fm-text-delete-text "FM_Text_DeleteText")
+                        ((self (:pointer :void))
+                         (position-to-delete (:unsigned :int))
+                         (size-to-delete (:unsigned :int)))
+                        :result-type
+                        :void)
+(define-fmxcpt-function (fm-text-find "FM_Text_Find")
+                        ((self (:pointer :void))
+                         (other (:pointer :void))
+                         (position (:unsigned :int)))
+                        :result-type
+                        (:unsigned :int))
+(define-fmxcpt-function (fm-text-find-prev "FM_Text_FindPrev")
+                        ((self (:pointer :void))
+                         (other (:pointer :void))
+                         (position (:unsigned :int)))
+                        :result-type
+                        (:unsigned :int))
+(define-fmxcpt-function (fm-text-find-ignoring-case "FM_Text_FindIgnoringCase")
+                        ((self (:pointer :void))
+                         (other (:pointer :void))
+                         (position (:unsigned :int)))
+                        :result-type
+                        (:unsigned :int))
+(define-fmxcpt-function (fm-text-find-prev-ignoring-case "FM_Text_FindPrevIgnoringCase")
+                        ((self (:pointer :void))
+                         (other (:pointer :void))
+                         (position (:unsigned :int)))
+                        :result-type
+                        (:unsigned :int))
+(define-fmxcpt-function (fm-text-uppercase "FM_Text_Uppercase")
+                        ((self (:pointer :void)))
+                        :result-type
+                        :void)
+(define-fmxcpt-function (fm-text-lowercase "FM_Text_Lowercase")
+                        ((self (:pointer :void)))
+                        :result-type
+                        :void)
+(define-fmxcpt-function (fm-text-get-style "FM_Text_GetStyle")
+                        ((self (:pointer :void))
+                         (style (:pointer :void))
+                         (position (:unsigned :int)))
+                        :result-type
+                        :void)
+(define-fmxcpt-function (fm-text-get-default-style "FM_Text_GetDefaultStyle")
+                        ((self (:pointer :void))
+                         (style (:pointer :void)))
+                        :result-type
+                        :void)
+(define-fmxcpt-function (fm-text-set-style "FM_Text_SetStyle")
+                        ((self (:pointer :void))
+                         (style (:pointer :void))
+                         (position (:unsigned :int))
+                         (size (:unsigned :int)))
+                        :result-type
+                        :void)
+(define-fmxcpt-function (fm-text-remove-style "FM_Text_RemoveStyle")
+                        ((self (:pointer :void))
+                         (style (:pointer :void)))
+                        :result-type
+                        :void)
+(define-fmxcpt-function (fm-text-reset-all-style-buffers "FM_Text_ResetAllStyleBuffers")
+                        ((self (:pointer :void)))
+                        :result-type
+                        :void)
+(define-fmxcpt-function (fm-text-operator-eq "FM_Text_operatorEQ")
+                        ((self (:pointer :void))
+                         (that (:pointer :void)))
+                        :result-type
+                        :boolean)
+(define-fmxcpt-function (fm-text-operator-ne "FM_Text_operatorNE")
+                        ((self (:pointer :void))
+                         (that (:pointer :void)))
+                        :result-type
+                        :boolean)
+(define-fmxcpt-function (fm-text-operator-lt "FM_Text_operatorLT")
+                        ((self (:pointer :void))
+                         (that (:pointer :void)))
+                        :result-type
+                        :boolean)
+(define-fmxcpt-function (fm-text-operator-le "FM_Text_operatorLE")
+                        ((self (:pointer :void))
+                         (that (:pointer :void)))
+                        :result-type
+                        :boolean)
+(define-fmxcpt-function (fm-text-operator-gt "FM_Text_operatorGT")
+                        ((self (:pointer :void))
+                         (that (:pointer :void)))
+                        :result-type
+                        :boolean)
+(define-fmxcpt-function (fm-text-operator-ge "FM_Text_operatorGE")
+                        ((self (:pointer :void))
+                         (that (:pointer :void)))
+                        :result-type
+                        :boolean)
+(define-fmxcpt-function (fm-text-delete "FM_Text_Delete")
+                        ((self (:pointer :void)))
+                        :result-type
+                        :void)
 (eval-when (:compile-toplevel :load-toplevel :execute)
   (defconstant +k-encoding-native+ 0
     "This constant was generated automatically.
@@ -1154,229 +1129,201 @@ See FileMaker header files for details."))
     "This constant was generated automatically.
 See FileMaker header files for details."))
 (export (quote +k-size-end+) :fm-plugin-tools) 
-(define-fmxcpt-function
- (fm-data-vect-constructor1 "FM_DataVect_Constructor1")
- nil
- :result-type
- (:pointer :void))
-(define-fmxcpt-function
- (fm-data-vect-size "FM_DataVect_Size")
- ((self (:pointer :void)))
- :result-type
- (:unsigned :int))
-(define-fmxcpt-function
- (fm-data-vect-clear "FM_DataVect_Clear")
- ((self (:pointer :void)))
- :result-type
- :void)
-(define-fmxcpt-function
- (fm-data-vect-is-empty "FM_DataVect_IsEmpty")
- ((self (:pointer :void)))
- :result-type
- :boolean)
-(define-fmxcpt-function
- (fm-data-vect-push-back "FM_DataVect_PushBack")
- ((self (:pointer :void)) (data (:pointer :void)))
- :result-type
- :void)
-(define-fmxcpt-function
- (fm-data-vect-pop-back "FM_DataVect_PopBack")
- ((self (:pointer :void)))
- :result-type
- (:pointer :void))
-(define-fmxcpt-function
- (fm-data-vect-at "FM_DataVect_At")
- ((self (:pointer :void)) (position (:unsigned :int)))
- :result-type
- (:pointer :void))
-(define-fmxcpt-function
- (fm-data-vect-at-as-text "FM_DataVect_AtAsText")
- ((self (:pointer :void)) (position (:unsigned :int)))
- :result-type
- (:pointer :void))
-(define-fmxcpt-function
- (fm-data-vect-at-as-number "FM_DataVect_AtAsNumber")
- ((self (:pointer :void)) (position (:unsigned :int)))
- :result-type
- (:pointer :void))
-(define-fmxcpt-function
- (fm-data-vect-at-as-date "FM_DataVect_AtAsDate")
- ((self (:pointer :void)) (position (:unsigned :int)))
- :result-type
- (:pointer :void))
-(define-fmxcpt-function
- (fm-data-vect-at-as-time "FM_DataVect_AtAsTime")
- ((self (:pointer :void)) (position (:unsigned :int)))
- :result-type
- (:pointer :void))
-(define-fmxcpt-function
- (fm-data-vect-at-as-time-stamp "FM_DataVect_AtAsTimeStamp")
- ((self (:pointer :void)) (position (:unsigned :int)))
- :result-type
- (:pointer :void))
-(define-fmxcpt-function
- (fm-data-vect-at-as-boolean "FM_DataVect_AtAsBoolean")
- ((self (:pointer :void)) (position (:unsigned :int)))
- :result-type
- :boolean)
-(define-fmxcpt-function
- (fm-data-vect-at-as-binary-data "FM_DataVect_AtAsBinaryData")
- ((self (:pointer :void)) (position (:unsigned :int)))
- :result-type
- (:pointer :void))
-(define-fmxcpt-function
- (fm-data-vect-delete "FM_DataVect_Delete")
- ((self (:pointer :void)))
- :result-type
- :void)
-(define-fmxcpt-function
- (fm-row-vect-constructor1 "FM_RowVect_Constructor1")
- nil
- :result-type
- (:pointer :void))
-(define-fmxcpt-function
- (fm-row-vect-size "FM_RowVect_Size")
- ((self (:pointer :void)))
- :result-type
- (:unsigned :int))
-(define-fmxcpt-function
- (fm-row-vect-is-empty "FM_RowVect_IsEmpty")
- ((self (:pointer :void)))
- :result-type
- :boolean)
-(define-fmxcpt-function
- (fm-row-vect-at "FM_RowVect_At")
- ((self (:pointer :void)) (position (:unsigned :int)))
- :result-type
- (:pointer :void))
-(define-fmxcpt-function
- (fm-row-vect-delete "FM_RowVect_Delete")
- ((self (:pointer :void)))
- :result-type
- :void)
-(define-fmxcpt-function
- (fm-expr-env-constructor1 "FM_ExprEnv_Constructor1")
- nil
- :result-type
- (:pointer :void))
-(define-fmxcpt-function
- (fm-expr-env-evaluate "FM_ExprEnv_Evaluate")
- ((self (:pointer :void))
-  (expression (:pointer :void))
-  (result (:pointer :void)))
- :result-type
- :short)
-(define-fmxcpt-function
- (fm-expr-env-evaluate-get-function "FM_ExprEnv_EvaluateGetFunction")
- ((self (:pointer :void))
-  (function-value :short)
-  (result (:pointer :void)))
- :result-type
- :short)
-(define-fmxcpt-function
- (fm-expr-env-evaluate-convert-to-file-maker-path
-  "FM_ExprEnv_EvaluateConvertToFileMakerPath")
- ((self (:pointer :void))
-  (in-path (:pointer :void))
-  (in-format :int)
-  (out-fmpath (:pointer :void)))
- :result-type
- :short)
-(define-fmxcpt-function
- (fm-expr-env-evaluate-convert-from-file-maker-path
-  "FM_ExprEnv_EvaluateConvertFromFileMakerPath")
- ((self (:pointer :void))
-  (in-fmpath (:pointer :void))
-  (in-format :int)
-  (out-path (:pointer :void)))
- :result-type
- :short)
-(define-fmxcpt-function
- (fm-expr-env-execute-file-sql "FM_ExprEnv_ExecuteFileSQL")
- ((self (:pointer :void))
-  (expression (:pointer :void))
-  (filename (:pointer :void))
-  (parameters (:pointer :void))
-  (result (:pointer :void)))
- :result-type
- :short)
-(define-fmxcpt-function
- (fm-expr-env-execute-file-sqltext-result
-  "FM_ExprEnv_ExecuteFileSQLTextResult")
- ((self (:pointer :void))
-  (expression (:pointer :void))
-  (filename (:pointer :void))
-  (parameters (:pointer :void))
-  (result (:pointer :void))
-  (col-sep (:unsigned :short))
-  (row-sep (:unsigned :short)))
- :result-type
- :short)
-(define-fmxcpt-function
- (fm-expr-env-register-external-function
-  "FM_ExprEnv_RegisterExternalFunction")
- ((plugin-id (:pointer :void))
-  (function-id :short)
-  (function-name (:pointer :void))
-  (function-prototype (:pointer :void))
-  (min-args :short)
-  (max-args :short)
-  (compatible-on-flags (:unsigned :int))
-  (func-ptr (:pointer :void)))
- :result-type
- :short)
-(define-fmxcpt-function
- (fm-expr-env-register-external-function-ex
-  "FM_ExprEnv_RegisterExternalFunctionEx")
- ((plugin-id (:pointer :void))
-  (function-id :short)
-  (function-name (:pointer :void))
-  (function-prototype (:pointer :void))
-  (function-description (:pointer :void))
-  (min-args :short)
-  (max-args :short)
-  (compatible-on-flags (:unsigned :int))
-  (func-ptr (:pointer :void)))
- :result-type
- :short)
-(define-fmxcpt-function
- (fm-expr-env-un-register-external-function
-  "FM_ExprEnv_UnRegisterExternalFunction")
- ((plugin-id (:pointer :void)) (function-id :short))
- :result-type
- :short)
-(define-fmxcpt-function
- (fm-expr-env-session-id "FM_ExprEnv_SessionID")
- ((self (:pointer :void)))
- :result-type
- :uint64)
-(define-fmxcpt-function
- (fm-expr-env-file-id "FM_ExprEnv_FileID")
- ((self (:pointer :void)))
- :result-type
- :uint64)
-(define-fmxcpt-function
- (fm-expr-env-register-script-step "FM_ExprEnv_RegisterScriptStep")
- ((plugin-id (:pointer :void))
-  (script-step-id :short)
-  (script-step-name (:pointer :void))
-  (script-step-definition (:pointer :void))
-  (script-step-description (:pointer :void))
-  (compatible-on-flags (:unsigned :int))
-  (func-ptr (:pointer :void)))
- :result-type
- :short)
-(define-fmxcpt-function
- (fm-expr-env-un-register-script-step
-  "FM_ExprEnv_UnRegisterScriptStep")
- ((plugin-id (:pointer :void)) (script-step-id :short))
- :result-type
- :short)
-(define-fmxcpt-function
- (fm-expr-env-delete "FM_ExprEnv_Delete")
- ((self (:pointer :void)))
- :result-type
- :void)
+
+;; #include <FMXCalcEngine.h>
+(define-fmxcpt-function (fm-data-vect-constructor1 "FM_DataVect_Constructor1")
+                        nil
+                        :result-type
+                        (:pointer :void))
+(define-fmxcpt-function (fm-data-vect-size "FM_DataVect_Size")
+                        ((self (:pointer :void)))
+                        :result-type
+                        (:unsigned :int))
+(define-fmxcpt-function (fm-data-vect-clear "FM_DataVect_Clear")
+                        ((self (:pointer :void)))
+                        :result-type
+                        :void)
+(define-fmxcpt-function (fm-data-vect-is-empty "FM_DataVect_IsEmpty")
+                        ((self (:pointer :void)))
+                        :result-type
+                        :boolean)
+(define-fmxcpt-function (fm-data-vect-push-back "FM_DataVect_PushBack")
+                        ((self (:pointer :void))
+                         (data (:pointer :void)))
+                        :result-type
+                        :void)
+(define-fmxcpt-function (fm-data-vect-pop-back "FM_DataVect_PopBack")
+                        ((self (:pointer :void)))
+                        :result-type
+                        (:pointer :void))
+(define-fmxcpt-function (fm-data-vect-at "FM_DataVect_At")
+                        ((self (:pointer :void))
+                         (position (:unsigned :int)))
+                        :result-type
+                        (:pointer :void))
+(define-fmxcpt-function (fm-data-vect-at-as-text "FM_DataVect_AtAsText")
+                        ((self (:pointer :void))
+                         (position (:unsigned :int)))
+                        :result-type
+                        (:pointer :void))
+(define-fmxcpt-function (fm-data-vect-at-as-number "FM_DataVect_AtAsNumber")
+                        ((self (:pointer :void))
+                         (position (:unsigned :int)))
+                        :result-type
+                        (:pointer :void))
+(define-fmxcpt-function (fm-data-vect-at-as-date "FM_DataVect_AtAsDate")
+                        ((self (:pointer :void))
+                         (position (:unsigned :int)))
+                        :result-type
+                        (:pointer :void))
+(define-fmxcpt-function (fm-data-vect-at-as-time "FM_DataVect_AtAsTime")
+                        ((self (:pointer :void))
+                         (position (:unsigned :int)))
+                        :result-type
+                        (:pointer :void))
+(define-fmxcpt-function (fm-data-vect-at-as-time-stamp "FM_DataVect_AtAsTimeStamp")
+                        ((self (:pointer :void))
+                         (position (:unsigned :int)))
+                        :result-type
+                        (:pointer :void))
+(define-fmxcpt-function (fm-data-vect-at-as-boolean "FM_DataVect_AtAsBoolean")
+                        ((self (:pointer :void))
+                         (position (:unsigned :int)))
+                        :result-type
+                        :boolean)
+(define-fmxcpt-function (fm-data-vect-at-as-binary-data "FM_DataVect_AtAsBinaryData")
+                        ((self (:pointer :void))
+                         (position (:unsigned :int)))
+                        :result-type
+                        (:pointer :void))
+(define-fmxcpt-function (fm-data-vect-delete "FM_DataVect_Delete")
+                        ((self (:pointer :void)))
+                        :result-type
+                        :void)
+(define-fmxcpt-function (fm-row-vect-constructor1 "FM_RowVect_Constructor1")
+                        nil
+                        :result-type
+                        (:pointer :void))
+(define-fmxcpt-function (fm-row-vect-size "FM_RowVect_Size")
+                        ((self (:pointer :void)))
+                        :result-type
+                        (:unsigned :int))
+(define-fmxcpt-function (fm-row-vect-is-empty "FM_RowVect_IsEmpty")
+                        ((self (:pointer :void)))
+                        :result-type
+                        :boolean)
+(define-fmxcpt-function (fm-row-vect-at "FM_RowVect_At")
+                        ((self (:pointer :void))
+                         (position (:unsigned :int)))
+                        :result-type
+                        (:pointer :void))
+(define-fmxcpt-function (fm-row-vect-delete "FM_RowVect_Delete")
+                        ((self (:pointer :void)))
+                        :result-type
+                        :void)
+(define-fmxcpt-function (fm-expr-env-constructor1 "FM_ExprEnv_Constructor1")
+                        nil
+                        :result-type
+                        (:pointer :void))
+(define-fmxcpt-function (fm-expr-env-evaluate "FM_ExprEnv_Evaluate")
+                        ((self (:pointer :void))
+                         (expression (:pointer :void))
+                         (result (:pointer :void)))
+                        :result-type
+                        :short)
+(define-fmxcpt-function (fm-expr-env-evaluate-get-function "FM_ExprEnv_EvaluateGetFunction")
+                        ((self (:pointer :void))
+                         (function-value :short)
+                         (result (:pointer :void)))
+                        :result-type
+                        :short)
+(define-fmxcpt-function (fm-expr-env-evaluate-convert-to-file-maker-path "FM_ExprEnv_EvaluateConvertToFileMakerPath")
+                        ((self (:pointer :void))
+                         (in-path (:pointer :void))
+                         (in-format :int)
+                         (out-fmpath (:pointer :void)))
+                        :result-type
+                        :short)
+(define-fmxcpt-function (fm-expr-env-evaluate-convert-from-file-maker-path "FM_ExprEnv_EvaluateConvertFromFileMakerPath")
+                        ((self (:pointer :void))
+                         (in-fmpath (:pointer :void))
+                         (in-format :int)
+                         (out-path (:pointer :void)))
+                        :result-type
+                        :short)
+(define-fmxcpt-function (fm-expr-env-execute-file-sql "FM_ExprEnv_ExecuteFileSQL")
+                        ((self (:pointer :void))
+                         (expression (:pointer :void))
+                         (filename (:pointer :void))
+                         (parameters (:pointer :void))
+                         (result (:pointer :void)))
+                        :result-type
+                        :short)
+(define-fmxcpt-function (fm-expr-env-execute-file-sqltext-result "FM_ExprEnv_ExecuteFileSQLTextResult")
+                        ((self (:pointer :void))
+                         (expression (:pointer :void))
+                         (filename (:pointer :void))
+                         (parameters (:pointer :void))
+                         (result (:pointer :void))
+                         (col-sep (:unsigned :short))
+                         (row-sep (:unsigned :short)))
+                        :result-type
+                        :short)
+(define-fmxcpt-function (fm-expr-env-register-external-function "FM_ExprEnv_RegisterExternalFunction")
+                        ((plugin-id (:pointer :void))
+                         (function-id :short)
+                         (function-name (:pointer :void))
+                         (function-prototype (:pointer :void))
+                         (min-args :short)
+                         (max-args :short)
+                         (compatible-on-flags (:unsigned :int))
+                         (func-ptr (:pointer :void)))
+                        :result-type
+                        :short)
+(define-fmxcpt-function (fm-expr-env-register-external-function-ex "FM_ExprEnv_RegisterExternalFunctionEx")
+                        ((plugin-id (:pointer :void))
+                         (function-id :short)
+                         (function-name (:pointer :void))
+                         (function-prototype (:pointer :void))
+                         (function-description (:pointer :void))
+                         (min-args :short)
+                         (max-args :short)
+                         (compatible-on-flags (:unsigned :int))
+                         (func-ptr (:pointer :void)))
+                        :result-type
+                        :short)
+(define-fmxcpt-function (fm-expr-env-un-register-external-function "FM_ExprEnv_UnRegisterExternalFunction")
+                        ((plugin-id (:pointer :void))
+                         (function-id :short))
+                        :result-type
+                        :short)
+(define-fmxcpt-function (fm-expr-env-session-id "FM_ExprEnv_SessionID")
+                        ((self (:pointer :void)))
+                        :result-type
+                        :uint64)
+(define-fmxcpt-function (fm-expr-env-file-id "FM_ExprEnv_FileID")
+                        ((self (:pointer :void)))
+                        :result-type
+                        :uint64)
+(define-fmxcpt-function (fm-expr-env-register-script-step "FM_ExprEnv_RegisterScriptStep")
+                        ((plugin-id (:pointer :void))
+                         (script-step-id :short)
+                         (script-step-name (:pointer :void))
+                         (script-step-definition (:pointer :void))
+                         (script-step-description (:pointer :void))
+                         (compatible-on-flags (:unsigned :int))
+                         (func-ptr (:pointer :void)))
+                        :result-type
+                        :short)
+(define-fmxcpt-function (fm-expr-env-un-register-script-step "FM_ExprEnv_UnRegisterScriptStep")
+                        ((plugin-id (:pointer :void))
+                         (script-step-id :short))
+                        :result-type
+                        :short)
+(define-fmxcpt-function (fm-expr-env-delete "FM_ExprEnv_Delete")
+                        ((self (:pointer :void)))
+                        :result-type
+                        :void)
 (eval-when (:compile-toplevel :load-toplevel :execute)
   (defconstant +k-may-evaluate-on-server+ 1
     "This constant was generated automatically.
@@ -2163,419 +2110,368 @@ See FileMaker header files for details."))
     "This constant was generated automatically.
 See FileMaker header files for details."))
 (export (quote +k-convert-urlpath+) :fm-plugin-tools) 
-(define-fmxcpt-function
- (fm-binary-data-constructor1 "FM_BinaryData_Constructor1")
- nil
- :result-type
- (:pointer :void))
-(define-fmxcpt-function
- (fm-binary-data-constructor2 "FM_BinaryData_Constructor2")
- ((source-data (:pointer :void)))
- :result-type
- (:pointer :void))
-(define-fmxcpt-function
- (fm-binary-data-constructor3 "FM_BinaryData_Constructor3")
- ((name (:pointer :void))
-  (amount (:unsigned :int))
-  (buffer (:pointer :void)))
- :result-type
- (:pointer :void))
-(define-fmxcpt-function
- (fm-binary-data-constructor4 "FM_BinaryData_Constructor4")
- ((name (:pointer :void)) (context (:pointer (:unsigned :int))))
- :result-type
- (:pointer :void))
-(define-fmxcpt-function
- (fm-binary-data-operator-as "FM_BinaryData_operatorAS")
- ((self (:pointer :void)) (source (:pointer :void)))
- :result-type
- (:pointer :void))
-(define-fmxcpt-function
- (fm-binary-data-operator-eq "FM_BinaryData_operatorEQ")
- ((self (:pointer :void)) (compare-data (:pointer :void)))
- :result-type
- :boolean)
-(define-fmxcpt-function
- (fm-binary-data-operator-ne "FM_BinaryData_operatorNE")
- ((self (:pointer :void)) (compare-data (:pointer :void)))
- :result-type
- :boolean)
-(define-fmxcpt-function
- (fm-binary-data-get-count "FM_BinaryData_GetCount")
- ((self (:pointer :void)))
- :result-type
- :int)
-(define-fmxcpt-function
- (fm-binary-data-get-index "FM_BinaryData_GetIndex")
- ((self (:pointer :void)) (data-type (:pointer :void)))
- :result-type
- :int)
-(define-fmxcpt-function
- (fm-binary-data-get-total-size "FM_BinaryData_GetTotalSize")
- ((self (:pointer :void)))
- :result-type
- (:unsigned :int))
-(define-fmxcpt-function
- (fm-binary-data-get-type "FM_BinaryData_GetType")
- ((self (:pointer :void)) (index :int) (data-type (:pointer :void)))
- :result-type
- :void)
-(define-fmxcpt-function
- (fm-binary-data-get-size "FM_BinaryData_GetSize")
- ((self (:pointer :void)) (index :int))
- :result-type
- (:unsigned :int))
-(define-fmxcpt-function
- (fm-binary-data-get-data "FM_BinaryData_GetData")
- ((self (:pointer :void))
-  (index :int)
-  (offset (:unsigned :int))
-  (amount (:unsigned :int))
-  (buffer (:pointer :void)))
- :result-type
- :short)
-(define-fmxcpt-function
- (fm-binary-data-add "FM_BinaryData_Add")
- ((self (:pointer :void))
-  (data-type (:pointer :void))
-  (amount (:unsigned :int))
-  (buffer (:pointer :void)))
- :result-type
- :short)
-(define-fmxcpt-function
- (fm-binary-data-remove "FM_BinaryData_Remove")
- ((self (:pointer :void)) (data-type (:pointer :void)))
- :result-type
- :boolean)
-(define-fmxcpt-function
- (fm-binary-data-remove-all "FM_BinaryData_RemoveAll")
- ((self (:pointer :void)))
- :result-type
- :void)
-(define-fmxcpt-function
- (fm-binary-data-delete "FM_BinaryData_Delete")
- ((self (:pointer :void)))
- :result-type
- :void)
-(define-fmxcpt-function
- (fm-binary-data-get-fnamdata "FM_BinaryData_GetFNAMData")
- ((self (:pointer :void)) (filepathlist (:pointer :void)))
- :result-type
- :short)
-(define-fmxcpt-function
- (fm-binary-data-add-fnamdata "FM_BinaryData_AddFNAMData")
- ((self (:pointer :void)) (filepathlist (:pointer :void)))
- :result-type
- :short)
-(define-fmxcpt-function
- (fm-binary-data-get-sizedata "FM_BinaryData_GetSIZEData")
- ((self (:pointer :void))
-  (width (:pointer :short))
-  (height (:pointer :short)))
- :result-type
- :short)
-(define-fmxcpt-function
- (fm-binary-data-add-sizedata "FM_BinaryData_AddSIZEData")
- ((self (:pointer :void)) (width :short) (height :short))
- :result-type
- :short)
-(define-fmxcpt-function
- (fm-binary-data-add-begin "FM_BinaryData_AddBegin")
- ((self (:pointer :void))
-  (data-type (:pointer :void))
-  (context (:pointer (:unsigned :int))))
- :result-type
- :short)
-(define-fmxcpt-function
- (fm-binary-data-add-append "FM_BinaryData_AddAppend")
- ((self (:pointer :void))
-  (context (:unsigned :int))
-  (amount (:unsigned :int))
-  (buffer (:pointer :void)))
- :result-type
- :short)
-(define-fmxcpt-function
- (fm-binary-data-add-finish "FM_BinaryData_AddFinish")
- ((self (:pointer :void)) (context (:unsigned :int)))
- :result-type
- :short)
-(define-fmxcpt-function
- (fm-color-constructor1 "FM_Color_Constructor1")
- nil
- :result-type
- (:pointer :void))
-(define-fmxcpt-function
- (fm-color-constructor2 "FM_Color_Constructor2")
- ((red (:unsigned :char))
-  (green (:unsigned :char))
-  (blue (:unsigned :char))
-  (alpha (:unsigned :char)))
- :result-type
- (:pointer :void))
-(define-fmxcpt-function
- (fm-color-constructor3 "FM_Color_Constructor3")
- ((color (:pointer :void)))
- :result-type
- (:pointer :void))
-(define-fmxcpt-function
- (fm-color-set-red "FM_Color_SetRed")
- ((self (:pointer :void)) (r (:unsigned :char)))
- :result-type
- :void)
-(define-fmxcpt-function
- (fm-color-set-green "FM_Color_SetGreen")
- ((self (:pointer :void)) (g (:unsigned :char)))
- :result-type
- :void)
-(define-fmxcpt-function
- (fm-color-set-blue "FM_Color_SetBlue")
- ((self (:pointer :void)) (b (:unsigned :char)))
- :result-type
- :void)
-(define-fmxcpt-function
- (fm-color-set-alpha "FM_Color_SetAlpha")
- ((self (:pointer :void)) (a (:unsigned :char)))
- :result-type
- :void)
-(define-fmxcpt-function
- (fm-color-get-red "FM_Color_GetRed")
- ((self (:pointer :void)))
- :result-type
- (:unsigned :char))
-(define-fmxcpt-function
- (fm-color-get-green "FM_Color_GetGreen")
- ((self (:pointer :void)))
- :result-type
- (:unsigned :char))
-(define-fmxcpt-function
- (fm-color-get-blue "FM_Color_GetBlue")
- ((self (:pointer :void)))
- :result-type
- (:unsigned :char))
-(define-fmxcpt-function
- (fm-color-get-alpha "FM_Color_GetAlpha")
- ((self (:pointer :void)))
- :result-type
- (:unsigned :char))
-(define-fmxcpt-function
- (fm-color-get-red-upsample "FM_Color_GetRedUpsample")
- ((self (:pointer :void)))
- :result-type
- (:unsigned :short))
-(define-fmxcpt-function
- (fm-color-get-green-upsample "FM_Color_GetGreenUpsample")
- ((self (:pointer :void)))
- :result-type
- (:unsigned :short))
-(define-fmxcpt-function
- (fm-color-get-blue-upsample "FM_Color_GetBlueUpsample")
- ((self (:pointer :void)))
- :result-type
- (:unsigned :short))
-(define-fmxcpt-function
- (fm-color-get-alpha-upsample "FM_Color_GetAlphaUpsample")
- ((self (:pointer :void)))
- :result-type
- (:unsigned :short))
-(define-fmxcpt-function
- (fm-color-operator-as "FM_Color_operatorAS")
- ((self (:pointer :void)) (rhs (:pointer :void)))
- :result-type
- (:pointer :void))
-(define-fmxcpt-function
- (fm-color-operator-eq "FM_Color_operatorEQ")
- ((self (:pointer :void)) (rhs (:pointer :void)))
- :result-type
- :boolean)
-(define-fmxcpt-function
- (fm-color-operator-ne "FM_Color_operatorNE")
- ((self (:pointer :void)) (rhs (:pointer :void)))
- :result-type
- :boolean)
-(define-fmxcpt-function
- (fm-color-delete "FM_Color_Delete")
- ((self (:pointer :void)))
- :result-type
- :void)
-(define-fmxcpt-function
- (fm-character-style-constructor1 "FM_CharacterStyle_Constructor1")
- nil
- :result-type
- (:pointer :void))
-(define-fmxcpt-function
- (fm-character-style-constructor2 "FM_CharacterStyle_Constructor2")
- ((font (:unsigned :short))
-  (face (:unsigned :short))
-  (size (:unsigned :short))
-  (color (:pointer :void)))
- :result-type
- (:pointer :void))
-(define-fmxcpt-function
- (fm-character-style-constructor3 "FM_CharacterStyle_Constructor3")
- ((style (:pointer :void)))
- :result-type
- (:pointer :void))
-(define-fmxcpt-function
- (fm-character-style-enable-font "FM_CharacterStyle_EnableFont")
- ((self (:pointer :void)))
- :result-type
- :void)
-(define-fmxcpt-function
- (fm-character-style-enable-face "FM_CharacterStyle_EnableFace")
- ((self (:pointer :void)) (face (:unsigned :short)))
- :result-type
- :void)
-(define-fmxcpt-function
- (fm-character-style-enable-size "FM_CharacterStyle_EnableSize")
- ((self (:pointer :void)))
- :result-type
- :void)
-(define-fmxcpt-function
- (fm-character-style-enable-color "FM_CharacterStyle_EnableColor")
- ((self (:pointer :void)))
- :result-type
- :void)
-(define-fmxcpt-function
- (fm-character-style-disable-font "FM_CharacterStyle_DisableFont")
- ((self (:pointer :void)))
- :result-type
- :void)
-(define-fmxcpt-function
- (fm-character-style-disable-face "FM_CharacterStyle_DisableFace")
- ((self (:pointer :void)) (face (:unsigned :short)))
- :result-type
- :void)
-(define-fmxcpt-function
- (fm-character-style-disable-all-faces
-  "FM_CharacterStyle_DisableAllFaces")
- ((self (:pointer :void)))
- :result-type
- :void)
-(define-fmxcpt-function
- (fm-character-style-disable-size "FM_CharacterStyle_DisableSize")
- ((self (:pointer :void)))
- :result-type
- :void)
-(define-fmxcpt-function
- (fm-character-style-disable-color "FM_CharacterStyle_DisableColor")
- ((self (:pointer :void)))
- :result-type
- :void)
-(define-fmxcpt-function
- (fm-character-style-disable-all "FM_CharacterStyle_DisableAll")
- ((self (:pointer :void)))
- :result-type
- :void)
-(define-fmxcpt-function
- (fm-character-style-is-all-disabled "FM_CharacterStyle_IsAllDisabled")
- ((self (:pointer :void)))
- :result-type
- :boolean)
-(define-fmxcpt-function
- (fm-character-style-is-font-enabled "FM_CharacterStyle_IsFontEnabled")
- ((self (:pointer :void)))
- :result-type
- :boolean)
-(define-fmxcpt-function
- (fm-character-style-is-face-enabled "FM_CharacterStyle_IsFaceEnabled")
- ((self (:pointer :void)) (face (:unsigned :short)))
- :result-type
- :boolean)
-(define-fmxcpt-function
- (fm-character-style-is-any-face-enabled
-  "FM_CharacterStyle_IsAnyFaceEnabled")
- ((self (:pointer :void)))
- :result-type
- :boolean)
-(define-fmxcpt-function
- (fm-character-style-is-size-enabled "FM_CharacterStyle_IsSizeEnabled")
- ((self (:pointer :void)))
- :result-type
- :boolean)
-(define-fmxcpt-function
- (fm-character-style-is-color-enabled
-  "FM_CharacterStyle_IsColorEnabled")
- ((self (:pointer :void)))
- :result-type
- :boolean)
-(define-fmxcpt-function
- (fm-character-style-set-font-information
-  "FM_CharacterStyle_SetFontInformation")
- ((self (:pointer :void))
-  (font (:unsigned :short))
-  (face (:unsigned :short))
-  (size (:unsigned :short)))
- :result-type
- :void)
-(define-fmxcpt-function
- (fm-character-style-get-font-information
-  "FM_CharacterStyle_GetFontInformation")
- ((self (:pointer :void))
-  (font (:pointer :void))
-  (face (:pointer :void))
-  (size (:pointer :void)))
- :result-type
- :void)
-(define-fmxcpt-function
- (fm-character-style-set-font "FM_CharacterStyle_SetFont")
- ((self (:pointer :void)) (font (:unsigned :short)))
- :result-type
- :void)
-(define-fmxcpt-function
- (fm-character-style-set-face "FM_CharacterStyle_SetFace")
- ((self (:pointer :void)) (face (:unsigned :short)))
- :result-type
- :void)
-(define-fmxcpt-function
- (fm-character-style-set-size "FM_CharacterStyle_SetSize")
- ((self (:pointer :void)) (size (:unsigned :short)))
- :result-type
- :void)
-(define-fmxcpt-function
- (fm-character-style-get-font "FM_CharacterStyle_GetFont")
- ((self (:pointer :void)))
- :result-type
- (:unsigned :short))
-(define-fmxcpt-function
- (fm-character-style-get-face "FM_CharacterStyle_GetFace")
- ((self (:pointer :void)))
- :result-type
- (:unsigned :short))
-(define-fmxcpt-function
- (fm-character-style-get-size "FM_CharacterStyle_GetSize")
- ((self (:pointer :void)))
- :result-type
- (:unsigned :short))
-(define-fmxcpt-function
- (fm-character-style-set-color "FM_CharacterStyle_SetColor")
- ((self (:pointer :void)) (color (:pointer :void)))
- :result-type
- :void)
-(define-fmxcpt-function
- (fm-character-style-get-color "FM_CharacterStyle_GetColor")
- ((self (:pointer :void)))
- :result-type
- (:pointer :void))
-(define-fmxcpt-function
- (fm-character-style-operator-as "FM_CharacterStyle_operatorAS")
- ((self (:pointer :void)) (rhs (:pointer :void)))
- :result-type
- (:pointer :void))
-(define-fmxcpt-function
- (fm-character-style-operator-eq "FM_CharacterStyle_operatorEQ")
- ((self (:pointer :void)) (rhs (:pointer :void)))
- :result-type
- :boolean)
-(define-fmxcpt-function
- (fm-character-style-operator-ne "FM_CharacterStyle_operatorNE")
- ((self (:pointer :void)) (rhs (:pointer :void)))
- :result-type
- :boolean)
-(define-fmxcpt-function
- (fm-character-style-delete "FM_CharacterStyle_Delete")
- ((self (:pointer :void)))
- :result-type
- :void)
+
+;; #include <FMXBinaryData.h>
+(define-fmxcpt-function (fm-binary-data-constructor1 "FM_BinaryData_Constructor1")
+                        nil
+                        :result-type
+                        (:pointer :void))
+(define-fmxcpt-function (fm-binary-data-constructor2 "FM_BinaryData_Constructor2")
+                        ((source-data (:pointer :void)))
+                        :result-type
+                        (:pointer :void))
+(define-fmxcpt-function (fm-binary-data-constructor3 "FM_BinaryData_Constructor3")
+                        ((name (:pointer :void))
+                         (amount (:unsigned :int))
+                         (buffer (:pointer :void)))
+                        :result-type
+                        (:pointer :void))
+(define-fmxcpt-function (fm-binary-data-constructor4 "FM_BinaryData_Constructor4")
+                        ((name (:pointer :void))
+                         (context (:pointer (:unsigned :int))))
+                        :result-type
+                        (:pointer :void))
+(define-fmxcpt-function (fm-binary-data-operator-as "FM_BinaryData_operatorAS")
+                        ((self (:pointer :void))
+                         (source (:pointer :void)))
+                        :result-type
+                        (:pointer :void))
+(define-fmxcpt-function (fm-binary-data-operator-eq "FM_BinaryData_operatorEQ")
+                        ((self (:pointer :void))
+                         (compare-data (:pointer :void)))
+                        :result-type
+                        :boolean)
+(define-fmxcpt-function (fm-binary-data-operator-ne "FM_BinaryData_operatorNE")
+                        ((self (:pointer :void))
+                         (compare-data (:pointer :void)))
+                        :result-type
+                        :boolean)
+(define-fmxcpt-function (fm-binary-data-get-count "FM_BinaryData_GetCount")
+                        ((self (:pointer :void)))
+                        :result-type
+                        :int)
+(define-fmxcpt-function (fm-binary-data-get-index "FM_BinaryData_GetIndex")
+                        ((self (:pointer :void))
+                         (data-type (:pointer :void)))
+                        :result-type
+                        :int)
+(define-fmxcpt-function (fm-binary-data-get-total-size "FM_BinaryData_GetTotalSize")
+                        ((self (:pointer :void)))
+                        :result-type
+                        (:unsigned :int))
+(define-fmxcpt-function (fm-binary-data-get-type "FM_BinaryData_GetType")
+                        ((self (:pointer :void))
+                         (index :int)
+                         (data-type (:pointer :void)))
+                        :result-type
+                        :void)
+(define-fmxcpt-function (fm-binary-data-get-size "FM_BinaryData_GetSize")
+                        ((self (:pointer :void)) (index :int))
+                        :result-type
+                        (:unsigned :int))
+(define-fmxcpt-function (fm-binary-data-get-data "FM_BinaryData_GetData")
+                        ((self (:pointer :void))
+                         (index :int)
+                         (offset (:unsigned :int))
+                         (amount (:unsigned :int))
+                         (buffer (:pointer :void)))
+                        :result-type
+                        :short)
+(define-fmxcpt-function (fm-binary-data-add "FM_BinaryData_Add")
+                        ((self (:pointer :void))
+                         (data-type (:pointer :void))
+                         (amount (:unsigned :int))
+                         (buffer (:pointer :void)))
+                        :result-type
+                        :short)
+(define-fmxcpt-function (fm-binary-data-remove "FM_BinaryData_Remove")
+                        ((self (:pointer :void))
+                         (data-type (:pointer :void)))
+                        :result-type
+                        :boolean)
+(define-fmxcpt-function (fm-binary-data-remove-all "FM_BinaryData_RemoveAll")
+                        ((self (:pointer :void)))
+                        :result-type
+                        :void)
+(define-fmxcpt-function (fm-binary-data-delete "FM_BinaryData_Delete")
+                        ((self (:pointer :void)))
+                        :result-type
+                        :void)
+(define-fmxcpt-function (fm-binary-data-get-fnamdata "FM_BinaryData_GetFNAMData")
+                        ((self (:pointer :void))
+                         (filepathlist (:pointer :void)))
+                        :result-type
+                        :short)
+(define-fmxcpt-function (fm-binary-data-add-fnamdata "FM_BinaryData_AddFNAMData")
+                        ((self (:pointer :void))
+                         (filepathlist (:pointer :void)))
+                        :result-type
+                        :short)
+(define-fmxcpt-function (fm-binary-data-get-sizedata "FM_BinaryData_GetSIZEData")
+                        ((self (:pointer :void))
+                         (width (:pointer :short))
+                         (height (:pointer :short)))
+                        :result-type
+                        :short)
+(define-fmxcpt-function (fm-binary-data-add-sizedata "FM_BinaryData_AddSIZEData")
+                        ((self (:pointer :void))
+                         (width :short)
+                         (height :short))
+                        :result-type
+                        :short)
+(define-fmxcpt-function (fm-binary-data-add-begin "FM_BinaryData_AddBegin")
+                        ((self (:pointer :void))
+                         (data-type (:pointer :void))
+                         (context (:pointer (:unsigned :int))))
+                        :result-type
+                        :short)
+(define-fmxcpt-function (fm-binary-data-add-append "FM_BinaryData_AddAppend")
+                        ((self (:pointer :void))
+                         (context (:unsigned :int))
+                         (amount (:unsigned :int))
+                         (buffer (:pointer :void)))
+                        :result-type
+                        :short)
+(define-fmxcpt-function (fm-binary-data-add-finish "FM_BinaryData_AddFinish")
+                        ((self (:pointer :void))
+                         (context (:unsigned :int)))
+                        :result-type
+                        :short)
+
+;; #include <FMXTextStyle.h>
+(define-fmxcpt-function (fm-color-constructor1 "FM_Color_Constructor1")
+                        nil
+                        :result-type
+                        (:pointer :void))
+(define-fmxcpt-function (fm-color-constructor2 "FM_Color_Constructor2")
+                        ((red (:unsigned :char))
+                         (green (:unsigned :char))
+                         (blue (:unsigned :char))
+                         (alpha (:unsigned :char)))
+                        :result-type
+                        (:pointer :void))
+(define-fmxcpt-function (fm-color-constructor3 "FM_Color_Constructor3")
+                        ((color (:pointer :void)))
+                        :result-type
+                        (:pointer :void))
+(define-fmxcpt-function (fm-color-set-red "FM_Color_SetRed")
+                        ((self (:pointer :void)) (r (:unsigned :char)))
+                        :result-type
+                        :void)
+(define-fmxcpt-function (fm-color-set-green "FM_Color_SetGreen")
+                        ((self (:pointer :void)) (g (:unsigned :char)))
+                        :result-type
+                        :void)
+(define-fmxcpt-function (fm-color-set-blue "FM_Color_SetBlue")
+                        ((self (:pointer :void)) (b (:unsigned :char)))
+                        :result-type
+                        :void)
+(define-fmxcpt-function (fm-color-set-alpha "FM_Color_SetAlpha")
+                        ((self (:pointer :void)) (a (:unsigned :char)))
+                        :result-type
+                        :void)
+(define-fmxcpt-function (fm-color-get-red "FM_Color_GetRed")
+                        ((self (:pointer :void)))
+                        :result-type
+                        (:unsigned :char))
+(define-fmxcpt-function (fm-color-get-green "FM_Color_GetGreen")
+                        ((self (:pointer :void)))
+                        :result-type
+                        (:unsigned :char))
+(define-fmxcpt-function (fm-color-get-blue "FM_Color_GetBlue")
+                        ((self (:pointer :void)))
+                        :result-type
+                        (:unsigned :char))
+(define-fmxcpt-function (fm-color-get-alpha "FM_Color_GetAlpha")
+                        ((self (:pointer :void)))
+                        :result-type
+                        (:unsigned :char))
+(define-fmxcpt-function (fm-color-get-red-upsample "FM_Color_GetRedUpsample")
+                        ((self (:pointer :void)))
+                        :result-type
+                        (:unsigned :short))
+(define-fmxcpt-function (fm-color-get-green-upsample "FM_Color_GetGreenUpsample")
+                        ((self (:pointer :void)))
+                        :result-type
+                        (:unsigned :short))
+(define-fmxcpt-function (fm-color-get-blue-upsample "FM_Color_GetBlueUpsample")
+                        ((self (:pointer :void)))
+                        :result-type
+                        (:unsigned :short))
+(define-fmxcpt-function (fm-color-get-alpha-upsample "FM_Color_GetAlphaUpsample")
+                        ((self (:pointer :void)))
+                        :result-type
+                        (:unsigned :short))
+(define-fmxcpt-function (fm-color-operator-as "FM_Color_operatorAS")
+                        ((self (:pointer :void))
+                         (rhs (:pointer :void)))
+                        :result-type
+                        (:pointer :void))
+(define-fmxcpt-function (fm-color-operator-eq "FM_Color_operatorEQ")
+                        ((self (:pointer :void))
+                         (rhs (:pointer :void)))
+                        :result-type
+                        :boolean)
+(define-fmxcpt-function (fm-color-operator-ne "FM_Color_operatorNE")
+                        ((self (:pointer :void))
+                         (rhs (:pointer :void)))
+                        :result-type
+                        :boolean)
+(define-fmxcpt-function (fm-color-delete "FM_Color_Delete")
+                        ((self (:pointer :void)))
+                        :result-type
+                        :void)
+(define-fmxcpt-function (fm-character-style-constructor1 "FM_CharacterStyle_Constructor1")
+                        nil
+                        :result-type
+                        (:pointer :void))
+(define-fmxcpt-function (fm-character-style-constructor2 "FM_CharacterStyle_Constructor2")
+                        ((font (:unsigned :short))
+                         (face (:unsigned :short))
+                         (size (:unsigned :short))
+                         (color (:pointer :void)))
+                        :result-type
+                        (:pointer :void))
+(define-fmxcpt-function (fm-character-style-constructor3 "FM_CharacterStyle_Constructor3")
+                        ((style (:pointer :void)))
+                        :result-type
+                        (:pointer :void))
+(define-fmxcpt-function (fm-character-style-enable-font "FM_CharacterStyle_EnableFont")
+                        ((self (:pointer :void)))
+                        :result-type
+                        :void)
+(define-fmxcpt-function (fm-character-style-enable-face "FM_CharacterStyle_EnableFace")
+                        ((self (:pointer :void))
+                         (face (:unsigned :short)))
+                        :result-type
+                        :void)
+(define-fmxcpt-function (fm-character-style-enable-size "FM_CharacterStyle_EnableSize")
+                        ((self (:pointer :void)))
+                        :result-type
+                        :void)
+(define-fmxcpt-function (fm-character-style-enable-color "FM_CharacterStyle_EnableColor")
+                        ((self (:pointer :void)))
+                        :result-type
+                        :void)
+(define-fmxcpt-function (fm-character-style-disable-font "FM_CharacterStyle_DisableFont")
+                        ((self (:pointer :void)))
+                        :result-type
+                        :void)
+(define-fmxcpt-function (fm-character-style-disable-face "FM_CharacterStyle_DisableFace")
+                        ((self (:pointer :void))
+                         (face (:unsigned :short)))
+                        :result-type
+                        :void)
+(define-fmxcpt-function (fm-character-style-disable-all-faces "FM_CharacterStyle_DisableAllFaces")
+                        ((self (:pointer :void)))
+                        :result-type
+                        :void)
+(define-fmxcpt-function (fm-character-style-disable-size "FM_CharacterStyle_DisableSize")
+                        ((self (:pointer :void)))
+                        :result-type
+                        :void)
+(define-fmxcpt-function (fm-character-style-disable-color "FM_CharacterStyle_DisableColor")
+                        ((self (:pointer :void)))
+                        :result-type
+                        :void)
+(define-fmxcpt-function (fm-character-style-disable-all "FM_CharacterStyle_DisableAll")
+                        ((self (:pointer :void)))
+                        :result-type
+                        :void)
+(define-fmxcpt-function (fm-character-style-is-all-disabled "FM_CharacterStyle_IsAllDisabled")
+                        ((self (:pointer :void)))
+                        :result-type
+                        :boolean)
+(define-fmxcpt-function (fm-character-style-is-font-enabled "FM_CharacterStyle_IsFontEnabled")
+                        ((self (:pointer :void)))
+                        :result-type
+                        :boolean)
+(define-fmxcpt-function (fm-character-style-is-face-enabled "FM_CharacterStyle_IsFaceEnabled")
+                        ((self (:pointer :void))
+                         (face (:unsigned :short)))
+                        :result-type
+                        :boolean)
+(define-fmxcpt-function (fm-character-style-is-any-face-enabled "FM_CharacterStyle_IsAnyFaceEnabled")
+                        ((self (:pointer :void)))
+                        :result-type
+                        :boolean)
+(define-fmxcpt-function (fm-character-style-is-size-enabled "FM_CharacterStyle_IsSizeEnabled")
+                        ((self (:pointer :void)))
+                        :result-type
+                        :boolean)
+(define-fmxcpt-function (fm-character-style-is-color-enabled "FM_CharacterStyle_IsColorEnabled")
+                        ((self (:pointer :void)))
+                        :result-type
+                        :boolean)
+(define-fmxcpt-function (fm-character-style-set-font-information "FM_CharacterStyle_SetFontInformation")
+                        ((self (:pointer :void))
+                         (font (:unsigned :short))
+                         (face (:unsigned :short))
+                         (size (:unsigned :short)))
+                        :result-type
+                        :void)
+(define-fmxcpt-function (fm-character-style-get-font-information "FM_CharacterStyle_GetFontInformation")
+                        ((self (:pointer :void))
+                         (font (:pointer :void))
+                         (face (:pointer :void))
+                         (size (:pointer :void)))
+                        :result-type
+                        :void)
+(define-fmxcpt-function (fm-character-style-set-font "FM_CharacterStyle_SetFont")
+                        ((self (:pointer :void))
+                         (font (:unsigned :short)))
+                        :result-type
+                        :void)
+(define-fmxcpt-function (fm-character-style-set-face "FM_CharacterStyle_SetFace")
+                        ((self (:pointer :void))
+                         (face (:unsigned :short)))
+                        :result-type
+                        :void)
+(define-fmxcpt-function (fm-character-style-set-size "FM_CharacterStyle_SetSize")
+                        ((self (:pointer :void))
+                         (size (:unsigned :short)))
+                        :result-type
+                        :void)
+(define-fmxcpt-function (fm-character-style-get-font "FM_CharacterStyle_GetFont")
+                        ((self (:pointer :void)))
+                        :result-type
+                        (:unsigned :short))
+(define-fmxcpt-function (fm-character-style-get-face "FM_CharacterStyle_GetFace")
+                        ((self (:pointer :void)))
+                        :result-type
+                        (:unsigned :short))
+(define-fmxcpt-function (fm-character-style-get-size "FM_CharacterStyle_GetSize")
+                        ((self (:pointer :void)))
+                        :result-type
+                        (:unsigned :short))
+(define-fmxcpt-function (fm-character-style-set-color "FM_CharacterStyle_SetColor")
+                        ((self (:pointer :void))
+                         (color (:pointer :void)))
+                        :result-type
+                        :void)
+(define-fmxcpt-function (fm-character-style-get-color "FM_CharacterStyle_GetColor")
+                        ((self (:pointer :void)))
+                        :result-type
+                        (:pointer :void))
+(define-fmxcpt-function (fm-character-style-operator-as "FM_CharacterStyle_operatorAS")
+                        ((self (:pointer :void))
+                         (rhs (:pointer :void)))
+                        :result-type
+                        (:pointer :void))
+(define-fmxcpt-function (fm-character-style-operator-eq "FM_CharacterStyle_operatorEQ")
+                        ((self (:pointer :void))
+                         (rhs (:pointer :void)))
+                        :result-type
+                        :boolean)
+(define-fmxcpt-function (fm-character-style-operator-ne "FM_CharacterStyle_operatorNE")
+                        ((self (:pointer :void))
+                         (rhs (:pointer :void)))
+                        :result-type
+                        :boolean)
+(define-fmxcpt-function (fm-character-style-delete "FM_CharacterStyle_Delete")
+                        ((self (:pointer :void)))
+                        :result-type
+                        :void)
 (eval-when (:compile-toplevel :load-toplevel :execute)
   (defconstant +k-roman+ 0
     "This constant was generated automatically.
@@ -2764,169 +2660,145 @@ See FileMaker header files for details."))
     "This constant was generated automatically.
 See FileMaker header files for details."))
 (export (quote +k-face-all-styles+) :fm-plugin-tools) 
-(define-fmxcpt-function
- (fm-data-constructor1 "FM_Data_Constructor1")
- nil
- :result-type
- (:pointer :void))
-(define-fmxcpt-function
- (fm-data-is-empty "FM_Data_IsEmpty")
- ((self (:pointer :void)))
- :result-type
- :boolean)
-(define-fmxcpt-function
- (fm-data-is-valid "FM_Data_IsValid")
- ((self (:pointer :void)))
- :result-type
- :boolean)
-(define-fmxcpt-function
- (fm-data-is-find-request "FM_Data_IsFindRequest")
- ((self (:pointer :void)))
- :result-type
- :boolean)
-(define-fmxcpt-function
- (fm-data-clear "FM_Data_Clear")
- ((self (:pointer :void)) (new-native-type :int))
- :result-type
- :void)
-(define-fmxcpt-function
- (fm-data-get-as-text "FM_Data_GetAsText")
- ((self (:pointer :void)))
- :result-type
- (:pointer :void))
-(define-fmxcpt-function
- (fm-data-get-as-number "FM_Data_GetAsNumber")
- ((self (:pointer :void)))
- :result-type
- (:pointer :void))
-(define-fmxcpt-function
- (fm-data-get-as-date "FM_Data_GetAsDate")
- ((self (:pointer :void)))
- :result-type
- (:pointer :void))
-(define-fmxcpt-function
- (fm-data-get-as-time "FM_Data_GetAsTime")
- ((self (:pointer :void)))
- :result-type
- (:pointer :void))
-(define-fmxcpt-function
- (fm-data-get-as-time-stamp "FM_Data_GetAsTimeStamp")
- ((self (:pointer :void)))
- :result-type
- (:pointer :void))
-(define-fmxcpt-function
- (fm-data-get-as-boolean "FM_Data_GetAsBoolean")
- ((self (:pointer :void)))
- :result-type
- :boolean)
-(define-fmxcpt-function
- (fm-data-get-binary-data "FM_Data_GetBinaryData")
- ((self (:pointer :void)))
- :result-type
- (:pointer :void))
-(define-fmxcpt-function
- (fm-data-get-locale "FM_Data_GetLocale")
- ((self (:pointer :void)))
- :result-type
- (:pointer :void))
-(define-fmxcpt-function
- (fm-data-get-native-type "FM_Data_GetNativeType")
- ((self (:pointer :void)))
- :result-type
- :int)
-(define-fmxcpt-function
- (fm-data-convert-data "FM_Data_ConvertData")
- ((self (:pointer :void)) (native-type :int))
- :result-type
- :void)
-(define-fmxcpt-function
- (fm-data-set-as-text "FM_Data_SetAsText")
- ((self (:pointer :void))
-  (text-data (:pointer :void))
-  (source-locale (:pointer :void))
-  (native-type :int))
- :result-type
- :short)
-(define-fmxcpt-function
- (fm-data-set-as-number "FM_Data_SetAsNumber")
- ((self (:pointer :void))
-  (numeric-data (:pointer :void))
-  (native-type :int))
- :result-type
- :void)
-(define-fmxcpt-function
- (fm-data-set-as-date "FM_Data_SetAsDate")
- ((self (:pointer :void))
-  (date-data (:pointer :void))
-  (native-type :int))
- :result-type
- :void)
-(define-fmxcpt-function
- (fm-data-set-as-time "FM_Data_SetAsTime")
- ((self (:pointer :void))
-  (time-data (:pointer :void))
-  (native-type :int))
- :result-type
- :void)
-(define-fmxcpt-function
- (fm-data-set-as-time-stamp "FM_Data_SetAsTimeStamp")
- ((self (:pointer :void))
-  (time-stamp-data (:pointer :void))
-  (native-type :int))
- :result-type
- :void)
-(define-fmxcpt-function
- (fm-data-set-date-time "FM_Data_SetDateTime")
- ((self (:pointer :void))
-  (date-time-data (:pointer :void))
-  (date-time-type :int)
-  (native-type :int))
- :result-type
- :void)
-(define-fmxcpt-function
- (fm-data-set-binary-data "FM_Data_SetBinaryData")
- ((self (:pointer :void))
-  (binary-data (:pointer :void))
-  (force-binary-native-type :boolean))
- :result-type
- :void)
-(define-fmxcpt-function
- (fm-data-delete "FM_Data_Delete")
- ((self (:pointer :void)))
- :result-type
- :void)
-(define-fmxcpt-function
- (fm-data-get-font-id "FM_Data_GetFontID")
- ((self (:pointer :void))
-  (font-display-name (:pointer :void))
-  (font-script (:pointer :void))
-  (env (:pointer :void)))
- :result-type
- (:unsigned :short))
-(define-fmxcpt-function
- (fm-data-get-postscript-font-id "FM_Data_GetPostscriptFontID")
- ((self (:pointer :void))
-  (font-postscript-name (:pointer :void))
-  (env (:pointer :void)))
- :result-type
- (:unsigned :short))
-(define-fmxcpt-function
- (fm-data-get-font-info "FM_Data_GetFontInfo")
- ((self (:pointer :void))
-  (font (:unsigned :short))
-  (font-display-name (:pointer :void))
-  (font-script (:pointer :void))
-  (env (:pointer :void)))
- :result-type
- :boolean)
-(define-fmxcpt-function
- (fm-data-get-postscript-font-info "FM_Data_GetPostscriptFontInfo")
- ((self (:pointer :void))
-  (font (:unsigned :short))
-  (font-postscript-name (:pointer :void))
-  (env (:pointer :void)))
- :result-type
- :boolean)
+
+;; #include <FMXData.h>
+(define-fmxcpt-function (fm-data-constructor1 "FM_Data_Constructor1")
+                        nil
+                        :result-type
+                        (:pointer :void))
+(define-fmxcpt-function (fm-data-is-empty "FM_Data_IsEmpty")
+                        ((self (:pointer :void)))
+                        :result-type
+                        :boolean)
+(define-fmxcpt-function (fm-data-is-valid "FM_Data_IsValid")
+                        ((self (:pointer :void)))
+                        :result-type
+                        :boolean)
+(define-fmxcpt-function (fm-data-is-find-request "FM_Data_IsFindRequest")
+                        ((self (:pointer :void)))
+                        :result-type
+                        :boolean)
+(define-fmxcpt-function (fm-data-clear "FM_Data_Clear")
+                        ((self (:pointer :void))
+                         (new-native-type :int))
+                        :result-type
+                        :void)
+(define-fmxcpt-function (fm-data-get-as-text "FM_Data_GetAsText")
+                        ((self (:pointer :void)))
+                        :result-type
+                        (:pointer :void))
+(define-fmxcpt-function (fm-data-get-as-number "FM_Data_GetAsNumber")
+                        ((self (:pointer :void)))
+                        :result-type
+                        (:pointer :void))
+(define-fmxcpt-function (fm-data-get-as-date "FM_Data_GetAsDate")
+                        ((self (:pointer :void)))
+                        :result-type
+                        (:pointer :void))
+(define-fmxcpt-function (fm-data-get-as-time "FM_Data_GetAsTime")
+                        ((self (:pointer :void)))
+                        :result-type
+                        (:pointer :void))
+(define-fmxcpt-function (fm-data-get-as-time-stamp "FM_Data_GetAsTimeStamp")
+                        ((self (:pointer :void)))
+                        :result-type
+                        (:pointer :void))
+(define-fmxcpt-function (fm-data-get-as-boolean "FM_Data_GetAsBoolean")
+                        ((self (:pointer :void)))
+                        :result-type
+                        :boolean)
+(define-fmxcpt-function (fm-data-get-binary-data "FM_Data_GetBinaryData")
+                        ((self (:pointer :void)))
+                        :result-type
+                        (:pointer :void))
+(define-fmxcpt-function (fm-data-get-locale "FM_Data_GetLocale")
+                        ((self (:pointer :void)))
+                        :result-type
+                        (:pointer :void))
+(define-fmxcpt-function (fm-data-get-native-type "FM_Data_GetNativeType")
+                        ((self (:pointer :void)))
+                        :result-type
+                        :int)
+(define-fmxcpt-function (fm-data-convert-data "FM_Data_ConvertData")
+                        ((self (:pointer :void)) (native-type :int))
+                        :result-type
+                        :void)
+(define-fmxcpt-function (fm-data-set-as-text "FM_Data_SetAsText")
+                        ((self (:pointer :void))
+                         (text-data (:pointer :void))
+                         (source-locale (:pointer :void))
+                         (native-type :int))
+                        :result-type
+                        :short)
+(define-fmxcpt-function (fm-data-set-as-number "FM_Data_SetAsNumber")
+                        ((self (:pointer :void))
+                         (numeric-data (:pointer :void))
+                         (native-type :int))
+                        :result-type
+                        :void)
+(define-fmxcpt-function (fm-data-set-as-date "FM_Data_SetAsDate")
+                        ((self (:pointer :void))
+                         (date-data (:pointer :void))
+                         (native-type :int))
+                        :result-type
+                        :void)
+(define-fmxcpt-function (fm-data-set-as-time "FM_Data_SetAsTime")
+                        ((self (:pointer :void))
+                         (time-data (:pointer :void))
+                         (native-type :int))
+                        :result-type
+                        :void)
+(define-fmxcpt-function (fm-data-set-as-time-stamp "FM_Data_SetAsTimeStamp")
+                        ((self (:pointer :void))
+                         (time-stamp-data (:pointer :void))
+                         (native-type :int))
+                        :result-type
+                        :void)
+(define-fmxcpt-function (fm-data-set-date-time "FM_Data_SetDateTime")
+                        ((self (:pointer :void))
+                         (date-time-data (:pointer :void))
+                         (date-time-type :int)
+                         (native-type :int))
+                        :result-type
+                        :void)
+(define-fmxcpt-function (fm-data-set-binary-data "FM_Data_SetBinaryData")
+                        ((self (:pointer :void))
+                         (binary-data (:pointer :void))
+                         (force-binary-native-type :boolean))
+                        :result-type
+                        :void)
+(define-fmxcpt-function (fm-data-delete "FM_Data_Delete")
+                        ((self (:pointer :void)))
+                        :result-type
+                        :void)
+(define-fmxcpt-function (fm-data-get-font-id "FM_Data_GetFontID")
+                        ((self (:pointer :void))
+                         (font-display-name (:pointer :void))
+                         (font-script (:pointer :void))
+                         (env (:pointer :void)))
+                        :result-type
+                        (:unsigned :short))
+(define-fmxcpt-function (fm-data-get-postscript-font-id "FM_Data_GetPostscriptFontID")
+                        ((self (:pointer :void))
+                         (font-postscript-name (:pointer :void))
+                         (env (:pointer :void)))
+                        :result-type
+                        (:unsigned :short))
+(define-fmxcpt-function (fm-data-get-font-info "FM_Data_GetFontInfo")
+                        ((self (:pointer :void))
+                         (font (:unsigned :short))
+                         (font-display-name (:pointer :void))
+                         (font-script (:pointer :void))
+                         (env (:pointer :void)))
+                        :result-type
+                        :boolean)
+(define-fmxcpt-function (fm-data-get-postscript-font-info "FM_Data_GetPostscriptFontInfo")
+                        ((self (:pointer :void))
+                         (font (:unsigned :short))
+                         (font-postscript-name (:pointer :void))
+                         (env (:pointer :void)))
+                        :result-type
+                        :boolean)
 (eval-when (:compile-toplevel :load-toplevel :execute)
   (defconstant +k-dtinvalid+ 0
     "This constant was generated automatically.
@@ -2967,325 +2839,287 @@ See FileMaker header files for details."))
     "This constant was generated automatically.
 See FileMaker header files for details."))
 (export (quote +k-dtboolean+) :fm-plugin-tools) 
-(define-fmxcpt-function
- (fm-date-time-constructor1 "FM_DateTime_Constructor1")
- nil
- :result-type
- (:pointer :void))
-(define-fmxcpt-function
- (fm-date-time-constructor2 "FM_DateTime_Constructor2")
- ((date-string (:pointer :void))
-  (date-length (:unsigned :int))
-  (intl (:pointer :void)))
- :result-type
- (:pointer :void))
-(define-fmxcpt-function
- (fm-date-time-constructor3 "FM_DateTime_Constructor3")
- ((date-text (:pointer :void)) (intl (:pointer :void)))
- :result-type
- (:pointer :void))
-(define-fmxcpt-function
- (fm-date-time-operator-eq "FM_DateTime_operatorEQ")
- ((self (:pointer :void)) (that (:pointer :void)))
- :result-type
- :boolean)
-(define-fmxcpt-function
- (fm-date-time-operator-ne "FM_DateTime_operatorNE")
- ((self (:pointer :void)) (that (:pointer :void)))
- :result-type
- :boolean)
-(define-fmxcpt-function
- (fm-date-time-is-leap-year "FM_DateTime_IsLeapYear")
- ((self (:pointer :void)))
- :result-type
- :boolean)
-(define-fmxcpt-function
- (fm-date-time-day-of-week "FM_DateTime_DayOfWeek")
- ((self (:pointer :void)))
- :result-type
- :short)
-(define-fmxcpt-function
- (fm-date-time-day-of-year "FM_DateTime_DayOfYear")
- ((self (:pointer :void)))
- :result-type
- :short)
-(define-fmxcpt-function
- (fm-date-time-week-of-year "FM_DateTime_WeekOfYear")
- ((self (:pointer :void)))
- :result-type
- :short)
-(define-fmxcpt-function
- (fm-date-time-now "FM_DateTime_Now")
- ((self (:pointer :void)))
- :result-type
- :void)
-(define-fmxcpt-function
- (fm-date-time-set-date "FM_DateTime_SetDate")
- ((self (:pointer :void)) (datetime (:pointer :void)))
- :result-type
- :void)
-(define-fmxcpt-function
- (fm-date-time-set-normalized-date1 "FM_DateTime_SetNormalizedDate1")
- ((self (:pointer :void)) (month :short) (day :short) (year :short))
- :result-type
- :short)
-(define-fmxcpt-function
- (fm-date-time-set-normalized-date2 "FM_DateTime_SetNormalizedDate2")
- ((self (:pointer :void))
-  (year (:pointer :void))
-  (month (:pointer :void))
-  (day (:pointer :void)))
- :result-type
- :short)
-(define-fmxcpt-function
- (fm-date-time-set-days-since-epoch "FM_DateTime_SetDaysSinceEpoch")
- ((self (:pointer :void)) (days :long))
- :result-type
- :void)
-(define-fmxcpt-function
- (fm-date-time-set-time "FM_DateTime_SetTime")
- ((self (:pointer :void)) (datetime (:pointer :void)))
- :result-type
- :void)
-(define-fmxcpt-function
- (fm-date-time-set-normalized-time1 "FM_DateTime_SetNormalizedTime1")
- ((self (:pointer :void))
-  (hour :long)
-  (minute :short)
-  (sec :short)
-  (usec :int))
- :result-type
- :short)
-(define-fmxcpt-function
- (fm-date-time-set-normalized-time2 "FM_DateTime_SetNormalizedTime2")
- ((self (:pointer :void))
-  (hour (:pointer :void))
-  (minute (:pointer :void))
-  (sec (:pointer :void)))
- :result-type
- :short)
-(define-fmxcpt-function
- (fm-date-time-set-secs-since-midnight
-  "FM_DateTime_SetSecsSinceMidnight")
- ((self (:pointer :void)) (secs (:pointer :void)))
- :result-type
- :void)
-(define-fmxcpt-function
- (fm-date-time-set-seconds-since-epoch
-  "FM_DateTime_SetSecondsSinceEpoch")
- ((self (:pointer :void)) (seconds (:pointer :void)))
- :result-type
- :void)
-(define-fmxcpt-function
- (fm-date-time-get-year "FM_DateTime_GetYear")
- ((self (:pointer :void)))
- :result-type
- :short)
-(define-fmxcpt-function
- (fm-date-time-get-month "FM_DateTime_GetMonth")
- ((self (:pointer :void)))
- :result-type
- :short)
-(define-fmxcpt-function
- (fm-date-time-get-day "FM_DateTime_GetDay")
- ((self (:pointer :void)))
- :result-type
- :short)
-(define-fmxcpt-function
- (fm-date-time-get-days-since-epoch "FM_DateTime_GetDaysSinceEpoch")
- ((self (:pointer :void)))
- :result-type
- :int)
-(define-fmxcpt-function
- (fm-date-time-get-hour "FM_DateTime_GetHour")
- ((self (:pointer :void)))
- :result-type
- :int)
-(define-fmxcpt-function
- (fm-date-time-get-minute "FM_DateTime_GetMinute")
- ((self (:pointer :void)))
- :result-type
- :short)
-(define-fmxcpt-function
- (fm-date-time-get-sec "FM_DateTime_GetSec")
- ((self (:pointer :void)))
- :result-type
- :short)
-(define-fmxcpt-function
- (fm-date-time-get-usec "FM_DateTime_GetUSec")
- ((self (:pointer :void)))
- :result-type
- :int)
-(define-fmxcpt-function
- (fm-date-time-get-seconds "FM_DateTime_GetSeconds")
- ((self (:pointer :void)) (results (:pointer :void)))
- :result-type
- :void)
-(define-fmxcpt-function
- (fm-date-time-get-secs-since-midnight
-  "FM_DateTime_GetSecsSinceMidnight")
- ((self (:pointer :void)) (results (:pointer :void)))
- :result-type
- :void)
-(define-fmxcpt-function
- (fm-date-time-get-seconds-since-epoch
-  "FM_DateTime_GetSecondsSinceEpoch")
- ((self (:pointer :void)) (results (:pointer :void)))
- :result-type
- :void)
-(define-fmxcpt-function
- (fm-date-time-delete "FM_DateTime_Delete")
- ((self (:pointer :void)))
- :result-type
- :void)
-(define-fmxcpt-function
- (fm-fix-pt-constructor1 "FM_FixPt_Constructor1")
- ((val :int) (precision :int))
- :result-type
- (:pointer :void))
-(define-fmxcpt-function
- (fm-fix-pt-constructor2 "FM_FixPt_Constructor2")
- ((val :int) (precision-example (:pointer :void)))
- :result-type
- (:pointer :void))
-(define-fmxcpt-function
- (fm-fix-pt-assign-int "FM_FixPt_AssignInt")
- ((self (:pointer :void)) (that :int))
- :result-type
- :void)
-(define-fmxcpt-function
- (fm-fix-pt-assign-int64 "FM_FixPt_AssignInt64")
- ((self (:pointer :void)) (that :long))
- :result-type
- :void)
-(define-fmxcpt-function
- (fm-fix-pt-assign-double "FM_FixPt_AssignDouble")
- ((self (:pointer :void)) (that :double))
- :result-type
- :void)
-(define-fmxcpt-function
- (fm-fix-pt-assign-fix-pt "FM_FixPt_AssignFixPt")
- ((self (:pointer :void)) (that (:pointer :void)))
- :result-type
- :void)
-(define-fmxcpt-function
- (fm-fix-pt-operator-eq "FM_FixPt_operatorEQ")
- ((self (:pointer :void)) (that (:pointer :void)))
- :result-type
- :boolean)
-(define-fmxcpt-function
- (fm-fix-pt-operator-ne "FM_FixPt_operatorNE")
- ((self (:pointer :void)) (that (:pointer :void)))
- :result-type
- :boolean)
-(define-fmxcpt-function
- (fm-fix-pt-operator-lt "FM_FixPt_operatorLT")
- ((self (:pointer :void)) (that (:pointer :void)))
- :result-type
- :boolean)
-(define-fmxcpt-function
- (fm-fix-pt-operator-le "FM_FixPt_operatorLE")
- ((self (:pointer :void)) (that (:pointer :void)))
- :result-type
- :boolean)
-(define-fmxcpt-function
- (fm-fix-pt-operator-gt "FM_FixPt_operatorGT")
- ((self (:pointer :void)) (that (:pointer :void)))
- :result-type
- :boolean)
-(define-fmxcpt-function
- (fm-fix-pt-operator-ge "FM_FixPt_operatorGE")
- ((self (:pointer :void)) (that (:pointer :void)))
- :result-type
- :boolean)
-(define-fmxcpt-function
- (fm-fix-pt-increment "FM_FixPt_Increment")
- ((self (:pointer :void)) (n :int))
- :result-type
- :void)
-(define-fmxcpt-function
- (fm-fix-pt-increment64 "FM_FixPt_Increment64")
- ((self (:pointer :void)) (n :long))
- :result-type
- :void)
-(define-fmxcpt-function
- (fm-fix-pt-decrement "FM_FixPt_Decrement")
- ((self (:pointer :void)) (n :int))
- :result-type
- :void)
-(define-fmxcpt-function
- (fm-fix-pt-decrement64 "FM_FixPt_Decrement64")
- ((self (:pointer :void)) (n :long))
- :result-type
- :void)
-(define-fmxcpt-function
- (fm-fix-pt-negate "FM_FixPt_Negate")
- ((self (:pointer :void)))
- :result-type
- :void)
-(define-fmxcpt-function
- (fm-fix-pt-get-precision "FM_FixPt_GetPrecision")
- ((self (:pointer :void)))
- :result-type
- :int)
-(define-fmxcpt-function
- (fm-fix-pt-set-precision "FM_FixPt_SetPrecision")
- ((self (:pointer :void)) (precision :int))
- :result-type
- :void)
-(define-fmxcpt-function
- (fm-fix-pt-add "FM_FixPt_Add")
- ((self (:pointer :void))
-  (arg (:pointer :void))
-  (result (:pointer :void)))
- :result-type
- :void)
-(define-fmxcpt-function
- (fm-fix-pt-subtract "FM_FixPt_Subtract")
- ((self (:pointer :void))
-  (arg (:pointer :void))
-  (result (:pointer :void)))
- :result-type
- :void)
-(define-fmxcpt-function
- (fm-fix-pt-multiply "FM_FixPt_Multiply")
- ((self (:pointer :void))
-  (arg (:pointer :void))
-  (result (:pointer :void)))
- :result-type
- :void)
-(define-fmxcpt-function
- (fm-fix-pt-divide "FM_FixPt_Divide")
- ((self (:pointer :void))
-  (arg (:pointer :void))
-  (result (:pointer :void)))
- :result-type
- :short)
-(define-fmxcpt-function
- (fm-fix-pt-as-bool "FM_FixPt_AsBool")
- ((self (:pointer :void)))
- :result-type
- :boolean)
-(define-fmxcpt-function
- (fm-fix-pt-as-long "FM_FixPt_AsLong")
- ((self (:pointer :void)))
- :result-type
- :int)
-(define-fmxcpt-function
- (fm-fix-pt-as-long64 "FM_FixPt_AsLong64")
- ((self (:pointer :void)))
- :result-type
- :long)
-(define-fmxcpt-function
- (fm-fix-pt-as-float "FM_FixPt_AsFloat")
- ((self (:pointer :void)))
- :result-type
- :double)
-(define-fmxcpt-function
- (fm-fix-pt-delete "FM_FixPt_Delete")
- ((self (:pointer :void)))
- :result-type
- :void)
+
+;; #include <FMXDateTime.h>
+(define-fmxcpt-function (fm-date-time-constructor1 "FM_DateTime_Constructor1")
+                        nil
+                        :result-type
+                        (:pointer :void))
+(define-fmxcpt-function (fm-date-time-constructor2 "FM_DateTime_Constructor2")
+                        ((date-string (:pointer :void))
+                         (date-length (:unsigned :int))
+                         (intl (:pointer :void)))
+                        :result-type
+                        (:pointer :void))
+(define-fmxcpt-function (fm-date-time-constructor3 "FM_DateTime_Constructor3")
+                        ((date-text (:pointer :void))
+                         (intl (:pointer :void)))
+                        :result-type
+                        (:pointer :void))
+(define-fmxcpt-function (fm-date-time-operator-eq "FM_DateTime_operatorEQ")
+                        ((self (:pointer :void))
+                         (that (:pointer :void)))
+                        :result-type
+                        :boolean)
+(define-fmxcpt-function (fm-date-time-operator-ne "FM_DateTime_operatorNE")
+                        ((self (:pointer :void))
+                         (that (:pointer :void)))
+                        :result-type
+                        :boolean)
+(define-fmxcpt-function (fm-date-time-is-leap-year "FM_DateTime_IsLeapYear")
+                        ((self (:pointer :void)))
+                        :result-type
+                        :boolean)
+(define-fmxcpt-function (fm-date-time-day-of-week "FM_DateTime_DayOfWeek")
+                        ((self (:pointer :void)))
+                        :result-type
+                        :short)
+(define-fmxcpt-function (fm-date-time-day-of-year "FM_DateTime_DayOfYear")
+                        ((self (:pointer :void)))
+                        :result-type
+                        :short)
+(define-fmxcpt-function (fm-date-time-week-of-year "FM_DateTime_WeekOfYear")
+                        ((self (:pointer :void)))
+                        :result-type
+                        :short)
+(define-fmxcpt-function (fm-date-time-now "FM_DateTime_Now")
+                        ((self (:pointer :void)))
+                        :result-type
+                        :void)
+(define-fmxcpt-function (fm-date-time-set-date "FM_DateTime_SetDate")
+                        ((self (:pointer :void))
+                         (datetime (:pointer :void)))
+                        :result-type
+                        :void)
+(define-fmxcpt-function (fm-date-time-set-normalized-date1 "FM_DateTime_SetNormalizedDate1")
+                        ((self (:pointer :void))
+                         (month :short)
+                         (day :short)
+                         (year :short))
+                        :result-type
+                        :short)
+(define-fmxcpt-function (fm-date-time-set-normalized-date2 "FM_DateTime_SetNormalizedDate2")
+                        ((self (:pointer :void))
+                         (year (:pointer :void))
+                         (month (:pointer :void))
+                         (day (:pointer :void)))
+                        :result-type
+                        :short)
+(define-fmxcpt-function (fm-date-time-set-days-since-epoch "FM_DateTime_SetDaysSinceEpoch")
+                        ((self (:pointer :void)) (days :long))
+                        :result-type
+                        :void)
+(define-fmxcpt-function (fm-date-time-set-time "FM_DateTime_SetTime")
+                        ((self (:pointer :void))
+                         (datetime (:pointer :void)))
+                        :result-type
+                        :void)
+(define-fmxcpt-function (fm-date-time-set-normalized-time1 "FM_DateTime_SetNormalizedTime1")
+                        ((self (:pointer :void))
+                         (hour :long)
+                         (minute :short)
+                         (sec :short)
+                         (usec :int))
+                        :result-type
+                        :short)
+(define-fmxcpt-function (fm-date-time-set-normalized-time2 "FM_DateTime_SetNormalizedTime2")
+                        ((self (:pointer :void))
+                         (hour (:pointer :void))
+                         (minute (:pointer :void))
+                         (sec (:pointer :void)))
+                        :result-type
+                        :short)
+(define-fmxcpt-function (fm-date-time-set-secs-since-midnight "FM_DateTime_SetSecsSinceMidnight")
+                        ((self (:pointer :void))
+                         (secs (:pointer :void)))
+                        :result-type
+                        :void)
+(define-fmxcpt-function (fm-date-time-set-seconds-since-epoch "FM_DateTime_SetSecondsSinceEpoch")
+                        ((self (:pointer :void))
+                         (seconds (:pointer :void)))
+                        :result-type
+                        :void)
+(define-fmxcpt-function (fm-date-time-get-year "FM_DateTime_GetYear")
+                        ((self (:pointer :void)))
+                        :result-type
+                        :short)
+(define-fmxcpt-function (fm-date-time-get-month "FM_DateTime_GetMonth")
+                        ((self (:pointer :void)))
+                        :result-type
+                        :short)
+(define-fmxcpt-function (fm-date-time-get-day "FM_DateTime_GetDay")
+                        ((self (:pointer :void)))
+                        :result-type
+                        :short)
+(define-fmxcpt-function (fm-date-time-get-days-since-epoch "FM_DateTime_GetDaysSinceEpoch")
+                        ((self (:pointer :void)))
+                        :result-type
+                        :int)
+(define-fmxcpt-function (fm-date-time-get-hour "FM_DateTime_GetHour")
+                        ((self (:pointer :void)))
+                        :result-type
+                        :int)
+(define-fmxcpt-function (fm-date-time-get-minute "FM_DateTime_GetMinute")
+                        ((self (:pointer :void)))
+                        :result-type
+                        :short)
+(define-fmxcpt-function (fm-date-time-get-sec "FM_DateTime_GetSec")
+                        ((self (:pointer :void)))
+                        :result-type
+                        :short)
+(define-fmxcpt-function (fm-date-time-get-usec "FM_DateTime_GetUSec")
+                        ((self (:pointer :void)))
+                        :result-type
+                        :int)
+(define-fmxcpt-function (fm-date-time-get-seconds "FM_DateTime_GetSeconds")
+                        ((self (:pointer :void))
+                         (results (:pointer :void)))
+                        :result-type
+                        :void)
+(define-fmxcpt-function (fm-date-time-get-secs-since-midnight "FM_DateTime_GetSecsSinceMidnight")
+                        ((self (:pointer :void))
+                         (results (:pointer :void)))
+                        :result-type
+                        :void)
+(define-fmxcpt-function (fm-date-time-get-seconds-since-epoch "FM_DateTime_GetSecondsSinceEpoch")
+                        ((self (:pointer :void))
+                         (results (:pointer :void)))
+                        :result-type
+                        :void)
+(define-fmxcpt-function (fm-date-time-delete "FM_DateTime_Delete")
+                        ((self (:pointer :void)))
+                        :result-type
+                        :void)
+
+;; #include <FMXFixPt.h>
+(define-fmxcpt-function (fm-fix-pt-constructor1 "FM_FixPt_Constructor1")
+                        ((val :int) (precision :int))
+                        :result-type
+                        (:pointer :void))
+(define-fmxcpt-function (fm-fix-pt-constructor2 "FM_FixPt_Constructor2")
+                        ((val :int)
+                         (precision-example (:pointer :void)))
+                        :result-type
+                        (:pointer :void))
+(define-fmxcpt-function (fm-fix-pt-assign-int "FM_FixPt_AssignInt")
+                        ((self (:pointer :void)) (that :int))
+                        :result-type
+                        :void)
+(define-fmxcpt-function (fm-fix-pt-assign-int64 "FM_FixPt_AssignInt64")
+                        ((self (:pointer :void)) (that :long))
+                        :result-type
+                        :void)
+(define-fmxcpt-function (fm-fix-pt-assign-double "FM_FixPt_AssignDouble")
+                        ((self (:pointer :void)) (that :double))
+                        :result-type
+                        :void)
+(define-fmxcpt-function (fm-fix-pt-assign-fix-pt "FM_FixPt_AssignFixPt")
+                        ((self (:pointer :void))
+                         (that (:pointer :void)))
+                        :result-type
+                        :void)
+(define-fmxcpt-function (fm-fix-pt-operator-eq "FM_FixPt_operatorEQ")
+                        ((self (:pointer :void))
+                         (that (:pointer :void)))
+                        :result-type
+                        :boolean)
+(define-fmxcpt-function (fm-fix-pt-operator-ne "FM_FixPt_operatorNE")
+                        ((self (:pointer :void))
+                         (that (:pointer :void)))
+                        :result-type
+                        :boolean)
+(define-fmxcpt-function (fm-fix-pt-operator-lt "FM_FixPt_operatorLT")
+                        ((self (:pointer :void))
+                         (that (:pointer :void)))
+                        :result-type
+                        :boolean)
+(define-fmxcpt-function (fm-fix-pt-operator-le "FM_FixPt_operatorLE")
+                        ((self (:pointer :void))
+                         (that (:pointer :void)))
+                        :result-type
+                        :boolean)
+(define-fmxcpt-function (fm-fix-pt-operator-gt "FM_FixPt_operatorGT")
+                        ((self (:pointer :void))
+                         (that (:pointer :void)))
+                        :result-type
+                        :boolean)
+(define-fmxcpt-function (fm-fix-pt-operator-ge "FM_FixPt_operatorGE")
+                        ((self (:pointer :void))
+                         (that (:pointer :void)))
+                        :result-type
+                        :boolean)
+(define-fmxcpt-function (fm-fix-pt-increment "FM_FixPt_Increment")
+                        ((self (:pointer :void)) (n :int))
+                        :result-type
+                        :void)
+(define-fmxcpt-function (fm-fix-pt-increment64 "FM_FixPt_Increment64")
+                        ((self (:pointer :void)) (n :long))
+                        :result-type
+                        :void)
+(define-fmxcpt-function (fm-fix-pt-decrement "FM_FixPt_Decrement")
+                        ((self (:pointer :void)) (n :int))
+                        :result-type
+                        :void)
+(define-fmxcpt-function (fm-fix-pt-decrement64 "FM_FixPt_Decrement64")
+                        ((self (:pointer :void)) (n :long))
+                        :result-type
+                        :void)
+(define-fmxcpt-function (fm-fix-pt-negate "FM_FixPt_Negate")
+                        ((self (:pointer :void)))
+                        :result-type
+                        :void)
+(define-fmxcpt-function (fm-fix-pt-get-precision "FM_FixPt_GetPrecision")
+                        ((self (:pointer :void)))
+                        :result-type
+                        :int)
+(define-fmxcpt-function (fm-fix-pt-set-precision "FM_FixPt_SetPrecision")
+                        ((self (:pointer :void)) (precision :int))
+                        :result-type
+                        :void)
+(define-fmxcpt-function (fm-fix-pt-add "FM_FixPt_Add")
+                        ((self (:pointer :void))
+                         (arg (:pointer :void))
+                         (result (:pointer :void)))
+                        :result-type
+                        :void)
+(define-fmxcpt-function (fm-fix-pt-subtract "FM_FixPt_Subtract")
+                        ((self (:pointer :void))
+                         (arg (:pointer :void))
+                         (result (:pointer :void)))
+                        :result-type
+                        :void)
+(define-fmxcpt-function (fm-fix-pt-multiply "FM_FixPt_Multiply")
+                        ((self (:pointer :void))
+                         (arg (:pointer :void))
+                         (result (:pointer :void)))
+                        :result-type
+                        :void)
+(define-fmxcpt-function (fm-fix-pt-divide "FM_FixPt_Divide")
+                        ((self (:pointer :void))
+                         (arg (:pointer :void))
+                         (result (:pointer :void)))
+                        :result-type
+                        :short)
+(define-fmxcpt-function (fm-fix-pt-as-bool "FM_FixPt_AsBool")
+                        ((self (:pointer :void)))
+                        :result-type
+                        :boolean)
+(define-fmxcpt-function (fm-fix-pt-as-long "FM_FixPt_AsLong")
+                        ((self (:pointer :void)))
+                        :result-type
+                        :int)
+(define-fmxcpt-function (fm-fix-pt-as-long64 "FM_FixPt_AsLong64")
+                        ((self (:pointer :void)))
+                        :result-type
+                        :long)
+(define-fmxcpt-function (fm-fix-pt-as-float "FM_FixPt_AsFloat")
+                        ((self (:pointer :void)))
+                        :result-type
+                        :double)
+(define-fmxcpt-function (fm-fix-pt-delete "FM_FixPt_Delete")
+                        ((self (:pointer :void)))
+                        :result-type
+                        :void)
 (eval-when (:compile-toplevel :load-toplevel :execute)
   (defconstant +k-deflt-fixed-precision+ 16
     "This constant was generated automatically.
