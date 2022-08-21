@@ -1,3 +1,6 @@
+Version 0.4.1 (by Chun Tian)
+A C/C++ pre-processor is no more needed for preparing `fli.lisp` (just like versions before 0.3.0).
+
 Version 0.4.0 (by Chun Tian)
 2022-07-23
 Use DEFINE-PLUGIN-SCRIPT-STEP to define new script steps (New to FileMaker Pro 16 and later)
