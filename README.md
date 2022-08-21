@@ -44,7 +44,7 @@ downloaded from
 plugin headers from latest SDK headers should also work for old versions of FileMaker Pro
 and FileMaker Pro Advanced.)
 
-Then call `(prepare:prepare)` after load `:prepare-fm-plugin-tools`.
+Then call `(prepare:prepare)` after loading `:prepare-fm-plugin-tools`.
 
 ## Unified plug-in bundle format
 
