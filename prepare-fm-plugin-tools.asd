@@ -1,5 +1,4 @@
 ;;; -*- Mode: LISP; Syntax: COMMON-LISP; Package: CL-USER; Base: 10 -*-
-;;; $Header: /usr/local/cvsrep/fm-plugin-tools/prepare-fm-plugin-tools.asd,v 1.11 2010/07/22 09:38:06 edi Exp $
 
 ;;; Copyright (c) 2006-2010, Dr. Edmund Weitz.  All rights reserved.
 
@@ -28,7 +27,7 @@
 ;;; SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 (asdf:defsystem :prepare-fm-plugin-tools
-  :version "0.4.0"
+  :version "0.4.1"
   :components  ((:module "prepare-fm-plugin-tools"
                          :serial t
                          :components ((:file "packages")
