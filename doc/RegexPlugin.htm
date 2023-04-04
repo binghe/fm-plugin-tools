@@ -1,511 +1,485 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "dtd" [
+]>
+<?xml-stylesheet href="/C:/Program Files (x86)/Adobe/AdobeFrameMaker2015/structure/xml/xhtml/app/xhtml.css" type="text/css"?>
 
-<!DOCTYPE html
-   PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" >
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <title>
-      RegEx PlugIn
-    </title>
-  </head>
-  <body>
-    <h1 class="entry-title" style="margin: 0px; padding: 0px; border:       0px; font-size: 1.571428571rem; vertical-align: baseline; clear:       both; line-height: 1.2; font-weight: normal;">
-      RegEx PlugIn
-    </h1>
-    <p>
-      <b
-      style="margin: 0px; padding: 0px; border: 0px; font-size:         14px; vertical-align: baseline;">RegexPlugIn</b><span
-      class="Apple-converted-space">&nbsp;</span>is a Plug-In for<span
-      class="Apple-converted-space">&nbsp;</span><a
-      href="https://www.claris.com/filemaker/"
-      style="margin: 0px;         padding: 0px; border: 0px; font-size: 14px; vertical-align:         baseline; outline: none; color: rgb(159, 159, 159);">FileMaker</a><span
-      class="Apple-converted-space">&nbsp;</span>which enables FileMaker users
-      to work with regular expressions.<br />
-    </p>
-    <p style="margin: 0px 0px 1.714285714rem; padding: 0px; border: 0px;       font-size: 14px; vertical-align: baseline; line-height:       1.714285714;">
-      It works with FileMaker&nbsp;8 or higher on Microsoft Windows or Mac OS X
-      on Intel (requires 10.4 or higher), both 32-bit and 64-bit.
-    </p>
-    <p style="margin: 0px 0px 1.714285714rem; padding: 0px; border: 0px;       font-size: 14px; vertical-align: baseline; line-height:       1.714285714;">
-      +<span class="Apple-converted-space">&nbsp;</span><span
-      style="margin: 0px; padding: 0px; border: 0px; font-size: 14px;         vertical-align: baseline; color: darkblue;">D
-      o w n l o a d<span class="Apple-converted-space">&nbsp;</span></span>+ + +
-      + + + +<br /> +<span class="Apple-converted-space">&nbsp;</span><br /> <b
-      style="margin: 0px; padding: 0px; border: 0px; font-size: 14px;         vertical-align: baseline;">RegexPlugIn</b><span
-      class="Apple-converted-space">&nbsp;</span>is available as source and
-      binary ZIP archives from<span class="Apple-converted-space"></span><span
-      class="Apple-converted-space"> </span><a
-      href="https://github.com/binghe/fm-plugin-tools"
-      style="margin:         0px; padding: 0px; border: 0px; font-size: 14px; vertical-align:         baseline; outline: none; color: rgb(159, 159, 159);">GitHub</a><span
-      class="Apple-converted-space"></span>. The current version is<span
-      class="Apple-converted-space">&nbsp;</span><b
-      style="margin:         0px; padding: 0px; border: 0px; font-size: 14px; vertical-align:         baseline;">0.3.0</b>.<span
-      class="Apple-converted-space"></span>
-    </p>
-    <p style="margin: 0px 0px 1.714285714rem; padding: 0px; border: 0px;       font-size: 14px; vertical-align: baseline; line-height:       1.714285714;">
-      +<span class="Apple-converted-space">&nbsp;</span><span
-      style="margin: 0px; padding: 0px; border: 0px; font-size: 14px;         vertical-align: baseline; color: darkblue;">L
-      i c e n s e<span class="Apple-converted-space">&nbsp;</span></span>+ + + +
-      + + +<br /> +<span class="Apple-converted-space">&nbsp;</span><br /> The<span
-      class="Apple-converted-space">&nbsp;</span><b
-      style="margin: 0px; padding: 0px; border: 0px; font-size: 14px;         vertical-align: baseline;">RegexPlugIn</b><span
-      class="Apple-converted-space">&nbsp;</span>is Copyright © 2006-2014<span
-      class="Apple-converted-space">&nbsp;</span><a
-      href="https://web.archive.org/web/20170525205853/http://jensteich.de/"
-      style="margin: 0px; padding: 0px; border: 0px; font-size: 14px;         vertical-align: baseline; outline: none; color: rgb(159, 159,         159);">Dr.
-      Jens Teich</a><span class="Apple-converted-space">&nbsp;</span>and<span
-      class="Apple-converted-space">&nbsp;</span><span
-      class="Apple-converted-space">&nbsp;</span><a
-      href="https://web.archive.org/web/20170525205853/http://weitz.de/"
-      style="margin: 0px; padding: 0px; border: 0px; font-size: 14px;         vertical-align: baseline; outline: none; color: rgb(159, 159,         159);">Dr.
-      Edmund Weitz</a><span class="Apple-converted-space">&nbsp;</span>– All
-      Rights Reserved.
-    </p>
-    <p style="margin: 0px 0px 1.714285714rem; padding: 0px; border: 0px;       font-size: 14px; vertical-align: baseline; line-height:       1.714285714;">
-      The<span class="Apple-converted-space">&nbsp;</span><b
-      style="margin: 0px; padding: 0px; border: 0px; font-size: 14px;         vertical-align: baseline;">RegexPlugIn</b><span
-      class="Apple-converted-space">&nbsp;</span>is free for private or
-      commercial use. You are allowed to redistribute it as long as this license
-      information is included. The software is provided ‘as is’ with no warranty
-      – use at your own risk.
-    </p>
-    <p style="margin: 0px 0px 1.714285714rem; padding: 0px; border: 0px;       font-size: 14px; vertical-align: baseline; line-height:       1.714285714;">
-      +<span class="Apple-converted-space">&nbsp;</span><span
-      style="margin: 0px; padding: 0px; border: 0px; font-size: 14px;         vertical-align: baseline; color: darkblue;">S
-      u p p o r t<span class="Apple-converted-space">&nbsp;</span></span>+ + + +
-      + + +<br /> +<span class="Apple-converted-space">&nbsp;</span><br /> Support
-      for<span class="Apple-converted-space">&nbsp;</span><b
-      style="margin: 0px; padding: 0px; border: 0px; font-size: 14px;         vertical-align: baseline;">RegexPlugIn</b><span
-      class="Apple-converted-space">&nbsp;</span>is available via<span
-      class="Apple-converted-space">&nbsp;</span><span
-      class="Apple-converted-space"> </span><a
-      href="https://github.com/binghe/fm-plugin-tools/issues"
-      style="margin: 0px; padding: 0px; border: 0px; font-size: 14px;         vertical-align: baseline; outline: none; color: rgb(159, 159,         159);"><b
-      style="margin: 0px; padding:           0px; border: 0px; font-size: 14px; vertical-align: baseline;">GitHub
-      issues</b><span class="Apple-converted-space"></span></a>. If you have any
-      questions or if you want to report bugs,<span class="Apple-converted-space">&nbsp;</span><em
-      style="margin:         0px; padding: 0px; border: 0px; font-size: 14px; vertical-align:         baseline;">please</em><span
-      class="Apple-converted-space">&nbsp;</span>use this mailing list and don’t
-      email us directly. Thanks.
-    </p>
-    <p style="margin: 0px 0px 1.714285714rem; padding: 0px; border: 0px;       font-size: 14px; vertical-align: baseline; line-height:       1.714285714;">
-      +<span class="Apple-converted-space">&nbsp;</span><span
-      style="margin: 0px; padding: 0px; border: 0px; font-size: 14px;         vertical-align: baseline; color: darkblue;">I
-      n s t a l l a t i o n<span class="Apple-converted-space">&nbsp;</span></span>+
-      + + + + + +<br /> +<span class="Apple-converted-space">&nbsp;</span><br />
-      Unpack the ZIP archive. The Windows plugin is<span
-      class="Apple-converted-space">&nbsp;</span><code
-      style="margin:         0px; padding: 0px; border: 0px; font-size: 0.857142857rem;         vertical-align: baseline; font-family: Consolas, Monaco,         &quot;Lucida Console&quot;, monospace; line-height: 2;">RegexPlugIn.fmx</code>
-      (32-bit), the Mac plugin is<span class="Apple-converted-space">&nbsp;</span><code
-      style="margin: 0px; padding: 0px; border: 0px; font-size:         0.857142857rem; vertical-align: baseline; font-family: Consolas,         Monaco, &quot;Lucida Console&quot;, monospace; line-height: 2;">RegexPlugIn.fmplugin</code>
-      (64-bit). Put the appropriate file into the<span
-      class="Apple-converted-space">&nbsp;</span><span
-      class="Apple-converted-space">&nbsp;</span><code
-      style="margin:         0px; padding: 0px; border: 0px; font-size: 0.857142857rem;         vertical-align: baseline; font-family: Consolas, Monaco,         &quot;Lucida Console&quot;, monospace; line-height: 2;">Extensions</code><span
-      class="Apple-converted-space">&nbsp;</span>folder of FileMaker. Restart
-      FileMaker.
-    </p>
-    <p style="margin: 0px 0px 1.714285714rem; padding: 0px; border: 0px;       font-size: 14px; vertical-align: baseline; line-height:       1.714285714;">
-      If the plug-in isn’t recognized by FileMaker on Windows (i.e. if it
-      doesn’t show up in FileMaker’s<span class="Apple-converted-space">&nbsp;</span><em
-      style="margin:         0px; padding: 0px; border: 0px; font-size: 14px; vertical-align:         baseline;">Preferences</em><span
-      class="Apple-converted-space">&nbsp;</span>dialog), chances are good that
-      you are missing Microsoft’s C++ runtime library<span
-      class="Apple-converted-space">&nbsp;</span><code
-      style="margin: 0px; padding: 0px; border: 0px; font-size:         0.857142857rem; vertical-align: baseline; font-family: Consolas,         Monaco, &quot;Lucida Console&quot;, monospace; line-height: 2;">msvcr80.dll</code>.
-      Most people will have it already as it is automatically installed by many
-      other applications, but if you don’t, you can get it from<span
-      class="Apple-converted-space">&nbsp;</span><a
-      href="https://docs.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist?view=msvc-170"
-      style="margin: 0px; padding: 0px; border: 0px; font-size: 14px;         vertical-align: baseline; outline: none; color: rgb(159, 159,         159);">here</a>.
-    </p>
-    <p style="margin: 0px 0px 1.714285714rem; padding: 0px; border: 0px;       font-size: 14px; vertical-align: baseline; line-height:       1.714285714;">
-      +<span class="Apple-converted-space">&nbsp;</span><span
-      style="margin: 0px; padding: 0px; border: 0px; font-size: 14px;         vertical-align: baseline; color: darkblue;">E
-      x a m p l e s<span class="Apple-converted-space">&nbsp;</span></span>+ + +
-      + + + +<br /> +<span class="Apple-converted-space">&nbsp;</span><br /> An
-      example FileMaker database which explains the usage of<span
-      class="Apple-converted-space">&nbsp;</span><b
-      style="margin:         0px; padding: 0px; border: 0px; font-size: 14px; vertical-align:         baseline;">RegexPlugIn</b><span
-      class="Apple-converted-space">&nbsp;</span>interactively is available<span
-      class="Apple-converted-space"> </span><a href="RegexPlugInDemo.fmp12"
-      style="margin: 0px; padding: 0px;         border: 0px; font-size: 14px; vertical-align: baseline; outline:         none; color: rgb(159, 159, 159);">here</a>
-      (.fmp12) and <a href="RegexPlugInDemo.fp7">here</a> (.fp7).<a
-      href="file:///Users/binghe/Lisp/fm-plugin-tools/doc/RegexPlugInDemo.fmp12"
-      style="margin: 0px; padding: 0px; border: 0px; font-size: 14px;         vertical-align: baseline; outline: none; color: rgb(159, 159,         159);"><span
-      class="Apple-converted-space"></span><span class="Apple-converted-space"></span></a><span
-      class="Apple-converted-space"></span><br />
-    </p>
-    <p style="margin: 0px 0px 1.714285714rem; padding: 0px; border: 0px;       font-size: 14px; vertical-align: baseline; line-height:       1.714285714;">
-      +<span class="Apple-converted-space">&nbsp;</span><span
-      style="margin: 0px; padding: 0px; border: 0px; font-size: 14px;         vertical-align: baseline; color: darkblue;">R
-      e g u l a r &nbsp; E x p r e s s i o n &nbsp; S y n t a x<span
-      class="Apple-converted-space">&nbsp;</span></span>+ + + + + + +<br /> +<span
-      class="Apple-converted-space">&nbsp;</span><br /> The regular expressions
-      used in<span class="Apple-converted-space">&nbsp;</span><b
-      style="margin: 0px; padding: 0px; border: 0px; font-size: 14px;         vertical-align: baseline;">RegexPlugIn</b><span
-      class="Apple-converted-space">&nbsp;</span>are based on the<span
-      class="Apple-converted-space">&nbsp;</span><a
-      href="http://edicl.github.io/cl-ppcre/"
-      style="margin: 0px;         padding: 0px; border: 0px; font-size: 14px; vertical-align:         baseline; outline: none; color: rgb(159, 159, 159);">CL-PPCRE</a><span
-      class="Apple-converted-space">&nbsp;</span>library and are thus compatible
-      with<span class="Apple-converted-space">&nbsp;</span><a
-      href="https://www.perl.org"
-      style="margin: 0px; padding: 0px;         border: 0px; font-size: 14px; vertical-align: baseline; outline:         none; color: rgb(159, 159, 159);">Perl</a>.
-      For more information see<span class="Apple-converted-space">&nbsp;</span><span
-      class="Apple-converted-space"> </span><a
-      href="https://perldoc.perl.org/perlre"
-      style="margin: 0px;         padding: 0px; border: 0px; font-size: 14px; vertical-align:         baseline; outline: none; color: rgb(159, 159, 159);">https://perldoc.perl.org/perlre</a><br />
-      and<span class="Apple-converted-space">&nbsp;</span><span
-      class="Apple-converted-space"> </span><a
-      href="http://edicl.github.io/cl-ppcre/"
-      style="margin: 0px;         padding: 0px; border: 0px; font-size: 14px; vertical-align:         baseline; outline: none; color: rgb(159, 159, 159);">http://edicl.github.io/cl-ppcre/</a>.
-    </p>
-    <p style="margin: 0px 0px 1.714285714rem; padding: 0px; border: 0px;       font-size: 14px; vertical-align: baseline; line-height:       1.714285714;">
-      +<span class="Apple-converted-space">&nbsp;</span><span
-      style="margin: 0px; padding: 0px; border: 0px; font-size: 14px;         vertical-align: baseline; color: darkblue;">C
-      o n f i g u r a t i o n<span class="Apple-converted-space">&nbsp;</span></span>+
-      + + + + + +<br /> +<span class="Apple-converted-space">&nbsp;</span><br />
-      On Windows you can configure (via FileMaker’s<span
-      class="Apple-converted-space">&nbsp;</span><em
-      style="margin:         0px; padding: 0px; border: 0px; font-size: 14px; vertical-align:         baseline;">Preferences</em><span
-      class="Apple-converted-space">&nbsp;</span>dialog) whether<span
-      class="Apple-converted-space">&nbsp;</span><b
-      style="margin: 0px; padding: 0px; border: 0px; font-size: 14px;         vertical-align: baseline;">RegexPlugIn</b><span
-      class="Apple-converted-space">&nbsp;</span>should cache regular
-      expressions (this is the default setting) or not. It is almost always
-      advisable to do that unless you have a large database where the regular
-      expression is variable, i.e. where it is different for each record.
-    </p>
-    <p style="margin: 0px 0px 1.714285714rem; padding: 0px; border: 0px;       font-size: 14px; vertical-align: baseline; line-height:       1.714285714;">
-      <a class="noborder"
-      href="https://web.archive.org/web/20170525205853/http://www.lispworks.com/"
-      style="margin: 0px; padding: 0px; border: 0px; font-size: 14px;         vertical-align: baseline; outline: none; color: rgb(159, 159,         159);"><img
-      src="https://common-lisp.net/static/imgs/lisplogo_flag2_128.png"
-      alt="Made with Lisp" title="Made with Lisp"
-      style="margin:           0px; padding: 0px; border: 0px; font-size: 14px;           vertical-align: baseline; max-width: 100%; border-radius: 3px;           box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 4px;"
-      width="120" vspace="20" hspace="20" height="84" border="0" align="right" /></a><br />
-      +<span class="Apple-converted-space">&nbsp;</span><span
-      style="margin: 0px; padding: 0px; border: 0px; font-size: 14px;         vertical-align: baseline; color: darkblue;">T
-      e c h n i c a l &nbsp; i n f o r m a t i o n<span
-      class="Apple-converted-space">&nbsp;</span></span>+ + + + + + +<br /> +<span
-      class="Apple-converted-space">&nbsp;</span><br /> The<span
-      class="Apple-converted-space">&nbsp;</span><b
-      style="margin: 0px; padding: 0px; border: 0px; font-size: 14px;         vertical-align: baseline;">RegexPlugIn</b><span
-      class="Apple-converted-space">&nbsp;</span>was written in<span
-      class="Apple-converted-space">&nbsp;</span><a
-      href="https://common-lisp.net"
-      style="margin: 0px; padding: 0px;         border: 0px; font-size: 14px; vertical-align: baseline; outline:         none; color: rgb(159, 159, 159);">Common
-      Lisp</a><span class="Apple-converted-space">&nbsp;</span>using the<span
-      class="Apple-converted-space">&nbsp;</span><a
-      href="http://www.lispworks.com"
-      style="margin: 0px; padding:         0px; border: 0px; font-size: 14px; vertical-align: baseline;         outline: none; color: rgb(159, 159, 159);">LispWorks</a><span
-      class="Apple-converted-space">&nbsp;</span>development environment and the<span
-      class="Apple-converted-space">&nbsp;</span><a
-      href="https://github.com/binghe/fm-plugin-tools"
-      style="margin:         0px; padding: 0px; border: 0px; font-size: 14px; vertical-align:         baseline; outline: none; color: rgb(159, 159, 159);">FM-PLUGIN-TOOLS</a><span
-      class="Apple-converted-space">&nbsp;</span>toolkit. The regex engine used
-      is<span class="Apple-converted-space">&nbsp;</span><a
-      href="http://edicl.github.io/cl-ppcre/"
-      style="margin: 0px;         padding: 0px; border: 0px; font-size: 14px; vertical-align:         baseline; outline: none; color: rgb(159, 159, 159);">CL-PPCRE</a>.
-    </p>
-    <p style="margin: 0px 0px 1.714285714rem; padding: 0px; border: 0px;       font-size: 14px; vertical-align: baseline; line-height:       1.714285714;">
-      The source code for<span class="Apple-converted-space">&nbsp;</span><b
-      style="margin:         0px; padding: 0px; border: 0px; font-size: 14px; vertical-align:         baseline;">RegexPlugIn</b><span
-      class="Apple-converted-space">&nbsp;</span>is now part of <a
-      href="https://github.com/binghe/fm-plugin-tools">FM-PLUGIN-TOOLS</a>.<br />
-    </p>
-    <p style="margin: 0px 0px 1.714285714rem; padding: 0px; border: 0px;       font-size: 14px; vertical-align: baseline; line-height:       1.714285714;">
-      +<span class="Apple-converted-space">&nbsp;</span><span
-      style="margin: 0px; padding: 0px; border: 0px; font-size: 14px;         vertical-align: baseline; color: darkblue;">F
-      u n c t i o n s<span class="Apple-converted-space">&nbsp;</span></span>+ +
-      + + + + +<br /> +<span class="Apple-converted-space">&nbsp;</span><br /> <b
-      style="margin: 0px; padding: 0px; border: 0px; font-size: 14px;         vertical-align: baseline;">RegexPlugIn</b><span
-      class="Apple-converted-space">&nbsp;</span>provides the following<span
-      class="Apple-converted-space">&nbsp;</span><em
-      style="margin: 0px; padding: 0px; border: 0px; font-size: 14px;         vertical-align: baseline;">external</em><span
-      class="Apple-converted-space">&nbsp;</span>functions which can be used in
-      FileMaker calculations:
-    </p>
-    <p style="margin: 0px 0px 1.714285714rem; padding: 0px; border: 0px;       font-size: 14px; vertical-align: baseline; line-height:       1.714285714;">
-      +<span class="Apple-converted-space">&nbsp;</span><span
-      style="margin: 0px; padding: 0px; border: 0px; font-size: 14px;         vertical-align: baseline; color: darkblue;">RegP_Version</span><br />
-      +<span class="Apple-converted-space">&nbsp;</span><br /> This function
-      simply returns the version of<span class="Apple-converted-space">&nbsp;</span><b
-      style="margin:         0px; padding: 0px; border: 0px; font-size: 14px; vertical-align:         baseline;">RegexPlugIn</b><span
-      class="Apple-converted-space">&nbsp;</span>as a string.
-    </p>
-    <p style="margin: 0px 0px 1.714285714rem; padding: 0px; border: 0px;       font-size: 14px; vertical-align: baseline; line-height:       1.714285714;">
-      <img src="version.png" alt="version"
-      style="margin:         0px; padding: 0px; border: 0px; font-size: 14px; vertical-align:         baseline; max-width: 100%; border-radius: 3px; box-shadow:         rgba(0, 0, 0, 0.2) 0px 1px 4px;"
-      width="346" height="67" border="0" />
-    </p>
-    <p style="margin: 0px 0px 1.714285714rem; padding: 0px; border: 0px;       font-size: 14px; vertical-align: baseline; line-height:       1.714285714;">
-      <a name="scan"
-      style="margin: 0px; padding: 0px;         border: 0px; font-size: 14px; vertical-align: baseline; outline:         none; color: rgb(33, 117, 155);"
-      id="scan"></a>+<span class="Apple-converted-space">&nbsp;</span><span
-      style="margin:         0px; padding: 0px; border: 0px; font-size: 14px; vertical-align:         baseline; color: darkblue;">RegP_Scan
-      ( regex ; target {; flags} )</span><br /> +<span
-      class="Apple-converted-space">&nbsp;</span><br /> Searches the text<span
-      class="Apple-converted-space">&nbsp;</span><code
-      style="margin: 0px; padding: 0px; border: 0px; font-size:         0.857142857rem; vertical-align: baseline; font-family: Consolas,         Monaco, &quot;Lucida Console&quot;, monospace; line-height: 2;">target</code><span
-      class="Apple-converted-space">&nbsp;</span>from start to end and tries to
-      match the regular expression<span class="Apple-converted-space">&nbsp;</span><code
-      style="margin:         0px; padding: 0px; border: 0px; font-size: 0.857142857rem;         vertical-align: baseline; font-family: Consolas, Monaco,         &quot;Lucida Console&quot;, monospace; line-height: 2;">regex</code>.
-      Returns<span class="Apple-converted-space">&nbsp;</span><code
-      style="margin: 0px; padding: 0px; border: 0px; font-size:         0.857142857rem; vertical-align: baseline; font-family: Consolas,         Monaco, &quot;Lucida Console&quot;, monospace; line-height: 2;">True</code><span
-      class="Apple-converted-space">&nbsp;</span>(1) on success,<span
-      class="Apple-converted-space">&nbsp;</span><code
-      style="margin:         0px; padding: 0px; border: 0px; font-size: 0.857142857rem;         vertical-align: baseline; font-family: Consolas, Monaco,         &quot;Lucida Console&quot;, monospace; line-height: 2;">False</code><span
-      class="Apple-converted-space">&nbsp;</span>(0) otherwise.
-    </p>
-    <p style="margin: 0px 0px 1.714285714rem; padding: 0px; border: 0px;       font-size: 14px; vertical-align: baseline; line-height:       1.714285714;">
-      The optional<span class="Apple-converted-space">&nbsp;</span><code
-      style="margin: 0px; padding: 0px; border: 0px; font-size:         0.857142857rem; vertical-align: baseline; font-family: Consolas,         Monaco, &quot;Lucida Console&quot;, monospace; line-height: 2;">flags</code><span
-      class="Apple-converted-space">&nbsp;</span>argument is a string. Upon
-      invocation of the function it is searched for the occurrence of the
-      characters<span class="Apple-converted-space">&nbsp;</span><code
-      style="margin: 0px; padding: 0px; border: 0px; font-size:         0.857142857rem; vertical-align: baseline; font-family: Consolas,         Monaco, &quot;Lucida Console&quot;, monospace; line-height: 2;">i</code>,<span
-      class="Apple-converted-space">&nbsp;</span><code
-      style="margin:         0px; padding: 0px; border: 0px; font-size: 0.857142857rem;         vertical-align: baseline; font-family: Consolas, Monaco,         &quot;Lucida Console&quot;, monospace; line-height: 2;">s</code>,<span
-      class="Apple-converted-space">&nbsp;</span><code
-      style="margin:         0px; padding: 0px; border: 0px; font-size: 0.857142857rem;         vertical-align: baseline; font-family: Consolas, Monaco,         &quot;Lucida Console&quot;, monospace; line-height: 2;">m</code>,<span
-      class="Apple-converted-space">&nbsp;</span><code
-      style="margin:         0px; padding: 0px; border: 0px; font-size: 0.857142857rem;         vertical-align: baseline; font-family: Consolas, Monaco,         &quot;Lucida Console&quot;, monospace; line-height: 2;">x</code>.
-      These characters have the same meaning as the modifiers in Perl, so for
-      example if<span class="Apple-converted-space">&nbsp;</span><code
-      style="margin: 0px; padding: 0px; border: 0px; font-size:         0.857142857rem; vertical-align: baseline; font-family: Consolas,         Monaco, &quot;Lucida Console&quot;, monospace; line-height: 2;">flags</code><span
-      class="Apple-converted-space">&nbsp;</span>is<span
-      class="Apple-converted-space">&nbsp;</span><code
-      style="margin:         0px; padding: 0px; border: 0px; font-size: 0.857142857rem;         vertical-align: baseline; font-family: Consolas, Monaco,         &quot;Lucida Console&quot;, monospace; line-height: 2;">"is"</code><span
-      class="Apple-converted-space">&nbsp;</span>or<span
-      class="Apple-converted-space">&nbsp;</span><code
-      style="margin:         0px; padding: 0px; border: 0px; font-size: 0.857142857rem;         vertical-align: baseline; font-family: Consolas, Monaco,         &quot;Lucida Console&quot;, monospace; line-height: 2;">"si"</code><span
-      class="Apple-converted-space">&nbsp;</span>(or even<span
-      class="Apple-converted-space">&nbsp;</span><code
-      style="margin:         0px; padding: 0px; border: 0px; font-size: 0.857142857rem;         vertical-align: baseline; font-family: Consolas, Monaco,         &quot;Lucida Console&quot;, monospace; line-height: 2;">"iS"</code><span
-      class="Apple-converted-space">&nbsp;</span>or<span
-      class="Apple-converted-space">&nbsp;</span><code
-      style="margin:         0px; padding: 0px; border: 0px; font-size: 0.857142857rem;         vertical-align: baseline; font-family: Consolas, Monaco,         &quot;Lucida Console&quot;, monospace; line-height: 2;">"SiSi"</code>),
-      then the regular expression will ignore case and work in “single-line
-      mode.”
-    </p>
-    <p style="margin: 0px 0px 1.714285714rem; padding: 0px; border: 0px;       font-size: 14px; vertical-align: baseline; line-height:       1.714285714;">
-      <img src="scan.png" alt="scan"
-      style="margin: 0px;         padding: 0px; border: 0px; font-size: 14px; vertical-align:         baseline; max-width: 100%; border-radius: 3px; box-shadow:         rgba(0, 0, 0, 0.2) 0px 1px 4px;"
-      width="346" height="529" border="0" />
-    </p>
-    <p style="margin: 0px 0px 1.714285714rem; padding: 0px; border: 0px;       font-size: 14px; vertical-align: baseline; line-height:       1.714285714;">
-      <a name="matchstart"
-      style="margin: 0px; padding:         0px; border: 0px; font-size: 14px; vertical-align: baseline;         outline: none; color: rgb(33, 117, 155);"
-      id="matchstart"></a>+<span class="Apple-converted-space">&nbsp;</span><span
-      style="margin:         0px; padding: 0px; border: 0px; font-size: 14px; vertical-align:         baseline; color: darkblue;">RegP_MatchStart
-      ( regex ; target {; flags; register} )</span><br /> +<span
-      class="Apple-converted-space">&nbsp;</span><span
-      style="margin: 0px; padding: 0px; border: 0px; font-size: 14px;         vertical-align: baseline; color: darkblue;">RegP_MatchEnd
-      ( regex ; target {; flags; register} )</span><br /> +<span
-      class="Apple-converted-space">&nbsp;</span><br /> These functions return
-      the start and end positions of the matching substring within<span
-      class="Apple-converted-space">&nbsp;</span><code
-      style="margin: 0px; padding: 0px; border: 0px; font-size:         0.857142857rem; vertical-align: baseline; font-family: Consolas,         Monaco, &quot;Lucida Console&quot;, monospace; line-height: 2;">target</code><span
-      class="Apple-converted-space">&nbsp;</span>if the regular expression
-      matches, otherwise they return -1. The<span class="Apple-converted-space">&nbsp;</span><code
-      style="margin:         0px; padding: 0px; border: 0px; font-size: 0.857142857rem;         vertical-align: baseline; font-family: Consolas, Monaco,         &quot;Lucida Console&quot;, monospace; line-height: 2;">flags</code><span
-      class="Apple-converted-space">&nbsp;</span>argument is used as<span
-      class="Apple-converted-space">&nbsp;</span><a href="#scan"
-      style="margin: 0px; padding: 0px; border: 0px; font-size: 14px;         vertical-align: baseline; outline: none; color: rgb(159, 159,         159);">above</a>.
-    </p>
-    <p style="margin: 0px 0px 1.714285714rem; padding: 0px; border: 0px;       font-size: 14px; vertical-align: baseline; line-height:       1.714285714;">
-      The second optional argument,<span class="Apple-converted-space">&nbsp;</span><code
-      style="margin:         0px; padding: 0px; border: 0px; font-size: 0.857142857rem;         vertical-align: baseline; font-family: Consolas, Monaco,         &quot;Lucida Console&quot;, monospace; line-height: 2;">register</code>,
-      can be the number of a register group within the regular expression in
-      which case the start and end positions of this group are returned. Note
-      that the first register has the number&nbsp;1 and<span
-      class="Apple-converted-space">&nbsp;</span><em
-      style="margin: 0px; padding: 0px; border: 0px; font-size: 14px;         vertical-align: baseline;">not</em>&nbsp;0.
-    </p>
-    <p style="margin: 0px 0px 1.714285714rem; padding: 0px; border: 0px;       font-size: 14px; vertical-align: baseline; line-height:       1.714285714;">
-      <img src="matchstart.png" alt="matchstart"
-      style="margin: 0px; padding: 0px; border: 0px; font-size: 14px;         vertical-align: baseline; max-width: 100%; border-radius: 3px;         box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 4px;"
-      width="346" height="643" border="0" />
-    </p>
-    <p style="margin: 0px 0px 1.714285714rem; padding: 0px; border: 0px;       font-size: 14px; vertical-align: baseline; line-height:       1.714285714;">
-      +<span class="Apple-converted-space">&nbsp;</span><span
-      style="margin: 0px; padding: 0px; border: 0px; font-size: 14px;         vertical-align: baseline; color: darkblue;">RegP_Positions
-      ( regex ; target {; flags ; outerPairDelimiter ; innerPairDelimiter } )</span><br />
-      +<span class="Apple-converted-space">&nbsp;</span><br /> This function kind
-      of combines<span class="Apple-converted-space">&nbsp;</span><code
-      style="margin: 0px; padding: 0px; border: 0px; font-size:         0.857142857rem; vertical-align: baseline; font-family: Consolas,         Monaco, &quot;Lucida Console&quot;, monospace; line-height: 2;">RegP_MatchStart</code><span
-      class="Apple-converted-space">&nbsp;</span>and<span
-      class="Apple-converted-space">&nbsp;</span><code
-      style="margin:         0px; padding: 0px; border: 0px; font-size: 0.857142857rem;         vertical-align: baseline; font-family: Consolas, Monaco,         &quot;Lucida Console&quot;, monospace; line-height: 2;">RegP_MatchEnd</code><span
-      class="Apple-converted-space">&nbsp;</span>(see<span
-      class="Apple-converted-space">&nbsp;</span><a href="#matchstart"
-      style="margin: 0px; padding: 0px; border: 0px; font-size: 14px;         vertical-align: baseline; outline: none; color: rgb(159, 159,         159);">above</a>).
-      If there is no match, it returns<span class="Apple-converted-space">&nbsp;</span><code
-      style="margin: 0px; padding: 0px; border: 0px; font-size:         0.857142857rem; vertical-align: baseline; font-family: Consolas,         Monaco, &quot;Lucida Console&quot;, monospace; line-height: 2;">False</code><span
-      class="Apple-converted-space">&nbsp;</span>(0). Otherwise it returns a
-      string of the start and end positions of the match itself followed by the
-      start and end positions of all register groups. The individual numbers are
-      separated with the optional delimter arguments which default to<span
-      class="Apple-converted-space">&nbsp;</span><code
-      style="margin:         0px; padding: 0px; border: 0px; font-size: 0.857142857rem;         vertical-align: baseline; font-family: Consolas, Monaco,         &quot;Lucida Console&quot;, monospace; line-height: 2;">|</code><span
-      class="Apple-converted-space">&nbsp;</span>character. If a register group
-      doesn’t match, two hyphens (<code
-      style="margin:         0px; padding: 0px; border: 0px; font-size: 0.857142857rem;         vertical-align: baseline; font-family: Consolas, Monaco,         &quot;Lucida Console&quot;, monospace; line-height: 2;">-</code>)
-      instead of two numbers are inserted into the result string.
-    </p>
-    <p style="margin: 0px 0px 1.714285714rem; padding: 0px; border: 0px;       font-size: 14px; vertical-align: baseline; line-height:       1.714285714;">
-      <img src="positions.png" alt="positions"
-      style="margin: 0px; padding: 0px; border: 0px; font-size: 14px;         vertical-align: baseline; max-width: 100%; border-radius: 3px;         box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 4px;"
-      width="346" height="643" border="0" />
-    </p>
-    <p style="margin: 0px 0px 1.714285714rem; padding: 0px; border: 0px;       font-size: 14px; vertical-align: baseline; line-height:       1.714285714;">
-      <a name="replace"
-      style="margin: 0px; padding: 0px;         border: 0px; font-size: 14px; vertical-align: baseline; outline:         none; color: rgb(33, 117, 155);"
-      id="replace"></a>+<span class="Apple-converted-space">&nbsp;</span><span
-      style="margin:         0px; padding: 0px; border: 0px; font-size: 14px; vertical-align:         baseline; color: darkblue;">RegP_Replace
-      ( regex ; target ; replacement {; flags} )</span><br /> +<span
-      class="Apple-converted-space">&nbsp;</span><span
-      style="margin: 0px; padding: 0px; border: 0px; font-size: 14px;         vertical-align: baseline; color: darkblue;">RegP_ReplaceOne
-      ( regex ; target ; replacement {; flags} )</span><br /> +<span
-      class="Apple-converted-space">&nbsp;</span><br /> <code
-      style="margin: 0px; padding: 0px; border: 0px; font-size:         0.857142857rem; vertical-align: baseline; font-family: Consolas,         Monaco, &quot;Lucida Console&quot;, monospace; line-height: 2;">RegP_Replace</code><span
-      class="Apple-converted-space">&nbsp;</span>returns the text<span
-      class="Apple-converted-space">&nbsp;</span><code
-      style="margin:         0px; padding: 0px; border: 0px; font-size: 0.857142857rem;         vertical-align: baseline; font-family: Consolas, Monaco,         &quot;Lucida Console&quot;, monospace; line-height: 2;">target</code><span
-      class="Apple-converted-space">&nbsp;</span>with all substrings that match<span
-      class="Apple-converted-space">&nbsp;</span><code
-      style="margin: 0px; padding: 0px; border: 0px; font-size:         0.857142857rem; vertical-align: baseline; font-family: Consolas,         Monaco, &quot;Lucida Console&quot;, monospace; line-height: 2;">regex</code><span
-      class="Apple-converted-space">&nbsp;</span>replaced with<span
-      class="Apple-converted-space">&nbsp;</span><code
-      style="margin:         0px; padding: 0px; border: 0px; font-size: 0.857142857rem;         vertical-align: baseline; font-family: Consolas, Monaco,         &quot;Lucida Console&quot;, monospace; line-height: 2;">replacement</code>.<span
-      class="Apple-converted-space">&nbsp;</span><span
-      class="Apple-converted-space">&nbsp;</span><code
-      style="margin:         0px; padding: 0px; border: 0px; font-size: 0.857142857rem;         vertical-align: baseline; font-family: Consolas, Monaco,         &quot;Lucida Console&quot;, monospace; line-height: 2;">replacement</code><span
-      class="Apple-converted-space">&nbsp;</span>can contain the special
-      substrings<span class="Apple-converted-space">&nbsp;</span><span
-      class="Apple-converted-space">&nbsp;</span><code
-      style="margin:         0px; padding: 0px; border: 0px; font-size: 0.857142857rem;         vertical-align: baseline; font-family: Consolas, Monaco,         &quot;Lucida Console&quot;, monospace; line-height: 2;">\&amp;</code><span
-      class="Apple-converted-space">&nbsp;</span>for the whole match,<span
-      class="Apple-converted-space">&nbsp;</span><code
-      style="margin:         0px; padding: 0px; border: 0px; font-size: 0.857142857rem;         vertical-align: baseline; font-family: Consolas, Monaco,         &quot;Lucida Console&quot;, monospace; line-height: 2;">\`</code><span
-      class="Apple-converted-space">&nbsp;</span>for the part of<span
-      class="Apple-converted-space">&nbsp;</span><code
-      style="margin:         0px; padding: 0px; border: 0px; font-size: 0.857142857rem;         vertical-align: baseline; font-family: Consolas, Monaco,         &quot;Lucida Console&quot;, monospace; line-height: 2;">target</code><span
-      class="Apple-converted-space">&nbsp;</span>before the match,<span
-      class="Apple-converted-space">&nbsp;</span><code
-      style="margin:         0px; padding: 0px; border: 0px; font-size: 0.857142857rem;         vertical-align: baseline; font-family: Consolas, Monaco,         &quot;Lucida Console&quot;, monospace; line-height: 2;">\'</code><span
-      class="Apple-converted-space">&nbsp;</span>for the part of<span
-      class="Apple-converted-space">&nbsp;</span><code
-      style="margin:         0px; padding: 0px; border: 0px; font-size: 0.857142857rem;         vertical-align: baseline; font-family: Consolas, Monaco,         &quot;Lucida Console&quot;, monospace; line-height: 2;">target</code><span
-      class="Apple-converted-space">&nbsp;</span>after the match, or<span
-      class="Apple-converted-space">&nbsp;</span><code
-      style="margin:         0px; padding: 0px; border: 0px; font-size: 0.857142857rem;         vertical-align: baseline; font-family: Consolas, Monaco,         &quot;Lucida Console&quot;, monospace; line-height: 2;">\N</code><span
-      class="Apple-converted-space">&nbsp;</span>or<span
-      class="Apple-converted-space">&nbsp;</span><code
-      style="margin:         0px; padding: 0px; border: 0px; font-size: 0.857142857rem;         vertical-align: baseline; font-family: Consolas, Monaco,         &quot;Lucida Console&quot;, monospace; line-height: 2;">\{N}</code><span
-      class="Apple-converted-space">&nbsp;</span>for the<span
-      class="Apple-converted-space">&nbsp;</span><code
-      style="margin:         0px; padding: 0px; border: 0px; font-size: 0.857142857rem;         vertical-align: baseline; font-family: Consolas, Monaco,         &quot;Lucida Console&quot;, monospace; line-height: 2;">N</code>th
-      register group where<span class="Apple-converted-space">&nbsp;</span><code
-      style="margin: 0px; padding: 0px; border: 0px; font-size:         0.857142857rem; vertical-align: baseline; font-family: Consolas,         Monaco, &quot;Lucida Console&quot;, monospace; line-height: 2;">N</code><span
-      class="Apple-converted-space">&nbsp;</span>is a positive integer.
-    </p>
-    <p style="margin: 0px 0px 1.714285714rem; padding: 0px; border: 0px;       font-size: 14px; vertical-align: baseline; line-height:       1.714285714;">
-      <code
-      style="margin: 0px; padding: 0px; border: 0px;         font-size: 0.857142857rem; vertical-align: baseline;         font-family: Consolas, Monaco, &quot;Lucida Console&quot;,         monospace; line-height: 2;">RegP_ReplaceOne</code><span
-      class="Apple-converted-space">&nbsp;</span>is similar but replaces only
-      the first match.
-    </p>
-    <p style="margin: 0px 0px 1.714285714rem; padding: 0px; border: 0px;       font-size: 14px; vertical-align: baseline; line-height:       1.714285714;">
-      The<span class="Apple-converted-space">&nbsp;</span><code
-      style="margin: 0px; padding: 0px; border: 0px; font-size:         0.857142857rem; vertical-align: baseline; font-family: Consolas,         Monaco, &quot;Lucida Console&quot;, monospace; line-height: 2;">flags</code><span
-      class="Apple-converted-space">&nbsp;</span>argument is used as<span
-      class="Apple-converted-space">&nbsp;</span><a href="#scan"
-      style="margin: 0px; padding: 0px; border: 0px; font-size: 14px;         vertical-align: baseline; outline: none; color: rgb(159, 159,         159);">above</a>.
-      Furthermore, if the<span class="Apple-converted-space">&nbsp;</span><code
-      style="margin:         0px; padding: 0px; border: 0px; font-size: 0.857142857rem;         vertical-align: baseline; font-family: Consolas, Monaco,         &quot;Lucida Console&quot;, monospace; line-height: 2;">flags</code><span
-      class="Apple-converted-space">&nbsp;</span>argument contains an<span
-      class="Apple-converted-space">&nbsp;</span><code
-      style="margin:         0px; padding: 0px; border: 0px; font-size: 0.857142857rem;         vertical-align: baseline; font-family: Consolas, Monaco,         &quot;Lucida Console&quot;, monospace; line-height: 2;">e</code>,
-      then the replacement result is searched for sequences that look like<span
-      class="Apple-converted-space">&nbsp;</span><code
-      style="margin: 0px; padding: 0px; border: 0px; font-size:         0.857142857rem; vertical-align: baseline; font-family: Consolas,         Monaco, &quot;Lucida Console&quot;, monospace; line-height: 2;">${...}</code><span
-      class="Apple-converted-space">&nbsp;</span>where<span
-      class="Apple-converted-space">&nbsp;</span><code
-      style="margin:         0px; padding: 0px; border: 0px; font-size: 0.857142857rem;         vertical-align: baseline; font-family: Consolas, Monaco,         &quot;Lucida Console&quot;, monospace; line-height: 2;">...</code><span
-      class="Apple-converted-space">&nbsp;</span>can be anything that doesn’t
-      contain the&nbsp;<code
-      style="margin: 0px; padding: 0px;         border: 0px; font-size: 0.857142857rem; vertical-align:         baseline; font-family: Consolas, Monaco, &quot;Lucida         Console&quot;, monospace; line-height: 2;">}</code><span
-      class="Apple-converted-space">&nbsp;</span>character. These sequences will
-      be replaced by the result of evaluating<span class="Apple-converted-space">&nbsp;</span><code
-      style="margin:         0px; padding: 0px; border: 0px; font-size: 0.857142857rem;         vertical-align: baseline; font-family: Consolas, Monaco,         &quot;Lucida Console&quot;, monospace; line-height: 2;">...</code><span
-      class="Apple-converted-space">&nbsp;</span>in FileMaker as with the
-      function<span class="Apple-converted-space">&nbsp;</span><code
-      style="margin: 0px; padding: 0px; border: 0px; font-size:         0.857142857rem; vertical-align: baseline; font-family: Consolas,         Monaco, &quot;Lucida Console&quot;, monospace; line-height: 2;">Evaluate</code>.
-    </p>
-    <p style="margin: 0px 0px 1.714285714rem; padding: 0px; border: 0px;       font-size: 14px; vertical-align: baseline; line-height:       1.714285714;">
-      <code
-      style="margin: 0px; padding: 0px; border: 0px;         font-size: 0.857142857rem; vertical-align: baseline;         font-family: Consolas, Monaco, &quot;Lucida Console&quot;,         monospace; line-height: 2;">RegP_Replace</code><span
-      class="Apple-converted-space">&nbsp;</span>and<span
-      class="Apple-converted-space">&nbsp;</span><code
-      style="margin:         0px; padding: 0px; border: 0px; font-size: 0.857142857rem;         vertical-align: baseline; font-family: Consolas, Monaco,         &quot;Lucida Console&quot;, monospace; line-height: 2;">RegP_ReplaceOne</code><span
-      class="Apple-converted-space">&nbsp;</span>will usually conserve character
-      styles, i.e. if the first four characters of the target string are red and
-      bold, then the first four characters of the replacement result will also
-      be red and bold unless they are replaced. However, if the<span
-      class="Apple-converted-space">&nbsp;</span><code
-      style="margin: 0px; padding: 0px; border: 0px; font-size:         0.857142857rem; vertical-align: baseline; font-family: Consolas,         Monaco, &quot;Lucida Console&quot;, monospace; line-height: 2;">flags</code><span
-      class="Apple-converted-space">&nbsp;</span>argument contains a<span
-      class="Apple-converted-space">&nbsp;</span><code
-      style="margin:         0px; padding: 0px; border: 0px; font-size: 0.857142857rem;         vertical-align: baseline; font-family: Consolas, Monaco,         &quot;Lucida Console&quot;, monospace; line-height: 2;">c</code>,
-      then the special sequences like<span class="Apple-converted-space">&nbsp;</span><code
-      style="margin: 0px; padding: 0px; border: 0px; font-size:         0.857142857rem; vertical-align: baseline; font-family: Consolas,         Monaco, &quot;Lucida Console&quot;, monospace; line-height: 2;">\1</code><span
-      class="Apple-converted-space">&nbsp;</span>or<span
-      class="Apple-converted-space">&nbsp;</span><code
-      style="margin:         0px; padding: 0px; border: 0px; font-size: 0.857142857rem;         vertical-align: baseline; font-family: Consolas, Monaco,         &quot;Lucida Console&quot;, monospace; line-height: 2;">\&amp;</code><span
-      class="Apple-converted-space">&nbsp;</span>in<span
-      class="Apple-converted-space">&nbsp;</span><code
-      style="margin:         0px; padding: 0px; border: 0px; font-size: 0.857142857rem;         vertical-align: baseline; font-family: Consolas, Monaco,         &quot;Lucida Console&quot;, monospace; line-height: 2;">replacement</code><span
-      class="Apple-converted-space">&nbsp;</span>determine the character style,
-      i.e. if<span class="Apple-converted-space">&nbsp;</span><code
-      style="margin: 0px; padding: 0px; border: 0px; font-size:         0.857142857rem; vertical-align: baseline; font-family: Consolas,         Monaco, &quot;Lucida Console&quot;, monospace; line-height: 2;">\1</code><span
-      class="Apple-converted-space">&nbsp;</span>is in italics and green, then
-      what will be substituted for<span class="Apple-converted-space">&nbsp;</span><code
-      style="margin:         0px; padding: 0px; border: 0px; font-size: 0.857142857rem;         vertical-align: baseline; font-family: Consolas, Monaco,         &quot;Lucida Console&quot;, monospace; line-height: 2;">\1</code><span
-      class="Apple-converted-space">&nbsp;</span>will also be in italics and
-      green. In addition, if<span class="Apple-converted-space">&nbsp;</span><code
-      style="margin:         0px; padding: 0px; border: 0px; font-size: 0.857142857rem;         vertical-align: baseline; font-family: Consolas, Monaco,         &quot;Lucida Console&quot;, monospace; line-height: 2;">flags</code><span
-      class="Apple-converted-space">&nbsp;</span>also contains an<span
-      class="Apple-converted-space">&nbsp;</span><code
-      style="margin:         0px; padding: 0px; border: 0px; font-size: 0.857142857rem;         vertical-align: baseline; font-family: Consolas, Monaco,         &quot;Lucida Console&quot;, monospace; line-height: 2;">e</code><span
-      class="Apple-converted-space">&nbsp;</span>(see last paragraph), then the
-      character style of the<span class="Apple-converted-space">&nbsp;</span><code
-      style="margin: 0px; padding: 0px; border: 0px; font-size:         0.857142857rem; vertical-align: baseline; font-family: Consolas,         Monaco, &quot;Lucida Console&quot;, monospace; line-height: 2;">${...}</code><span
-      class="Apple-converted-space">&nbsp;</span>sequence determines the
-      character style of the evaluation result.
-    </p>
-    <p style="margin: 0px 0px 1.714285714rem; padding: 0px; border: 0px;       font-size: 14px; vertical-align: baseline; line-height:       1.714285714;">
-      <img src="replace.png" alt="replace"
-      style="margin:         0px; padding: 0px; border: 0px; font-size: 14px; vertical-align:         baseline; max-width: 100%; border-radius: 3px; box-shadow:         rgba(0, 0, 0, 0.2) 0px 1px 4px;"
-      width="468" height="672" border="0" />
-    </p>
-    <p style="margin: 0px 0px 1.714285714rem; padding: 0px; border: 0px;       font-size: 14px; vertical-align: baseline; line-height:       1.714285714;">
-      +<span class="Apple-converted-space">&nbsp;</span><span
-      style="margin: 0px; padding: 0px; border: 0px; font-size: 14px;         vertical-align: baseline; color: darkblue;">RegP_GetText
-      ( regex ; target {; flags ; registers } )</span><br /> +<span
-      class="Apple-converted-space">&nbsp;</span><br /> extracts the first match
-      of pattern regex in target string
-    </p>
-    <p style="margin: 0px 0px 1.714285714rem; padding: 0px; border: 0px;       font-size: 14px; vertical-align: baseline; line-height:       1.714285714;">
-      +<span class="Apple-converted-space">&nbsp;</span><span
-      style="margin: 0px; padding: 0px; border: 0px; font-size: 14px;         vertical-align: baseline; color: darkblue;">RegP_GetTextAll
-      ( regex ; target {; separationstring ; flags ; registers } )</span><br /> +<span
-      class="Apple-converted-space">&nbsp;</span><br /> extracts ALL matches of
-      pattern regex in target string separated by ‘separationstring’.
-    </p>
-  </body>
-</html>
+
+<html xmlns = "http://www.w3.org/1999/xhtml"><head><title> RegEx
+PlugIn </title></head>
+<body><h1 class = "entry-title"
+    style = "margin: 0px; padding: 0px; border:       0px; font-size: 1.571428571rem; vertical-align: baseline; clear:       both; line-height: 1.2; font-weight: normal;">RegEx
+PlugIn</h1><p><b
+    style = "margin: 0px; padding: 0px; border: 0px; font-size:         14px; vertical-align: baseline;">RegexPlugIn</b><span
+    class = "Apple-converted-space">&nbsp;</span>is a Plug-In
+for<span class = "Apple-converted-space">&nbsp;</span><a
+    style = "margin: 0px;         padding: 0px; border: 0px; font-size: 14px; vertical-align:         baseline; outline: none; color: rgb(159, 159, 159);"
+    href = "https://www.claris.com/filemaker/">FileMaker</a><span
+    class = "Apple-converted-space">&nbsp;</span>which enables
+FileMaker users to work with regular expressions.<br/></p><p
+    style = "margin: 0px 0px 1.714285714rem; padding: 0px; border: 0px;       font-size: 14px; vertical-align: baseline; line-height:       1.714285714;">It
+works with FileMaker&nbsp;8 or higher on Microsoft Windows or
+Mac OS X on Intel (requires 10.4 or higher), both 32-bit and 64-bit.</p><p
+    style = "margin: 0px 0px 1.714285714rem; padding: 0px; border: 0px;       font-size: 14px; vertical-align: baseline; line-height:       1.714285714;">+<span
+    class = "Apple-converted-space">&nbsp;</span><span
+    style = "margin: 0px; padding: 0px; border: 0px; font-size: 14px;         vertical-align: baseline; color: darkblue;">D
+o w n l o a d<span class = "Apple-converted-space">&nbsp;</span></span>+
++ + + + + +<br/>+<span class = "Apple-converted-space">&nbsp;</span><br/><b
+    style = "margin: 0px; padding: 0px; border: 0px; font-size: 14px;         vertical-align: baseline;">RegexPlugIn</b><span
+    class = "Apple-converted-space">&nbsp;</span>is available
+as source and binary ZIP archives from <span
+    class = "Apple-converted-space"></span><span
+    class = "Apple-converted-space"></span><a
+    style = "margin:         0px; padding: 0px; border: 0px; font-size: 14px; vertical-align:         baseline; outline: none; color: rgb(159, 159, 159);"
+    href = "https://github.com/binghe/fm-plugin-tools">GitHub</a><span
+    class = "Apple-converted-space"></span>. The current version is<span
+    class = "Apple-converted-space">&nbsp;</span><b
+    style = "margin:         0px; padding: 0px; border: 0px; font-size: 14px; vertical-align:         baseline;">0.3.0</b>.<span
+    class = "Apple-converted-space"></span></p><p
+    style = "margin: 0px 0px 1.714285714rem; padding: 0px; border: 0px;       font-size: 14px; vertical-align: baseline; line-height:       1.714285714;">+<span
+    class = "Apple-converted-space">&nbsp;</span><span
+    style = "margin: 0px; padding: 0px; border: 0px; font-size: 14px;         vertical-align: baseline; color: darkblue;">L
+i c e n s e<span class = "Apple-converted-space">&nbsp;</span></span>+
++ + + + + +<br/>+<span class = "Apple-converted-space">&nbsp;</span><br/>The<span
+    class = "Apple-converted-space">&nbsp;</span><b
+    style = "margin: 0px; padding: 0px; border: 0px; font-size: 14px;         vertical-align: baseline;">RegexPlugIn</b><span
+    class = "Apple-converted-space">&nbsp;</span>is Copyright &copy; 2006-2014<span
+    class = "Apple-converted-space">&nbsp;</span><a
+    style = "margin: 0px; padding: 0px; border: 0px; font-size: 14px;         vertical-align: baseline; outline: none; color: rgb(159, 159,         159);"
+    href = "https://web.archive.org/web/20170525205853/http://jensteich.de/">Dr.
+Jens Teich</a><span class = "Apple-converted-space">&nbsp;</span>and<span
+    class = "Apple-converted-space">&nbsp;</span><span
+    class = "Apple-converted-space">&nbsp;</span><a
+    style = "margin: 0px; padding: 0px; border: 0px; font-size: 14px;         vertical-align: baseline; outline: none; color: rgb(159, 159,         159);"
+    href = "https://web.archive.org/web/20170525205853/http://weitz.de/">Dr.
+Edmund Weitz</a><span class = "Apple-converted-space">&nbsp;</span>&ndash; All
+Rights Reserved.</p><p
+    style = "margin: 0px 0px 1.714285714rem; padding: 0px; border: 0px;       font-size: 14px; vertical-align: baseline; line-height:       1.714285714;">The<span
+    class = "Apple-converted-space">&nbsp;</span><b
+    style = "margin: 0px; padding: 0px; border: 0px; font-size: 14px;         vertical-align: baseline;">RegexPlugIn</b><span
+    class = "Apple-converted-space">&nbsp;</span>is free for
+private or commercial use. You are allowed to redistribute it as
+long as this license information is included. The software is provided &lsquo;as
+is&rsquo; with no warranty &ndash; use at your own risk.</p><p
+    style = "margin: 0px 0px 1.714285714rem; padding: 0px; border: 0px;       font-size: 14px; vertical-align: baseline; line-height:       1.714285714;">+<span
+    class = "Apple-converted-space">&nbsp;</span><span
+    style = "margin: 0px; padding: 0px; border: 0px; font-size: 14px;         vertical-align: baseline; color: darkblue;">S
+u p p o r t<span class = "Apple-converted-space">&nbsp;</span></span>+
++ + + + + +<br/>+<span class = "Apple-converted-space">&nbsp;</span><br/>Support
+for<span class = "Apple-converted-space">&nbsp;</span><b
+    style = "margin: 0px; padding: 0px; border: 0px; font-size: 14px;         vertical-align: baseline;">RegexPlugIn</b><span
+    class = "Apple-converted-space">&nbsp;</span>is available
+via<span class = "Apple-converted-space">&nbsp;</span><span
+    class = "Apple-converted-space"></span><a
+    style = "margin: 0px; padding: 0px; border: 0px; font-size: 14px;         vertical-align: baseline; outline: none; color: rgb(159, 159,         159);"
+    href = "https://github.com/binghe/fm-plugin-tools/issues"><b
+    style = "margin: 0px; padding:           0px; border: 0px; font-size: 14px; vertical-align: baseline;">GitHub
+issues</b><span class = "Apple-converted-space"></span></a>. If
+you have any questions or if you want to report bugs,<span
+    class = "Apple-converted-space">&nbsp;</span><em
+    style = "margin:         0px; padding: 0px; border: 0px; font-size: 14px; vertical-align:         baseline;">please</em><span
+    class = "Apple-converted-space">&nbsp;</span>use this mailing
+list and don&rsquo;t email us directly. Thanks.</p><p
+    style = "margin: 0px 0px 1.714285714rem; padding: 0px; border: 0px;       font-size: 14px; vertical-align: baseline; line-height:       1.714285714;">+<span
+    class = "Apple-converted-space">&nbsp;</span><span
+    style = "margin: 0px; padding: 0px; border: 0px; font-size: 14px;         vertical-align: baseline; color: darkblue;">I
+n s t a l l a t i o n<span class = "Apple-converted-space">&nbsp;</span></span>+
++ + + + + +<br/>+<span class = "Apple-converted-space">&nbsp;</span><br/>Unpack
+the ZIP archive. The Windows plugin is<span
+    class = "Apple-converted-space">&nbsp;</span><code
+    style = 'margin:         0px; padding: 0px; border: 0px; font-size: 0.857142857rem;         vertical-align: baseline; font-family: Consolas, Monaco,         "Lucida Console", monospace; line-height: 2;'>RegexPlugIn.fmx</code> (32-bit),
+the Mac plugin is<span class = "Apple-converted-space">&nbsp;</span><code
+    style = 'margin: 0px; padding: 0px; border: 0px; font-size:         0.857142857rem; vertical-align: baseline; font-family: Consolas,         Monaco, "Lucida Console", monospace; line-height: 2;'>RegexPlugIn.fmplugin</code> (64-bit).
+Put the appropriate file into the<span class = "Apple-converted-space">&nbsp;</span><span
+    class = "Apple-converted-space">&nbsp;</span><code
+    style = 'margin:         0px; padding: 0px; border: 0px; font-size: 0.857142857rem;         vertical-align: baseline; font-family: Consolas, Monaco,         "Lucida Console", monospace; line-height: 2;'>Extensions</code><span
+    class = "Apple-converted-space">&nbsp;</span>folder of FileMaker.
+Restart FileMaker.</p><p
+    style = "margin: 0px 0px 1.714285714rem; padding: 0px; border: 0px;       font-size: 14px; vertical-align: baseline; line-height:       1.714285714;">If
+the plug-in isn&rsquo;t recognized by FileMaker on Windows (i.e.
+if it doesn&rsquo;t show up in FileMaker&rsquo;s<span
+    class = "Apple-converted-space">&nbsp;</span><em
+    style = "margin:         0px; padding: 0px; border: 0px; font-size: 14px; vertical-align:         baseline;">Preferences</em><span
+    class = "Apple-converted-space">&nbsp;</span>dialog), chances
+are good that you are missing Microsoft&rsquo;s C++ runtime library<span
+    class = "Apple-converted-space">&nbsp;</span><code
+    style = 'margin: 0px; padding: 0px; border: 0px; font-size:         0.857142857rem; vertical-align: baseline; font-family: Consolas,         Monaco, "Lucida Console", monospace; line-height: 2;'>msvcr80.dll</code>.
+Most people will have it already as it is automatically installed
+by many other applications, but if you don&rsquo;t, you can get
+it from<span class = "Apple-converted-space">&nbsp;</span><a
+    style = "margin: 0px; padding: 0px; border: 0px; font-size: 14px;         vertical-align: baseline; outline: none; color: rgb(159, 159,         159);"
+    href = "https://docs.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist?view=msvc-170">here</a>.</p><p
+    style = "margin: 0px 0px 1.714285714rem; padding: 0px; border: 0px;       font-size: 14px; vertical-align: baseline; line-height:       1.714285714;">+<span
+    class = "Apple-converted-space">&nbsp;</span><span
+    style = "margin: 0px; padding: 0px; border: 0px; font-size: 14px;         vertical-align: baseline; color: darkblue;">E
+x a m p l e s<span class = "Apple-converted-space">&nbsp;</span></span>+
++ + + + + +<br/>+<span class = "Apple-converted-space">&nbsp;</span><br/>An
+example FileMaker database which explains the usage of<span
+    class = "Apple-converted-space">&nbsp;</span><b
+    style = "margin:         0px; padding: 0px; border: 0px; font-size: 14px; vertical-align:         baseline;">RegexPlugIn</b><span
+    class = "Apple-converted-space">&nbsp;</span>interactively
+is available<span class = "Apple-converted-space"></span><a
+    style = "margin: 0px; padding: 0px;         border: 0px; font-size: 14px; vertical-align: baseline; outline:         none; color: rgb(159, 159, 159);"
+    href = "RegexPlugInDemo.fmp12">here</a> (.fmp12) and <a
+    href = "RegexPlugInDemo.fp7">here</a> (.fp7).<a
+    style = "margin: 0px; padding: 0px; border: 0px; font-size: 14px;         vertical-align: baseline; outline: none; color: rgb(159, 159,         159);"
+    href = "file:///Users/binghe/Lisp/fm-plugin-tools/doc/RegexPlugInDemo.fmp12"><span
+    class = "Apple-converted-space"></span><span
+    class = "Apple-converted-space"></span></a><span
+    class = "Apple-converted-space"></span><br/></p><p
+    style = "margin: 0px 0px 1.714285714rem; padding: 0px; border: 0px;       font-size: 14px; vertical-align: baseline; line-height:       1.714285714;">+<span
+    class = "Apple-converted-space">&nbsp;</span><span
+    style = "margin: 0px; padding: 0px; border: 0px; font-size: 14px;         vertical-align: baseline; color: darkblue;">R
+e g u l a r &nbsp; E x p r e s s i o n &nbsp; S y n t a
+x<span class = "Apple-converted-space">&nbsp;</span></span>+
++ + + + + +<br/>+<span class = "Apple-converted-space">&nbsp;</span><br/>The
+regular expressions used in<span class = "Apple-converted-space">&nbsp;</span><b
+    style = "margin: 0px; padding: 0px; border: 0px; font-size: 14px;         vertical-align: baseline;">RegexPlugIn</b><span
+    class = "Apple-converted-space">&nbsp;</span>are based on
+the<span class = "Apple-converted-space">&nbsp;</span><a
+    style = "margin: 0px;         padding: 0px; border: 0px; font-size: 14px; vertical-align:         baseline; outline: none; color: rgb(159, 159, 159);"
+    href = "http://edicl.github.io/cl-ppcre/">CL-PPCRE</a><span
+    class = "Apple-converted-space">&nbsp;</span>library and
+are thus compatible with<span class = "Apple-converted-space">&nbsp;</span><a
+    style = "margin: 0px; padding: 0px;         border: 0px; font-size: 14px; vertical-align: baseline; outline:         none; color: rgb(159, 159, 159);"
+    href = "https://www.perl.org">Perl</a>. For more information
+see<span class = "Apple-converted-space">&nbsp;</span><span
+    class = "Apple-converted-space"></span><a
+    style = "margin: 0px;         padding: 0px; border: 0px; font-size: 14px; vertical-align:         baseline; outline: none; color: rgb(159, 159, 159);"
+    href = "https://perldoc.perl.org/perlre">https://perldoc.perl.org/perlre</a><br/>and<span
+    class = "Apple-converted-space">&nbsp;</span><span
+    class = "Apple-converted-space"></span><a
+    style = "margin: 0px;         padding: 0px; border: 0px; font-size: 14px; vertical-align:         baseline; outline: none; color: rgb(159, 159, 159);"
+    href = "http://edicl.github.io/cl-ppcre/">http://edicl.github.io/cl-ppcre/</a>.</p><p
+    style = "margin: 0px 0px 1.714285714rem; padding: 0px; border: 0px;       font-size: 14px; vertical-align: baseline; line-height:       1.714285714;">+<span
+    class = "Apple-converted-space">&nbsp;</span><span
+    style = "margin: 0px; padding: 0px; border: 0px; font-size: 14px;         vertical-align: baseline; color: darkblue;">C
+o n f i g u r a t i o n<span class = "Apple-converted-space">&nbsp;</span></span>+
++ + + + + +<br/>+<span class = "Apple-converted-space">&nbsp;</span><br/>On
+Windows you can configure (via FileMaker&rsquo;s<span
+    class = "Apple-converted-space">&nbsp;</span><em
+    style = "margin:         0px; padding: 0px; border: 0px; font-size: 14px; vertical-align:         baseline;">Preferences</em><span
+    class = "Apple-converted-space">&nbsp;</span>dialog) whether<span
+    class = "Apple-converted-space">&nbsp;</span><b
+    style = "margin: 0px; padding: 0px; border: 0px; font-size: 14px;         vertical-align: baseline;">RegexPlugIn</b><span
+    class = "Apple-converted-space">&nbsp;</span>should cache
+regular expressions (this is the default setting) or not. It is almost
+always advisable to do that unless you have a large database where
+the regular expression is variable, i.e. where it is different for
+each record.</p><p
+    style = "margin: 0px 0px 1.714285714rem; padding: 0px; border: 0px;       font-size: 14px; vertical-align: baseline; line-height:       1.714285714;"><a
+    class = "noborder"
+    style = "margin: 0px; padding: 0px; border: 0px; font-size: 14px;         vertical-align: baseline; outline: none; color: rgb(159, 159,         159);"
+    href = "https://web.archive.org/web/20170525205853/http://www.lispworks.com/"><img
+    style = "margin:           0px; padding: 0px; border: 0px; font-size: 14px;           vertical-align: baseline; max-width: 100%; border-radius: 3px;           box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 4px;"
+    title = "Made with Lisp"
+    src = "https://common-lisp.net/static/imgs/lisplogo_flag2_128.png"
+    alt = "Made with Lisp" height = "84.001" width = "120.001"
+    align = "right" border = "0" hspace = "20" vspace = "20"/></a><br/>+<span
+    class = "Apple-converted-space">&nbsp;</span><span
+    style = "margin: 0px; padding: 0px; border: 0px; font-size: 14px;         vertical-align: baseline; color: darkblue;">T
+e c h n i c a l &nbsp; i n f o r m a t i o n<span
+    class = "Apple-converted-space">&nbsp;</span></span>+ +
++ + + + +<br/>+<span class = "Apple-converted-space">&nbsp;</span><br/>The<span
+    class = "Apple-converted-space">&nbsp;</span><b
+    style = "margin: 0px; padding: 0px; border: 0px; font-size: 14px;         vertical-align: baseline;">RegexPlugIn</b><span
+    class = "Apple-converted-space">&nbsp;</span>was written
+in<span class = "Apple-converted-space">&nbsp;</span><a
+    style = "margin: 0px; padding: 0px;         border: 0px; font-size: 14px; vertical-align: baseline; outline:         none; color: rgb(159, 159, 159);"
+    href = "https://common-lisp.net">Common Lisp</a><span
+    class = "Apple-converted-space">&nbsp;</span>using the<span
+    class = "Apple-converted-space">&nbsp;</span><a
+    style = "margin: 0px; padding:         0px; border: 0px; font-size: 14px; vertical-align: baseline;         outline: none; color: rgb(159, 159, 159);"
+    href = "http://www.lispworks.com">LispWorks</a><span
+    class = "Apple-converted-space">&nbsp;</span>development
+environment and the<span class = "Apple-converted-space">&nbsp;</span><a
+    style = "margin:         0px; padding: 0px; border: 0px; font-size: 14px; vertical-align:         baseline; outline: none; color: rgb(159, 159, 159);"
+    href = "https://github.com/binghe/fm-plugin-tools">FM-PLUGIN-TOOLS</a><span
+    class = "Apple-converted-space">&nbsp;</span>toolkit. The
+regex engine used is<span class = "Apple-converted-space">&nbsp;</span><a
+    style = "margin: 0px;         padding: 0px; border: 0px; font-size: 14px; vertical-align:         baseline; outline: none; color: rgb(159, 159, 159);"
+    href = "http://edicl.github.io/cl-ppcre/">CL-PPCRE</a>.</p><p
+    style = "margin: 0px 0px 1.714285714rem; padding: 0px; border: 0px;       font-size: 14px; vertical-align: baseline; line-height:       1.714285714;">The
+source code for<span class = "Apple-converted-space">&nbsp;</span><b
+    style = "margin:         0px; padding: 0px; border: 0px; font-size: 14px; vertical-align:         baseline;">RegexPlugIn</b><span
+    class = "Apple-converted-space">&nbsp;</span>is now part
+of <a href = "https://github.com/binghe/fm-plugin-tools">FM-PLUGIN-TOOLS</a>.<br/></p><p
+    style = "margin: 0px 0px 1.714285714rem; padding: 0px; border: 0px;       font-size: 14px; vertical-align: baseline; line-height:       1.714285714;">+<span
+    class = "Apple-converted-space">&nbsp;</span><span
+    style = "margin: 0px; padding: 0px; border: 0px; font-size: 14px;         vertical-align: baseline; color: darkblue;">F
+u n c t i o n s<span class = "Apple-converted-space">&nbsp;</span></span>+
++ + + + + +<br/>+<span class = "Apple-converted-space">&nbsp;</span><br/><b
+    style = "margin: 0px; padding: 0px; border: 0px; font-size: 14px;         vertical-align: baseline;">RegexPlugIn</b><span
+    class = "Apple-converted-space">&nbsp;</span>provides the
+following<span class = "Apple-converted-space">&nbsp;</span><em
+    style = "margin: 0px; padding: 0px; border: 0px; font-size: 14px;         vertical-align: baseline;">external</em><span
+    class = "Apple-converted-space">&nbsp;</span>functions which
+can be used in FileMaker calculations:</p><p
+    style = "margin: 0px 0px 1.714285714rem; padding: 0px; border: 0px;       font-size: 14px; vertical-align: baseline; line-height:       1.714285714;">+<span
+    class = "Apple-converted-space">&nbsp;</span><span
+    style = "margin: 0px; padding: 0px; border: 0px; font-size: 14px;         vertical-align: baseline; color: darkblue;">RegP_Version</span><br/>+<span
+    class = "Apple-converted-space">&nbsp;</span><br/>This function
+simply returns the version of<span class = "Apple-converted-space">&nbsp;</span><b
+    style = "margin:         0px; padding: 0px; border: 0px; font-size: 14px; vertical-align:         baseline;">RegexPlugIn</b><span
+    class = "Apple-converted-space">&nbsp;</span>as a string.</p><p
+    style = "margin: 0px 0px 1.714285714rem; padding: 0px; border: 0px;       font-size: 14px; vertical-align: baseline; line-height:       1.714285714;"><img
+    style = "margin:         0px; padding: 0px; border: 0px; font-size: 14px; vertical-align:         baseline; max-width: 100%; border-radius: 3px; box-shadow:         rgba(0, 0, 0, 0.2) 0px 1px 4px;"
+    src = "version.png" alt = "version" height = "67.001"
+    width = "346.000" align = "middle" border = "0"/></p><p
+    style = "margin: 0px 0px 1.714285714rem; padding: 0px; border: 0px;       font-size: 14px; vertical-align: baseline; line-height:       1.714285714;"><a
+    id = "scan"
+    style = "margin: 0px; padding: 0px;         border: 0px; font-size: 14px; vertical-align: baseline; outline:         none; color: rgb(33, 117, 155);"
+    name = "scan"></a>+<span class = "Apple-converted-space">&nbsp;</span><span
+    style = "margin:         0px; padding: 0px; border: 0px; font-size: 14px; vertical-align:         baseline; color: darkblue;">RegP_Scan
+( regex ; target {; flags} )</span><br/>+<span
+    class = "Apple-converted-space">&nbsp;</span><br/>Searches
+the text<span class = "Apple-converted-space">&nbsp;</span><code
+    style = 'margin: 0px; padding: 0px; border: 0px; font-size:         0.857142857rem; vertical-align: baseline; font-family: Consolas,         Monaco, "Lucida Console", monospace; line-height: 2;'>target</code><span
+    class = "Apple-converted-space">&nbsp;</span>from start
+to end and tries to match the regular expression<span
+    class = "Apple-converted-space">&nbsp;</span><code
+    style = 'margin:         0px; padding: 0px; border: 0px; font-size: 0.857142857rem;         vertical-align: baseline; font-family: Consolas, Monaco,         "Lucida Console", monospace; line-height: 2;'>regex</code>. Returns<span
+    class = "Apple-converted-space">&nbsp;</span><code
+    style = 'margin: 0px; padding: 0px; border: 0px; font-size:         0.857142857rem; vertical-align: baseline; font-family: Consolas,         Monaco, "Lucida Console", monospace; line-height: 2;'>True</code><span
+    class = "Apple-converted-space">&nbsp;</span>(1) on success,<span
+    class = "Apple-converted-space">&nbsp;</span><code
+    style = 'margin:         0px; padding: 0px; border: 0px; font-size: 0.857142857rem;         vertical-align: baseline; font-family: Consolas, Monaco,         "Lucida Console", monospace; line-height: 2;'>False</code><span
+    class = "Apple-converted-space">&nbsp;</span>(0) otherwise.</p><p
+    style = "margin: 0px 0px 1.714285714rem; padding: 0px; border: 0px;       font-size: 14px; vertical-align: baseline; line-height:       1.714285714;">The
+optional<span class = "Apple-converted-space">&nbsp;</span><code
+    style = 'margin: 0px; padding: 0px; border: 0px; font-size:         0.857142857rem; vertical-align: baseline; font-family: Consolas,         Monaco, "Lucida Console", monospace; line-height: 2;'>flags</code><span
+    class = "Apple-converted-space">&nbsp;</span>argument is
+a string. Upon invocation of the function it is searched for the occurrence
+of the characters<span class = "Apple-converted-space">&nbsp;</span><code
+    style = 'margin: 0px; padding: 0px; border: 0px; font-size:         0.857142857rem; vertical-align: baseline; font-family: Consolas,         Monaco, "Lucida Console", monospace; line-height: 2;'>i</code>,<span
+    class = "Apple-converted-space">&nbsp;</span><code
+    style = 'margin:         0px; padding: 0px; border: 0px; font-size: 0.857142857rem;         vertical-align: baseline; font-family: Consolas, Monaco,         "Lucida Console", monospace; line-height: 2;'>s</code>,<span
+    class = "Apple-converted-space">&nbsp;</span><code
+    style = 'margin:         0px; padding: 0px; border: 0px; font-size: 0.857142857rem;         vertical-align: baseline; font-family: Consolas, Monaco,         "Lucida Console", monospace; line-height: 2;'>m</code>,<span
+    class = "Apple-converted-space">&nbsp;</span><code
+    style = 'margin:         0px; padding: 0px; border: 0px; font-size: 0.857142857rem;         vertical-align: baseline; font-family: Consolas, Monaco,         "Lucida Console", monospace; line-height: 2;'>x</code>.
+These characters have the same meaning as the modifiers in Perl,
+so for example if<span class = "Apple-converted-space">&nbsp;</span><code
+    style = 'margin: 0px; padding: 0px; border: 0px; font-size:         0.857142857rem; vertical-align: baseline; font-family: Consolas,         Monaco, "Lucida Console", monospace; line-height: 2;'>flags</code><span
+    class = "Apple-converted-space">&nbsp;</span>is<span
+    class = "Apple-converted-space">&nbsp;</span><code
+    style = 'margin:         0px; padding: 0px; border: 0px; font-size: 0.857142857rem;         vertical-align: baseline; font-family: Consolas, Monaco,         "Lucida Console", monospace; line-height: 2;'>"is"</code><span
+    class = "Apple-converted-space">&nbsp;</span>or<span
+    class = "Apple-converted-space">&nbsp;</span><code
+    style = 'margin:         0px; padding: 0px; border: 0px; font-size: 0.857142857rem;         vertical-align: baseline; font-family: Consolas, Monaco,         "Lucida Console", monospace; line-height: 2;'>"si"</code><span
+    class = "Apple-converted-space">&nbsp;</span>(or even<span
+    class = "Apple-converted-space">&nbsp;</span><code
+    style = 'margin:         0px; padding: 0px; border: 0px; font-size: 0.857142857rem;         vertical-align: baseline; font-family: Consolas, Monaco,         "Lucida Console", monospace; line-height: 2;'>"iS"</code><span
+    class = "Apple-converted-space">&nbsp;</span>or<span
+    class = "Apple-converted-space">&nbsp;</span><code
+    style = 'margin:         0px; padding: 0px; border: 0px; font-size: 0.857142857rem;         vertical-align: baseline; font-family: Consolas, Monaco,         "Lucida Console", monospace; line-height: 2;'>"SiSi"</code>),
+then the regular expression will ignore case and work in &ldquo;single-line
+mode.&rdquo;</p><p
+    style = "margin: 0px 0px 1.714285714rem; padding: 0px; border: 0px;       font-size: 14px; vertical-align: baseline; line-height:       1.714285714;"><img
+    style = "margin: 0px;         padding: 0px; border: 0px; font-size: 14px; vertical-align:         baseline; max-width: 100%; border-radius: 3px; box-shadow:         rgba(0, 0, 0, 0.2) 0px 1px 4px;"
+    src = "scan.png" alt = "scan" height = "529.000" width = "346.000"
+    align = "middle" border = "0"/></p><p
+    style = "margin: 0px 0px 1.714285714rem; padding: 0px; border: 0px;       font-size: 14px; vertical-align: baseline; line-height:       1.714285714;"><a
+    id = "matchstart"
+    style = "margin: 0px; padding:         0px; border: 0px; font-size: 14px; vertical-align: baseline;         outline: none; color: rgb(33, 117, 155);"
+    name = "matchstart"></a>+<span class = "Apple-converted-space">&nbsp;</span><span
+    style = "margin:         0px; padding: 0px; border: 0px; font-size: 14px; vertical-align:         baseline; color: darkblue;">RegP_MatchStart
+( regex ; target {; flags; register} )</span><br/>+<span
+    class = "Apple-converted-space">&nbsp;</span><span
+    style = "margin: 0px; padding: 0px; border: 0px; font-size: 14px;         vertical-align: baseline; color: darkblue;">RegP_MatchEnd
+( regex ; target {; flags; register} )</span><br/>+<span
+    class = "Apple-converted-space">&nbsp;</span><br/>These
+functions return the start and end positions of the matching substring
+within<span class = "Apple-converted-space">&nbsp;</span><code
+    style = 'margin: 0px; padding: 0px; border: 0px; font-size:         0.857142857rem; vertical-align: baseline; font-family: Consolas,         Monaco, "Lucida Console", monospace; line-height: 2;'>target</code><span
+    class = "Apple-converted-space">&nbsp;</span>if the regular
+expression matches, otherwise they return -1. The<span
+    class = "Apple-converted-space">&nbsp;</span><code
+    style = 'margin:         0px; padding: 0px; border: 0px; font-size: 0.857142857rem;         vertical-align: baseline; font-family: Consolas, Monaco,         "Lucida Console", monospace; line-height: 2;'>flags</code><span
+    class = "Apple-converted-space">&nbsp;</span>argument is
+used as<span class = "Apple-converted-space">&nbsp;</span><a
+    style = "margin: 0px; padding: 0px; border: 0px; font-size: 14px;         vertical-align: baseline; outline: none; color: rgb(159, 159,         159);"
+    href = "#scan">above</a>.</p><p
+    style = "margin: 0px 0px 1.714285714rem; padding: 0px; border: 0px;       font-size: 14px; vertical-align: baseline; line-height:       1.714285714;">The
+second optional argument,<span class = "Apple-converted-space">&nbsp;</span><code
+    style = 'margin:         0px; padding: 0px; border: 0px; font-size: 0.857142857rem;         vertical-align: baseline; font-family: Consolas, Monaco,         "Lucida Console", monospace; line-height: 2;'>register</code>,
+can be the number of a register group within the regular expression
+in which case the start and end positions of this group are returned.
+Note that the first register has the number&nbsp;1 and<span
+    class = "Apple-converted-space">&nbsp;</span><em
+    style = "margin: 0px; padding: 0px; border: 0px; font-size: 14px;         vertical-align: baseline;">not</em>&nbsp;0.</p><p
+    style = "margin: 0px 0px 1.714285714rem; padding: 0px; border: 0px;       font-size: 14px; vertical-align: baseline; line-height:       1.714285714;"><img
+    style = "margin: 0px; padding: 0px; border: 0px; font-size: 14px;         vertical-align: baseline; max-width: 100%; border-radius: 3px;         box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 4px;"
+    src = "matchstart.png" alt = "matchstart" height = "643.000"
+    width = "346.000" align = "middle" border = "0"/></p><p
+    style = "margin: 0px 0px 1.714285714rem; padding: 0px; border: 0px;       font-size: 14px; vertical-align: baseline; line-height:       1.714285714;">+<span
+    class = "Apple-converted-space">&nbsp;</span><span
+    style = "margin: 0px; padding: 0px; border: 0px; font-size: 14px;         vertical-align: baseline; color: darkblue;">RegP_Positions
+( regex ; target {; flags ; outerPairDelimiter ; innerPairDelimiter
+} )</span><br/>+<span class = "Apple-converted-space">&nbsp;</span><br/>This
+function kind of combines<span class = "Apple-converted-space">&nbsp;</span><code
+    style = 'margin: 0px; padding: 0px; border: 0px; font-size:         0.857142857rem; vertical-align: baseline; font-family: Consolas,         Monaco, "Lucida Console", monospace; line-height: 2;'>RegP_MatchStart</code><span
+    class = "Apple-converted-space">&nbsp;</span>and<span
+    class = "Apple-converted-space">&nbsp;</span><code
+    style = 'margin:         0px; padding: 0px; border: 0px; font-size: 0.857142857rem;         vertical-align: baseline; font-family: Consolas, Monaco,         "Lucida Console", monospace; line-height: 2;'>RegP_MatchEnd</code><span
+    class = "Apple-converted-space">&nbsp;</span>(see<span
+    class = "Apple-converted-space">&nbsp;</span><a
+    style = "margin: 0px; padding: 0px; border: 0px; font-size: 14px;         vertical-align: baseline; outline: none; color: rgb(159, 159,         159);"
+    href = "#matchstart">above</a>). If there is no match, it returns<span
+    class = "Apple-converted-space">&nbsp;</span><code
+    style = 'margin: 0px; padding: 0px; border: 0px; font-size:         0.857142857rem; vertical-align: baseline; font-family: Consolas,         Monaco, "Lucida Console", monospace; line-height: 2;'>False</code><span
+    class = "Apple-converted-space">&nbsp;</span>(0). Otherwise
+it returns a string of the start and end positions of the match
+itself followed by the start and end positions of all register groups.
+The individual numbers are separated with the optional delimter
+arguments which default to<span class = "Apple-converted-space">&nbsp;</span><code
+    style = 'margin:         0px; padding: 0px; border: 0px; font-size: 0.857142857rem;         vertical-align: baseline; font-family: Consolas, Monaco,         "Lucida Console", monospace; line-height: 2;'>|</code><span
+    class = "Apple-converted-space">&nbsp;</span>character.
+If a register group doesn&rsquo;t match, two hyphens (<code
+    style = 'margin:         0px; padding: 0px; border: 0px; font-size: 0.857142857rem;         vertical-align: baseline; font-family: Consolas, Monaco,         "Lucida Console", monospace; line-height: 2;'>-</code>)
+instead of two numbers are inserted into the result string.</p><p
+    style = "margin: 0px 0px 1.714285714rem; padding: 0px; border: 0px;       font-size: 14px; vertical-align: baseline; line-height:       1.714285714;"><img
+    style = "margin: 0px; padding: 0px; border: 0px; font-size: 14px;         vertical-align: baseline; max-width: 100%; border-radius: 3px;         box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 4px;"
+    src = "positions.png" alt = "positions" height = "643.000"
+    width = "346.000" align = "middle" border = "0"/></p><p
+    style = "margin: 0px 0px 1.714285714rem; padding: 0px; border: 0px;       font-size: 14px; vertical-align: baseline; line-height:       1.714285714;"><a
+    id = "replace"
+    style = "margin: 0px; padding: 0px;         border: 0px; font-size: 14px; vertical-align: baseline; outline:         none; color: rgb(33, 117, 155);"
+    name = "replace"></a>+<span class = "Apple-converted-space">&nbsp;</span><span
+    style = "margin:         0px; padding: 0px; border: 0px; font-size: 14px; vertical-align:         baseline; color: darkblue;">RegP_Replace
+( regex ; target ; replacement {; flags} )</span><br/>+<span
+    class = "Apple-converted-space">&nbsp;</span><span
+    style = "margin: 0px; padding: 0px; border: 0px; font-size: 14px;         vertical-align: baseline; color: darkblue;">RegP_ReplaceOne
+( regex ; target ; replacement {; flags} )</span><br/>+<span
+    class = "Apple-converted-space">&nbsp;</span><br/><code
+    style = 'margin: 0px; padding: 0px; border: 0px; font-size:         0.857142857rem; vertical-align: baseline; font-family: Consolas,         Monaco, "Lucida Console", monospace; line-height: 2;'>RegP_Replace</code><span
+    class = "Apple-converted-space">&nbsp;</span>returns the
+text<span class = "Apple-converted-space">&nbsp;</span><code
+    style = 'margin:         0px; padding: 0px; border: 0px; font-size: 0.857142857rem;         vertical-align: baseline; font-family: Consolas, Monaco,         "Lucida Console", monospace; line-height: 2;'>target</code><span
+    class = "Apple-converted-space">&nbsp;</span>with all substrings
+that match<span class = "Apple-converted-space">&nbsp;</span><code
+    style = 'margin: 0px; padding: 0px; border: 0px; font-size:         0.857142857rem; vertical-align: baseline; font-family: Consolas,         Monaco, "Lucida Console", monospace; line-height: 2;'>regex</code><span
+    class = "Apple-converted-space">&nbsp;</span>replaced with<span
+    class = "Apple-converted-space">&nbsp;</span><code
+    style = 'margin:         0px; padding: 0px; border: 0px; font-size: 0.857142857rem;         vertical-align: baseline; font-family: Consolas, Monaco,         "Lucida Console", monospace; line-height: 2;'>replacement</code>.<span
+    class = "Apple-converted-space">&nbsp;</span><span
+    class = "Apple-converted-space">&nbsp;</span><code
+    style = 'margin:         0px; padding: 0px; border: 0px; font-size: 0.857142857rem;         vertical-align: baseline; font-family: Consolas, Monaco,         "Lucida Console", monospace; line-height: 2;'>replacement</code><span
+    class = "Apple-converted-space">&nbsp;</span>can contain
+the special substrings<span class = "Apple-converted-space">&nbsp;</span><span
+    class = "Apple-converted-space">&nbsp;</span><code
+    style = 'margin:         0px; padding: 0px; border: 0px; font-size: 0.857142857rem;         vertical-align: baseline; font-family: Consolas, Monaco,         "Lucida Console", monospace; line-height: 2;'>\&amp;</code><span
+    class = "Apple-converted-space">&nbsp;</span>for the whole match,<span
+    class = "Apple-converted-space">&nbsp;</span><code
+    style = 'margin:         0px; padding: 0px; border: 0px; font-size: 0.857142857rem;         vertical-align: baseline; font-family: Consolas, Monaco,         "Lucida Console", monospace; line-height: 2;'>\`</code><span
+    class = "Apple-converted-space">&nbsp;</span>for the part
+of<span class = "Apple-converted-space">&nbsp;</span><code
+    style = 'margin:         0px; padding: 0px; border: 0px; font-size: 0.857142857rem;         vertical-align: baseline; font-family: Consolas, Monaco,         "Lucida Console", monospace; line-height: 2;'>target</code><span
+    class = "Apple-converted-space">&nbsp;</span>before the
+match,<span class = "Apple-converted-space">&nbsp;</span><code
+    style = 'margin:         0px; padding: 0px; border: 0px; font-size: 0.857142857rem;         vertical-align: baseline; font-family: Consolas, Monaco,         "Lucida Console", monospace; line-height: 2;'>\'</code><span
+    class = "Apple-converted-space">&nbsp;</span>for the part
+of<span class = "Apple-converted-space">&nbsp;</span><code
+    style = 'margin:         0px; padding: 0px; border: 0px; font-size: 0.857142857rem;         vertical-align: baseline; font-family: Consolas, Monaco,         "Lucida Console", monospace; line-height: 2;'>target</code><span
+    class = "Apple-converted-space">&nbsp;</span>after the match, or<span
+    class = "Apple-converted-space">&nbsp;</span><code
+    style = 'margin:         0px; padding: 0px; border: 0px; font-size: 0.857142857rem;         vertical-align: baseline; font-family: Consolas, Monaco,         "Lucida Console", monospace; line-height: 2;'>\N</code><span
+    class = "Apple-converted-space">&nbsp;</span>or<span
+    class = "Apple-converted-space">&nbsp;</span><code
+    style = 'margin:         0px; padding: 0px; border: 0px; font-size: 0.857142857rem;         vertical-align: baseline; font-family: Consolas, Monaco,         "Lucida Console", monospace; line-height: 2;'>\{N}</code><span
+    class = "Apple-converted-space">&nbsp;</span>for the<span
+    class = "Apple-converted-space">&nbsp;</span><code
+    style = 'margin:         0px; padding: 0px; border: 0px; font-size: 0.857142857rem;         vertical-align: baseline; font-family: Consolas, Monaco,         "Lucida Console", monospace; line-height: 2;'>N</code>th
+register group where<span class = "Apple-converted-space">&nbsp;</span><code
+    style = 'margin: 0px; padding: 0px; border: 0px; font-size:         0.857142857rem; vertical-align: baseline; font-family: Consolas,         Monaco, "Lucida Console", monospace; line-height: 2;'>N</code><span
+    class = "Apple-converted-space">&nbsp;</span>is a positive
+integer.</p><p
+    style = "margin: 0px 0px 1.714285714rem; padding: 0px; border: 0px;       font-size: 14px; vertical-align: baseline; line-height:       1.714285714;"><code
+    style = 'margin: 0px; padding: 0px; border: 0px;         font-size: 0.857142857rem; vertical-align: baseline;         font-family: Consolas, Monaco, "Lucida Console",         monospace; line-height: 2;'>RegP_ReplaceOne</code><span
+    class = "Apple-converted-space">&nbsp;</span>is similar
+but replaces only the first match.</p><p
+    style = "margin: 0px 0px 1.714285714rem; padding: 0px; border: 0px;       font-size: 14px; vertical-align: baseline; line-height:       1.714285714;">The<span
+    class = "Apple-converted-space">&nbsp;</span><code
+    style = 'margin: 0px; padding: 0px; border: 0px; font-size:         0.857142857rem; vertical-align: baseline; font-family: Consolas,         Monaco, "Lucida Console", monospace; line-height: 2;'>flags</code><span
+    class = "Apple-converted-space">&nbsp;</span>argument is
+used as<span class = "Apple-converted-space">&nbsp;</span><a
+    style = "margin: 0px; padding: 0px; border: 0px; font-size: 14px;         vertical-align: baseline; outline: none; color: rgb(159, 159,         159);"
+    href = "#scan">above</a>. Furthermore, if the<span
+    class = "Apple-converted-space">&nbsp;</span><code
+    style = 'margin:         0px; padding: 0px; border: 0px; font-size: 0.857142857rem;         vertical-align: baseline; font-family: Consolas, Monaco,         "Lucida Console", monospace; line-height: 2;'>flags</code><span
+    class = "Apple-converted-space">&nbsp;</span>argument contains
+an<span class = "Apple-converted-space">&nbsp;</span><code
+    style = 'margin:         0px; padding: 0px; border: 0px; font-size: 0.857142857rem;         vertical-align: baseline; font-family: Consolas, Monaco,         "Lucida Console", monospace; line-height: 2;'>e</code>,
+then the replacement result is searched for sequences that look
+like<span class = "Apple-converted-space">&nbsp;</span><code
+    style = 'margin: 0px; padding: 0px; border: 0px; font-size:         0.857142857rem; vertical-align: baseline; font-family: Consolas,         Monaco, "Lucida Console", monospace; line-height: 2;'>${...}</code><span
+    class = "Apple-converted-space">&nbsp;</span>where<span
+    class = "Apple-converted-space">&nbsp;</span><code
+    style = 'margin:         0px; padding: 0px; border: 0px; font-size: 0.857142857rem;         vertical-align: baseline; font-family: Consolas, Monaco,         "Lucida Console", monospace; line-height: 2;'>...</code><span
+    class = "Apple-converted-space">&nbsp;</span>can be anything
+that doesn&rsquo;t contain the&nbsp;<code
+    style = 'margin: 0px; padding: 0px;         border: 0px; font-size: 0.857142857rem; vertical-align:         baseline; font-family: Consolas, Monaco, "Lucida         Console", monospace; line-height: 2;'>}</code><span
+    class = "Apple-converted-space">&nbsp;</span>character.
+These sequences will be replaced by the result of evaluating<span
+    class = "Apple-converted-space">&nbsp;</span><code
+    style = 'margin:         0px; padding: 0px; border: 0px; font-size: 0.857142857rem;         vertical-align: baseline; font-family: Consolas, Monaco,         "Lucida Console", monospace; line-height: 2;'>...</code><span
+    class = "Apple-converted-space">&nbsp;</span>in FileMaker
+as with the function<span class = "Apple-converted-space">&nbsp;</span><code
+    style = 'margin: 0px; padding: 0px; border: 0px; font-size:         0.857142857rem; vertical-align: baseline; font-family: Consolas,         Monaco, "Lucida Console", monospace; line-height: 2;'>Evaluate</code>.</p><p
+    style = "margin: 0px 0px 1.714285714rem; padding: 0px; border: 0px;       font-size: 14px; vertical-align: baseline; line-height:       1.714285714;"><code
+    style = 'margin: 0px; padding: 0px; border: 0px;         font-size: 0.857142857rem; vertical-align: baseline;         font-family: Consolas, Monaco, "Lucida Console",         monospace; line-height: 2;'>RegP_Replace</code><span
+    class = "Apple-converted-space">&nbsp;</span>and<span
+    class = "Apple-converted-space">&nbsp;</span><code
+    style = 'margin:         0px; padding: 0px; border: 0px; font-size: 0.857142857rem;         vertical-align: baseline; font-family: Consolas, Monaco,         "Lucida Console", monospace; line-height: 2;'>RegP_ReplaceOne</code><span
+    class = "Apple-converted-space">&nbsp;</span>will usually
+conserve character styles, i.e. if the first four characters of
+the target string are red and bold, then the first four characters
+of the replacement result will also be red and bold unless they
+are replaced. However, if the<span class = "Apple-converted-space">&nbsp;</span><code
+    style = 'margin: 0px; padding: 0px; border: 0px; font-size:         0.857142857rem; vertical-align: baseline; font-family: Consolas,         Monaco, "Lucida Console", monospace; line-height: 2;'>flags</code><span
+    class = "Apple-converted-space">&nbsp;</span>argument contains
+a<span class = "Apple-converted-space">&nbsp;</span><code
+    style = 'margin:         0px; padding: 0px; border: 0px; font-size: 0.857142857rem;         vertical-align: baseline; font-family: Consolas, Monaco,         "Lucida Console", monospace; line-height: 2;'>c</code>,
+then the special sequences like<span class = "Apple-converted-space">&nbsp;</span><code
+    style = 'margin: 0px; padding: 0px; border: 0px; font-size:         0.857142857rem; vertical-align: baseline; font-family: Consolas,         Monaco, "Lucida Console", monospace; line-height: 2;'>\1</code><span
+    class = "Apple-converted-space">&nbsp;</span>or<span
+    class = "Apple-converted-space">&nbsp;</span><code
+    style = 'margin:         0px; padding: 0px; border: 0px; font-size: 0.857142857rem;         vertical-align: baseline; font-family: Consolas, Monaco,         "Lucida Console", monospace; line-height: 2;'>\&amp;</code><span
+    class = "Apple-converted-space">&nbsp;</span>in<span
+    class = "Apple-converted-space">&nbsp;</span><code
+    style = 'margin:         0px; padding: 0px; border: 0px; font-size: 0.857142857rem;         vertical-align: baseline; font-family: Consolas, Monaco,         "Lucida Console", monospace; line-height: 2;'>replacement</code><span
+    class = "Apple-converted-space">&nbsp;</span>determine the
+character style, i.e. if<span class = "Apple-converted-space">&nbsp;</span><code
+    style = 'margin: 0px; padding: 0px; border: 0px; font-size:         0.857142857rem; vertical-align: baseline; font-family: Consolas,         Monaco, "Lucida Console", monospace; line-height: 2;'>\1</code><span
+    class = "Apple-converted-space">&nbsp;</span>is in italics
+and green, then what will be substituted for<span
+    class = "Apple-converted-space">&nbsp;</span><code
+    style = 'margin:         0px; padding: 0px; border: 0px; font-size: 0.857142857rem;         vertical-align: baseline; font-family: Consolas, Monaco,         "Lucida Console", monospace; line-height: 2;'>\1</code><span
+    class = "Apple-converted-space">&nbsp;</span>will also be
+in italics and green. In addition, if<span
+    class = "Apple-converted-space">&nbsp;</span><code
+    style = 'margin:         0px; padding: 0px; border: 0px; font-size: 0.857142857rem;         vertical-align: baseline; font-family: Consolas, Monaco,         "Lucida Console", monospace; line-height: 2;'>flags</code><span
+    class = "Apple-converted-space">&nbsp;</span>also contains
+an<span class = "Apple-converted-space">&nbsp;</span><code
+    style = 'margin:         0px; padding: 0px; border: 0px; font-size: 0.857142857rem;         vertical-align: baseline; font-family: Consolas, Monaco,         "Lucida Console", monospace; line-height: 2;'>e</code><span
+    class = "Apple-converted-space">&nbsp;</span>(see last paragraph),
+then the character style of the<span class = "Apple-converted-space">&nbsp;</span><code
+    style = 'margin: 0px; padding: 0px; border: 0px; font-size:         0.857142857rem; vertical-align: baseline; font-family: Consolas,         Monaco, "Lucida Console", monospace; line-height: 2;'>${...}</code><span
+    class = "Apple-converted-space">&nbsp;</span>sequence determines the
+character style of the evaluation result.</p><p
+    style = "margin: 0px 0px 1.714285714rem; padding: 0px; border: 0px;       font-size: 14px; vertical-align: baseline; line-height:       1.714285714;"><img
+    style = "margin:         0px; padding: 0px; border: 0px; font-size: 14px; vertical-align:         baseline; max-width: 100%; border-radius: 3px; box-shadow:         rgba(0, 0, 0, 0.2) 0px 1px 4px;"
+    src = "replace.png" alt = "replace" height = "672.000"
+    width = "468.000" align = "middle" border = "0"/></p><p
+    style = "margin: 0px 0px 1.714285714rem; padding: 0px; border: 0px;       font-size: 14px; vertical-align: baseline; line-height:       1.714285714;">+<span
+    class = "Apple-converted-space">&nbsp;</span><span
+    style = "margin: 0px; padding: 0px; border: 0px; font-size: 14px;         vertical-align: baseline; color: darkblue;">RegP_GetText
+( regex ; target {; flags ; registers } )</span><br/>+<span
+    class = "Apple-converted-space">&nbsp;</span><br/>extracts
+the first match of pattern regex in target string</p><p
+    style = "margin: 0px 0px 1.714285714rem; padding: 0px; border: 0px;       font-size: 14px; vertical-align: baseline; line-height:       1.714285714;">+<span
+    class = "Apple-converted-space">&nbsp;</span><span
+    style = "margin: 0px; padding: 0px; border: 0px; font-size: 14px;         vertical-align: baseline; color: darkblue;">RegP_GetTextAll
+( regex ; target {; separationstring ; flags ; registers } )</span><br/>+<span
+    class = "Apple-converted-space">&nbsp;</span><br/>extracts
+ALL matches of pattern regex in target string separated by &lsquo;separationstring&rsquo;.</p></body></html>
