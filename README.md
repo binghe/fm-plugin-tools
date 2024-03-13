@@ -44,7 +44,9 @@ downloaded from
 plugin headers from latest SDK headers should also work for old versions of FileMaker Pro
 and FileMaker Pro Advanced.)
 
-Then call `(prepare:prepare)` after loading `:prepare-fm-plugin-tools`.
+Then call `(prep:prepare)` after `(ql:quickload :prepare-fm-plugin-tools)`.
+
+NOTE: this project should be put into Quicklisp's "local-projects" folder.
 
 ## Unified plug-in bundle format
 
