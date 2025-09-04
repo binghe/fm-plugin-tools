@@ -31,7 +31,15 @@
 
 (defpackage :fm-plugin-tools
   (:nicknames :fm)
-  (:use :cl :fli :dspec)
+  (:use
+   :cl
+   #+:lispworks
+   :fli
+   #+:sbcl
+   :sb-alien
+   #+:lispworks
+   :dspec)
+  #+:lispworks
   (:add-use-defaults t)
   (:export :*company-name*
            :*copyright-message*

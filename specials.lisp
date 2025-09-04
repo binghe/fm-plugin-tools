@@ -192,6 +192,10 @@ will be used to set the value of the Get(LastExternalErrorDetail) calc."
 not NIL.  Should not be accessed directly, but only with
 GET-ENVIRONMENT function.")
 
-(defvar *global-environment-lock* (mp:make-lock :name "global-environment-lock")
+(defvar *global-environment-lock*
+  #+:lispworks
+  (mp:make-lock :name "global-environment-lock")
+  #+:sbcl
+  nil
   "A lock to protect updates to the *GLOBAL-ENVIRONMENT* variable.")
 
