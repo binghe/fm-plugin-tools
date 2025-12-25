@@ -71,7 +71,7 @@
 (eval-when (:compile-toplevel :load-toplevel :execute)
   (defparameter *default-type-flags*
     (logior +k-display-in-all-dialogs+ ; Changed in FileMaker Pro 16v2
-            +k-may-evaluate-on-server+ ; DEPRECATED in FileMaker Pro 12
+            ;; +k-may-evaluate-on-server+ ; DEPRECATED in FileMaker Pro 12
             +k-all-device-compatible+
             +k-future-compatible+)))
 
