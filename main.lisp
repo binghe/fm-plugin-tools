@@ -288,7 +288,8 @@ all script steps which were defined with DEFINE-PLUGIN-SCRIPT-STEP."
     (#.+k-fmxt-xdbc+      :xdbc)      ; xDBC listener
     (#.+k-fmxt-sase+      :sase)      ; Serveer scripting process
     (#.+k-fmxt-iwp+       :iwp)       ; Instant Web Process (IWP)
-    (#.+k-fmxt-fmdapi+    :fmdapi)))  ; FileMaker Data API process
+    ;; (#.+k-fmxt-fmdapi+    :fmdapi)  ; FileMaker Data API process
+    ))
 
 (defun handle-init-message (application version version-string)
   "Handles `kFMXT_Init' messages from FileMaker.  Version is the

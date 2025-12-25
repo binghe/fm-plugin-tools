@@ -32,11 +32,15 @@
 (lw:load-all-patches)
 
 ;;; The following lines added by ql:add-to-init-file:
-#+(not quicklisp)
+#-quicklisp
 (let ((quicklisp-init (merge-pathnames "quicklisp/setup.lisp"
                                        (user-homedir-pathname))))
   (when (probe-file quicklisp-init)
     (load quicklisp-init)))
+
+;;; Local ASDF repositories, it's fine some directorie do not exist.
+(pushnew (merge-pathnames "Lisp/fm-plugin-tools/" (user-homedir-pathname))
+	 asdf:*central-registry* :test #'equal)
 
 (defvar *asdf-system* :fm-plugin-example
   "The ASDF system which contains the code for the plug-in.  It should

@@ -225,14 +225,14 @@ function returns RESULT."))
     (#.+k-get-uuidnumber+          "UUIDNumber"         :uuid-number)
     (#.+k-get-open-data-file-info+ "OpenDataFileInfo"   :open-data-file-info)
     (#.+k-get-account-type+        "AccountType"        :account-type)
-    (#.+k-get-page-count+          "PageCount"          :page-count)
-    (#.+k-get-system-locale-elements+ "SystemLocaleElements" :system-locale-elements)
-    (#.+k-get-file-locale-elements+ "FileLocaleElements" :file-locale-elements)
-    (#.+k-get-installed-fmplugins-as-json+
-                                   "InstalledFMPluginsAsJSON"
-                                   :installed-fmplugins-as-json)
+    ;; (#.+k-get-page-count+          "PageCount"          :page-count)
+    ;; (#.+k-get-system-locale-elements+ "SystemLocaleElements" :system-locale-elements)
+    ;; (#.+k-get-file-locale-elements+ "FileLocaleElements" :file-locale-elements)
+    ;; (#.+k-get-installed-fmplugins-as-json+
+    ;;                               "InstalledFMPluginsAsJSON"
+    ;;                               :installed-fmplugins-as-json)
     ;; New to FileMaker Pro 19.4.1
-    (#.+k-get-session-identifier+  "SessionIdentifier"  :session-identifier)
+    ;; (#.+k-get-session-identifier+  "SessionIdentifier"  :session-identifier)
     ))
 
 ;; These functions map between above functions' values, names and symbols
