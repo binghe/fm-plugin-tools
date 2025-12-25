@@ -1,3 +1,6 @@
+Version 0.5.0 (by Chun Tian)
+Fixed for PlugInSDK 22 (FileMaker 2025)
+
 Version 0.4.1 (by Chun Tian)
 A C/C++ pre-processor is no more needed for preparing `fli.lisp` (just like versions before 0.3.0).
 

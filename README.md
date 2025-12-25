@@ -86,7 +86,7 @@ Licensed under the BSD License.
 
 Copyright (c) 2006-2010, Dr. Edmund Weitz.  All rights reserved.
 
-Copyright (c) 2018,2022,  Chun Tian (binghe).  All rights reserved.
+Copyright (c) 2018,2022,2025  Chun Tian (binghe).  All rights reserved.
 
 ## fm-plugin-regex
 
