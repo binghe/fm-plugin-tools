@@ -296,10 +296,12 @@ corresponding C code to *STANDARD-OUTPUT*."
           (cond ((null pack)
                  nil) ; no #pragma at all, no packing
                 ((scan "FMX_PACK_ON" pack)
-                 #+win32 nil ; with #pragma but FMX_PACK_ON is undefined
-                 #-win32 1)  ; always pack on macOS (or it doesn't load)
+                 #+(and mswindows lispworks-32bit) nil ; with #pragma but FMX_PACK_ON is undefined
+                 #-(and mswindows lispworks-32bit) t   ; NOTE: This includes macOS and win64 now.
+                 )
+                ;; This was after C preprocessor (not used anymore)
                 ((scan "pack \\(push, 1\\)" pack)
-                 1)   ; with #pragma and FMX_PACK_ON is "pack (push, 1)"
+                 t) ; with #pragma and FMX_PACK_ON is "pack (push, 1)" (old way)
                 (t
                  (error "new, unknown #pragma occurs now!")))))
       (terpri))))
