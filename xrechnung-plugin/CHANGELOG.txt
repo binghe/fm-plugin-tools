@@ -5,13 +5,27 @@ Version 0.1.0 (2026-02-02)
 
 * Initial plugin scaffold created
 * Basic plugin structure following fm-plugin-tools patterns
-* Function definitions for:
-  - PDF/A conversion
-  - X-Rechnung XML generation
-  - ZUGFeRD/Factur-X hybrid document creation
-  - Validation functions
+* Implemented Ghostscript integration for PDF/A conversion:
+  - ConvertToPDFA: Convert binary PDF data to PDF/A-3b
+  - ConvertToPDFAFromFile: Convert PDF file to PDF/A-3b
+  - ValidatePDFA: Basic PDF/A validation
+* Implemented QPDF integration for XML embedding:
+  - CreateZUGFeRD: Embed XML into PDF/A (Factur-X/ZUGFeRD hybrid)
+  - ExtractXMLFromZUGFeRD: Extract embedded XML from hybrid documents
+* Tool management:
+  - CheckTools: Verify Ghostscript and QPDF availability
+  - Automatic tool detection on all platforms
+  - Cross-platform path resolution (Windows, macOS, Linux)
+* Utility functions:
+  - External command execution with error handling
+  - Temporary file management
+  - Shell argument quoting for security
 * Configuration dialog with cache management
 * Build scripts for macOS and Windows
 
-Note: This is a development version with placeholder implementations.
-Full functionality requires integration of PDF and XML libraries.
+TODO:
+- X-Rechnung XML generation (CII format)
+- Enhanced PDF/A validation (veraPDF integration)
+- JSON parsing for invoice data
+- Metadata support for PDF/A
+- XSD and Schematron validation

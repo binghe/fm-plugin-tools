@@ -111,3 +111,93 @@ Replaces XML special characters."
 (defun cache-size ()
   "Return the number of entries in the validation cache."
   (hash-table-count *validation-cache*))
+
+;;; ===========================================================================
+;;; External Tool Integration
+;;; ===========================================================================
+
+(defun find-executable (name)
+  "Try to find an executable in the system PATH.
+Returns the full path if found, NIL otherwise."
+  #+:win32
+  (let ((extensions '("" ".exe" ".bat" ".cmd")))
+    (dolist (ext extensions)
+      (let ((result (sys:run-shell-command
+                     (format nil "where ~A~A" name ext)
+                     :output :stream
+                     :wait t
+                     :if-error-output-exists :append)))
+        (when (and result (zerop (sys:pipe-exit-status result)))
+          (with-open-stream (stream result)
+            (let ((path (read-line stream nil)))
+              (when path
+                (return-from find-executable (string-trim '(#\Space #\Tab #\Newline #\Return) path)))))))))
+  #-:win32
+  (let ((result (sys:run-shell-command
+                 (format nil "which ~A" name)
+                 :output :stream
+                 :wait t
+                 :if-error-output-exists :append)))
+    (when (and result (zerop (sys:pipe-exit-status result)))
+      (with-open-stream (stream result)
+        (let ((path (read-line stream nil)))
+          (when path
+            (string-trim '(#\Space #\Tab #\Newline #\Return) path)))))))
+
+(defun ghostscript-available-p ()
+  "Check if Ghostscript is available on the system."
+  (or (find-executable "gs")
+      #+:win32 (find-executable "gswin64c")
+      #+:win32 (find-executable "gswin32c")))
+
+(defun qpdf-available-p ()
+  "Check if QPDF is available on the system."
+  (find-executable "qpdf"))
+
+(defun get-ghostscript-command ()
+  "Get the Ghostscript command name for this platform."
+  (or (find-executable "gs")
+      #+:win32 (find-executable "gswin64c")
+      #+:win32 (find-executable "gswin32c")
+      "gs"))
+
+(defun run-external-command (command &key error-output-file)
+  "Run an external command and return (values exit-code output error-output).
+If error-output-file is provided, stderr is redirected to that file."
+  (let* ((error-args (when error-output-file
+                       (list :if-error-output-exists :append
+                             :error-output error-output-file)))
+         (result (apply #'sys:run-shell-command
+                       command
+                       :wait t
+                       :output :stream
+                       error-args)))
+    (if result
+        (let ((exit-code (sys:pipe-exit-status result))
+              (output (with-open-stream (stream result)
+                       (with-output-to-string (str)
+                         (loop for line = (read-line stream nil)
+                               while line
+                               do (write-line line str))))))
+          (values exit-code output))
+        (values -1 ""))))
+
+(defun quote-shell-arg (arg)
+  "Quote a shell argument for safe execution."
+  #+:win32
+  (format nil "\"~A\"" arg)
+  #-:win32
+  (format nil "'~A'" (substitute-if-not
+                      #\'
+                      (lambda (c) (char/= c #\'))
+                      arg)))
+
+(defun write-binary-to-file (binary-data filepath)
+  "Write binary data to a file."
+  (with-open-file (stream filepath
+                         :direction :output
+                         :if-exists :supersede
+                         :if-does-not-exist :create
+                         :element-type '(unsigned-byte 8))
+    (write-sequence binary-data stream))
+  filepath)
