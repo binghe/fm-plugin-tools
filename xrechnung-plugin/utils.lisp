@@ -55,7 +55,7 @@ Called during plug-in initialization."
   (when *temp-directory*
     (store-preference-value *plugin-id* "TempDirectory" *temp-directory*)))
 
-(defun get-temp-directory ()
+(defun get-temp-directory_not_being_used ()
   "Returns the temporary directory path, creating it if necessary."
   (or *temp-directory*
       (setq *temp-directory*
@@ -122,26 +122,24 @@ Returns the full path if found, NIL otherwise."
   #+:win32
   (let ((extensions '("" ".exe" ".bat" ".cmd")))
     (dolist (ext extensions)
-      (let ((result (sys:run-shell-command
+      (let ((stream (sys:run-shell-command
                      (format nil "where ~A~A" name ext)
                      :output :stream
-                     :wait t
                      :if-error-output-exists :append)))
-        (when (and result (zerop (sys:pipe-exit-status result)))
-          (with-open-stream (stream result)
-            (let ((path (read-line stream nil)))
-              (when path
+        (when stream
+          (with-open-stream (s stream)
+            (let ((path (read-line s nil)))
+              (when (and path (zerop (sys:pipe-exit-status stream)))
                 (return-from find-executable (string-trim '(#\Space #\Tab #\Newline #\Return) path)))))))))
   #-:win32
-  (let ((result (sys:run-shell-command
+  (let ((stream (sys:run-shell-command
                  (format nil "which ~A" name)
                  :output :stream
-                 :wait t
                  :if-error-output-exists :append)))
-    (when (and result (zerop (sys:pipe-exit-status result)))
-      (with-open-stream (stream result)
-        (let ((path (read-line stream nil)))
-          (when path
+    (when stream
+      (with-open-stream (s stream)
+        (let ((path (read-line s nil)))
+          (when (and path (zerop (sys:pipe-exit-status stream)))
             (string-trim '(#\Space #\Tab #\Newline #\Return) path)))))))
 
 (defun ghostscript-available-p ()
@@ -167,18 +165,17 @@ If error-output-file is provided, stderr is redirected to that file."
   (let* ((error-args (when error-output-file
                        (list :if-error-output-exists :append
                              :error-output error-output-file)))
-         (result (apply #'sys:run-shell-command
+         (stream (apply #'sys:run-shell-command
                        command
-                       :wait t
                        :output :stream
                        error-args)))
-    (if result
-        (let ((exit-code (sys:pipe-exit-status result))
-              (output (with-open-stream (stream result)
+    (if stream
+        (let ((output (with-open-stream (s stream)
                        (with-output-to-string (str)
-                         (loop for line = (read-line stream nil)
+                         (loop for line = (read-line s nil)
                                while line
-                               do (write-line line str))))))
+                               do (write-line line str)))))
+              (exit-code (sys:pipe-exit-status stream)))
           (values exit-code output))
         (values -1 ""))))
 
