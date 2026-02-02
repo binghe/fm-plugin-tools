@@ -1,0 +1,67 @@
+{
+  "invoiceNumber": "RE-2026-001",
+  "invoiceDate": "2026-02-02",
+  "invoiceTypeCode": "380",
+  "deliveryDate": "2026-02-01",
+  "dueDate": "2026-03-04",
+  "currency": "EUR",
+  "paymentTerms": "Payment due within 30 days",
+  "notes": [
+    "Thank you for your business",
+    "Please reference the invoice number in your payment"
+  ],
+  "seller": {
+    "name": "Example GmbH",
+    "vatId": "DE123456789",
+    "taxNumber": "12/345/67890",
+    "address": {
+      "street": "Musterstraße 123",
+      "postalCode": "12345",
+      "city": "Berlin",
+      "countryCode": "DE"
+    },
+    "contact": {
+      "name": "Max Mustermann",
+      "phone": "+49 30 12345678",
+      "email": "info@example.de"
+    }
+  },
+  "buyer": {
+    "name": "Customer Company Ltd",
+    "vatId": "DE987654321",
+    "address": {
+      "street": "Customer Street 456",
+      "postalCode": "54321",
+      "city": "Munich",
+      "countryCode": "DE"
+    },
+    "contact": {
+      "name": "John Doe",
+      "phone": "+49 89 98765432",
+      "email": "john.doe@customer.com"
+    }
+  },
+  "lineItems": [
+    {
+      "description": "Consulting Services - January 2026",
+      "articleNumber": "CONS-001",
+      "quantity": 40,
+      "unitPrice": 150.00,
+      "vatRate": 19.0
+    },
+    {
+      "description": "Software License - Annual",
+      "articleNumber": "LIC-SW-001",
+      "quantity": 1,
+      "unitPrice": 2500.00,
+      "vatRate": 19.0
+    },
+    {
+      "description": "Technical Support - Premium Package",
+      "articleNumber": "SUPP-PREM",
+      "quantity": 12,
+      "unitPrice": 200.00,
+      "vatRate": 19.0
+    }
+  ]
+}

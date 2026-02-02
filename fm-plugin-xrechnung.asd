@@ -52,6 +52,7 @@ e.g. (0 1 0) would correspond to version \"0.1.0\".")
                         :components ((:file "packages")
                                      (:file "specials")
                                      (:file "utils")
+                                     (:file "xml-generation")
                                      (:file "configuration")
                                      (:file "functions")
                                      (:file "init"))))
@@ -61,4 +62,5 @@ e.g. (0 1 0) would correspond to version \"0.1.0\".")
                ;; Add dependencies for XML generation and PDF/A handling
                :cxml           ; XML generation
                :cl-ppcre       ; string processing
+               :com.inuoe.jzon ; JSON parsing
                ))

@@ -253,21 +253,12 @@ outputPath: Full path where the XML file should be saved
 Returns: Path to created XML file on success, error message on failure."
   (handler-case
       (let ((data (parse-json-string invoice-data)))
-        ;; TODO: Implement X-Rechnung XML generation
-        ;; This must create a CII (Cross Industry Invoice) XML file
-        ;; conforming to EN 16931 and X-Rechnung specification
+        (unless data
+          (return-from generate-xrechnung-xml
+            "Error: Failed to parse JSON invoice data"))
 
-        ;; Generate XML structure
-        (with-open-file (stream output-path
-                               :direction :output
-                               :if-exists :supersede
-                               :if-does-not-exist :create)
-          ;; Write XML header
-          (format stream "<?xml version=\"1.0\" encoding=\"UTF-8\"?>~%")
-          ;; TODO: Write actual X-Rechnung XML structure
-          (format stream "<!-- X-Rechnung XML generation not fully implemented -->~%"))
-
-        output-path)
+        ;; Generate X-Rechnung XML using the CII format
+        (generate-xrechnung-xml data output-path))
     (error (e)
       (format nil "Error generating X-Rechnung XML: ~A" e))))
 
@@ -427,18 +418,63 @@ Returns: Path to extracted XML file on success, error message on failure."
 invoiceData: JSON string containing invoice information
 Returns: '1' if valid, or JSON string with validation errors."
   (handler-case
-      (let ((data (parse-json-string invoice-data)))
-        ;; TODO: Implement business rules validation
-        ;; Check required fields:
-        ;; - Invoice number
-        ;; - Invoice date
-        ;; - Seller information (name, address, tax ID)
-        ;; - Buyer information (name, address)
-        ;; - Line items with proper structure
-        ;; - Tax calculations
-        ;; - Total amounts
+      (let ((data (parse-json-string invoice-data))
+            (errors '()))
 
-        "Validation not yet implemented")
+        (unless data
+          (return-from validate-invoice-data
+            "{\"valid\": false, \"errors\": [\"Invalid JSON format\"]}"))
+
+        ;; Check required fields
+        (unless (gethash "invoiceNumber" data)
+          (push "Missing required field: invoiceNumber" errors))
+
+        (unless (gethash "invoiceDate" data)
+          (push "Missing required field: invoiceDate" errors))
+
+        (unless (gethash "seller" data)
+          (push "Missing required field: seller" errors))
+
+        (unless (gethash "buyer" data)
+          (push "Missing required field: buyer" errors))
+
+        (unless (gethash "lineItems" data)
+          (push "Missing required field: lineItems" errors))
+
+        ;; Validate seller information
+        (let ((seller (gethash "seller" data)))
+          (when seller
+            (unless (gethash "name" seller)
+              (push "Missing seller name" errors))
+            (unless (or (gethash "vatId" seller) (gethash "taxNumber" seller))
+              (push "Missing seller tax identification (vatId or taxNumber)" errors))))
+
+        ;; Validate buyer information
+        (let ((buyer (gethash "buyer" data)))
+          (when buyer
+            (unless (gethash "name" buyer)
+              (push "Missing buyer name" errors))))
+
+        ;; Validate line items
+        (let ((line-items (gethash "lineItems" data)))
+          (when line-items
+            (loop for item across line-items
+                  for index from 1
+                  do (progn
+                       (unless (gethash "description" item)
+                         (push (format nil "Line ~A: Missing description" index) errors))
+                       (unless (gethash "quantity" item)
+                         (push (format nil "Line ~A: Missing quantity" index) errors))
+                       (unless (gethash "unitPrice" item)
+                         (push (format nil "Line ~A: Missing unitPrice" index) errors))
+                       (unless (gethash "vatRate" item)
+                         (push (format nil "Line ~A: Missing vatRate" index) errors))))))
+
+        ;; Return validation result
+        (if errors
+            (format nil "{\"valid\": false, \"errors\": ~A}"
+                   (com.inuoe.jzon:stringify (coerce (nreverse errors) 'vector)))
+            "1"))
     (error (e)
       (format nil "Error validating invoice data: ~A" e))))
 
@@ -473,8 +509,10 @@ Returns: Number of entries removed."
 ;;; ===========================================================================
 
 (defun parse-json-string (json-string)
-  "Parse a JSON string into a Lisp data structure.
-This is a placeholder - you'll need a proper JSON library."
-  ;; TODO: Implement with a proper JSON library (e.g., com.gigamonkeys.json or jonathan)
-  (declare (ignore json-string))
-  nil)
+  "Parse a JSON string into a Lisp hash table.
+Uses the jzon library for JSON parsing."
+  (handler-case
+      (com.inuoe.jzon:parse json-string)
+    (error (e)
+      (fm-log "JSON parsing error: ~A~%" e)
+      nil)))

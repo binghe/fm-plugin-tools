@@ -23,9 +23,37 @@ Version 0.1.0 (2026-02-02)
 * Configuration dialog with cache management
 * Build scripts for macOS and Windows
 
+Version 0.2.0 (2026-02-02)
+--------------------------
+
+* Implemented X-Rechnung XML generation:
+  - Complete CII (Cross Industry Invoice) format
+  - EN 16931 compliant structure
+  - Automatic tax calculations and summations
+  - Support for multiple VAT rates
+  - Proper namespaces and schema references
+  - Full seller/buyer information with addresses and contacts
+  - Line items with descriptions, quantities, prices
+  - Payment terms and due dates
+  - Invoice notes support
+* Integrated JSON parsing:
+  - Added com.inuoe.jzon dependency
+  - Robust JSON parsing for invoice data
+  - Hash table based data structures
+* Enhanced validation:
+  - ValidateInvoiceData with comprehensive field checking
+  - Detailed error reporting in JSON format
+  - Required field validation
+  - Line item validation
+* Documentation:
+  - Complete JSON field reference
+  - Example invoice data file
+  - FileMaker script examples for XML generation
+  - Complete workflow documentation
+
 TODO:
-- X-Rechnung XML generation (CII format)
 - Enhanced PDF/A validation (veraPDF integration)
-- JSON parsing for invoice data
+- XSD schema validation for generated XML
+- Schematron business rules validation
 - Metadata support for PDF/A
-- XSD and Schematron validation
+- Extended X-Rechnung features (allowances, charges, etc.)

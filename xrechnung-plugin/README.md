@@ -207,7 +207,59 @@ If [ $gsAvailable = "false" or $qpdfAvailable = "false" ]
 End If
 ```
 
-### Example 5: Complete Workflow
+### Example 5: Generate X-Rechnung XML
+
+```filemaker
+# Build invoice data as JSON
+Set Variable [ $invoiceJSON ; Value:
+  "{" &
+  "\"invoiceNumber\": \"" & Invoices::Number & "\"," &
+  "\"invoiceDate\": \"" & Invoices::Date & "\"," &
+  "\"currency\": \"EUR\"," &
+  "\"seller\": {" &
+    "\"name\": \"" & Company::Name & "\"," &
+    "\"vatId\": \"" & Company::VATId & "\"," &
+    "\"address\": {" &
+      "\"street\": \"" & Company::Street & "\"," &
+      "\"postalCode\": \"" & Company::PostalCode & "\"," &
+      "\"city\": \"" & Company::City & "\"," &
+      "\"countryCode\": \"DE\"" &
+    "}" &
+  "}," &
+  "\"buyer\": {" &
+    "\"name\": \"" & Customers::Name & "\"," &
+    "\"address\": {" &
+      "\"street\": \"" & Customers::Street & "\"," &
+      "\"postalCode\": \"" & Customers::PostalCode & "\"," &
+      "\"city\": \"" & Customers::City & "\"," &
+      "\"countryCode\": \"DE\"" &
+    "}" &
+  "}," &
+  "\"lineItems\": [" & Invoices::LineItemsJSON & "]" &
+  "}"
+]
+
+# Validate invoice data
+Set Variable [ $validation ; Value: XRec_ValidateInvoiceData( $invoiceJSON ) ]
+If [ Left($validation ; 1) ≠ "1" ]
+    Show Custom Dialog [ "Validation Failed" ; $validation ]
+    Exit Script
+End If
+
+# Generate X-Rechnung XML
+Set Variable [ $xmlPath ; Value: Get(TemporaryPath) & "xrechnung.xml" ]
+Set Variable [ $xmlResult ; Value: XRec_GenerateXRechnungXML( $invoiceJSON ; $xmlPath ) ]
+
+If [ Left($xmlResult ; 5) = "Error" ]
+    Show Custom Dialog [ "XML Generation Failed" ; $xmlResult ]
+Else
+    # Store the XML
+    Insert File [ Invoices::XML_Container ; $xmlResult ]
+    Show Custom Dialog [ "Success" ; "X-Rechnung XML created" ]
+End If
+```
+
+### Example 6: Complete Workflow
 
 ```filemaker
 # 1. Check tools
@@ -216,11 +268,20 @@ If [ PatternCount($toolCheck ; "false") > 0 ]
     Exit Script [ Text Result: "Missing required tools" ]
 End If
 
-# 2. Export FileMaker PDF
+# 2. Build invoice JSON (from FileMaker fields)
+Set Variable [ $invoiceJSON ; Value: /* Build JSON as in Example 5 */ ]
+
+# 3. Validate invoice data
+Set Variable [ $validation ; Value: XRec_ValidateInvoiceData( $invoiceJSON ) ]
+If [ Left($validation ; 1) ≠ "1" ]
+    Exit Script [ Text Result: "Validation failed: " & $validation ]
+End If
+
+# 4. Export FileMaker PDF
 Set Variable [ $tempPDF ; Value: Get(TemporaryPath) & "fm-invoice.pdf" ]
 Export Field Contents [ Invoices::PDF_Container ; $tempPDF ]
 
-# 3. Convert to PDF/A
+# 5. Convert to PDF/A
 Set Variable [ $pdfaPath ; Value: Get(TemporaryPath) & "invoice-pdfa.pdf" ]
 Set Variable [ $pdfaResult ; Value: XRec_ConvertToPDFAFromFile( $tempPDF ; $pdfaPath ) ]
 
@@ -228,12 +289,17 @@ If [ Left($pdfaResult ; 5) = "Error" ]
     Exit Script [ Text Result: $pdfaResult ]
 End If
 
-# 4. Generate X-Rechnung XML (TODO: implement XML generation)
-# Set Variable [ $xmlPath ; Value: ... ]
+# 6. Generate X-Rechnung XML
+Set Variable [ $xmlPath ; Value: Get(TemporaryPath) & "xrechnung.xml" ]
+Set Variable [ $xmlResult ; Value: XRec_GenerateXRechnungXML( $invoiceJSON ; $xmlPath ) ]
 
-# 5. Create ZUGFeRD hybrid
+If [ Left($xmlResult ; 5) = "Error" ]
+    Exit Script [ Text Result: $xmlResult ]
+End If
+
+# 7. Create ZUGFeRD hybrid
 Set Variable [ $finalPath ; Value: Get(TemporaryPath) & "zugferd-final.pdf" ]
-Set Variable [ $zugferdResult ; Value: XRec_CreateZUGFeRD( $pdfaPath ; $xmlPath ; $finalPath ) ]
+Set Variable [ $zugferdResult ; Value: XRec_CreateZUGFeRD( $pdfaPath ; $xmlResult ; $finalPath ) ]
 
 If [ Left($zugferdResult ; 5) ≠ "Error" ]
     # Store final document
@@ -244,7 +310,9 @@ End If
 
 ## Invoice Data Format
 
-The plugin expects invoice data as JSON strings with the following structure:
+The plugin expects invoice data as JSON strings with the following structure. See `example-invoice.json` for a complete example.
+
+### Minimum Required Fields
 
 ```json
 {
@@ -252,13 +320,22 @@ The plugin expects invoice data as JSON strings with the following structure:
   "invoiceDate": "2026-02-02",
   "seller": {
     "name": "Company Name",
-    "address": "Street 1, 12345 City",
     "vatId": "DE123456789",
-    "taxNumber": "12/345/67890"
+    "address": {
+      "street": "Street 1",
+      "postalCode": "12345",
+      "city": "Berlin",
+      "countryCode": "DE"
+    }
   },
   "buyer": {
     "name": "Customer Name",
-    "address": "Street 2, 54321 City"
+    "address": {
+      "street": "Street 2",
+      "postalCode": "54321",
+      "city": "Munich",
+      "countryCode": "DE"
+    }
   },
   "lineItems": [
     {
@@ -272,6 +349,39 @@ The plugin expects invoice data as JSON strings with the following structure:
 }
 ```
 
+### Complete Field Reference
+
+**Root Level:**
+- `invoiceNumber` (required): Unique invoice identifier
+- `invoiceDate` (required): Invoice date in YYYY-MM-DD format
+- `invoiceTypeCode` (optional): Invoice type (default: "380" = Commercial Invoice)
+- `deliveryDate` (optional): Delivery date in YYYY-MM-DD format
+- `dueDate` (optional): Payment due date in YYYY-MM-DD format
+- `currency` (optional): Currency code (default: "EUR")
+- `paymentTerms` (optional): Payment terms description
+- `notes` (optional): Array of note strings
+
+**Seller/Buyer Objects:**
+- `name` (required): Party name
+- `vatId` (required for seller): VAT identification number
+- `taxNumber` (optional): Tax number
+- `address` (required): Address object with:
+  - `street`: Street address
+  - `postalCode`: Postal/ZIP code
+  - `city`: City name
+  - `countryCode`: ISO country code (e.g., "DE")
+- `contact` (optional): Contact information with:
+  - `name`: Contact person name
+  - `phone`: Phone number
+  - `email`: Email address
+
+**Line Items Array:**
+- `description` (required): Product/service description
+- `quantity` (required): Quantity (number)
+- `unitPrice` (required): Price per unit (number)
+- `vatRate` (required): VAT rate in percent (e.g., 19.0)
+- `articleNumber` (optional): Article/product number
+
 ## Development Status
 
 **Current Version**: 0.1.0 (Active Development)
@@ -284,41 +394,59 @@ The plugin expects invoice data as JSON strings with the following structure:
    - Basic PDF/A validation
    - Error logging and reporting
 
-2. **PDF Attachment** ✅
+2. **X-Rechnung XML Generation** ✅
+   - CII (Cross Industry Invoice) format generation
+   - EN 16931 compliant structure
+   - Support for all required fields
+   - Proper namespaces and schema references
+   - Automatic tax calculations and summations
+   - Multiple VAT rates support
+
+3. **PDF Attachment** ✅
    - QPDF integration for XML embedding
    - Factur-X compliant attachment metadata
    - XML extraction from hybrid documents
 
-3. **Tool Management** ✅
+4. **Tool Management** ✅
    - Automatic tool detection (Ghostscript, QPDF)
    - Cross-platform path resolution
    - Configuration caching
 
-### TODO
+5. **Data Validation** ✅
+   - JSON parsing with jzon library
+   - Invoice data validation
+   - Required field checking
+   - Detailed error reporting
 
-1. **XML Generation** (Next Priority)
-   - Implement CII (Cross Industry Invoice) XML generation
-   - Add EN 16931 compliance
-   - Support all X-Rechnung business rules
-   - Generate proper namespaces and schema references
+### TODO (Future Enhancements)
 
-2. **Enhanced Validation**
+1. **Enhanced Validation**
    - Integrate veraPDF for comprehensive PDF/A validation
    - XSD schema validation for X-Rechnung XML
    - Schematron rules checking
-   - Business rule validation (BR-DE-XX)
+   - Advanced business rule validation (BR-DE-XX)
 
-3. **JSON Parsing**
-   - Add proper JSON library integration (e.g., com.gigamonkeys.json)
-   - Implement robust data parsing for invoice data
+2. **Extended X-Rechnung Features**
+   - Support for allowances and charges
+   - Advance payment handling
+   - Multiple payment methods
+   - Delivery notes references
+   - SEPA direct debit information
 
-4. **Metadata Support**
+3. **Metadata Support**
    - Parse and apply PDF metadata from JSON input
    - Support XMP metadata for PDF/A
+   - Custom metadata fields
 
-5. **ICC Profile Embedding**
-   - Bundle or reference standard ICC color profiles
-   - Ensure PDF/A-3b color space compliance
+4. **ICC Profile Embedding**
+   - Bundle standard ICC color profiles
+   - Automatic color space detection and conversion
+   - Ensure full PDF/A-3b color space compliance
+
+5. **Performance Optimization**
+   - Stream processing for large invoices
+   - Batch processing support
+   - Caching improvements
 
 ## License
 
