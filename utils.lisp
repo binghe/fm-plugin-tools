@@ -57,7 +57,7 @@ FORMAT."
                         *fm-logfile*)))
       (with-open-file (out (ensure-directories-exist fm-logfile)
                            :direction :output
-                           :element-type 'lw:simple-char
+                           :element-type 'character
                            :external-format '(:utf-8 :eol-style :lf)
                            :if-exists :append
                            :if-does-not-exist :create)
@@ -124,6 +124,7 @@ corresponding to PATH and NAME to the new value NEW-VALUE."
   (setf (user-preference path value-name :product :fm-plugin-tools)
         new-value))
 
+#+:lispworks
 (defmacro remember-interface-geometry (interface-class-name)
   "Convenience macro which sets up a user defined interface class
 such that its geometry will automatically be stored in the
@@ -135,15 +136,20 @@ Windows registry between different invocations of the plug-in."
        (values ',interface-class-name :fm-plugin-tools))
      (pushnew ',interface-class-name *symbols-to-keep*)))
 
+#+:lispworks
 (defun get-backtrace ()
   "Returns a full backtrace as a string.  To be used in
 handlers."
-  (with-output-to-string (out nil :element-type 'lw:simple-char)
+  (with-output-to-string (out nil :element-type 'character)
     (let ((dbg::*debugger-stack* (dbg::grab-stack nil :how-many most-positive-fixnum))
           (*debug-io* out)
           (dbg:*debug-print-level* nil)
           (dbg:*debug-print-length* nil))
       (dbg:bug-backtrace nil))))
+
+#+:sbcl
+(defun get-backtrace ()
+  "ToDo!")
 
 (defun maybe-log-error (cond &optional prototype)
   "Logs the condition COND using FM-LOG if *LOG-ERRORS* is true.
@@ -154,6 +160,7 @@ Also logs a backtrace if *LOG-BACKTRACES-P* is true as well."
     (when *log-backtraces-p*
       (fm-log "Backtrace:~% ~A~%" (get-backtrace)))))
 
+#+:lispworks
 (defun top-level-hook (fn interface)
   "A function which can be used as a top-level hook for
 interfaces to make them more robust against unhandled conditions.
@@ -188,7 +195,7 @@ explicitly."
 (defun convert-line-endings (string)
   "Converts Mac line endings \(carriage returns, used internally
 by FileMaker) to line feeds."
-  (with-output-to-string (out nil :element-type 'lw:simple-char)
+  (with-output-to-string (out nil :element-type 'character)
     (loop for char across string
           do (write-char (case char
                            (#.#\Return #\Linefeed)
@@ -196,6 +203,7 @@ by FileMaker) to line feeds."
                          out))))
 
 ;; this is needed for higher delivery levels
+#+:lispworks
 (fli::define-precompiled-foreign-object-accessor-functions
  (((:pointer :void) :no-alloc-p :error :size nil)))
 
@@ -243,52 +251,65 @@ automatic error handling."
              (,internal-name ,@untyped-arg-list ,fmxcpt-ptr)))))))
 
 ;; help the LispWorks IDE to find these definitions
+#+:lispworks
 (define-form-parser define-fmxcpt-function (name)
   `(,define-fmxcpt-function ,(first name)))
 
+#+:lispworks
 (define-dspec-alias define-fmxcpt-function (name)
   `(defun ,name))
 
 ;; setup correct indentation of DEFINE-FMXCPT-FUNCTION
+#+:lispworks
 (editor:setup-indent "define-fmxcpt-function" 2 2 4)
 
+#+:lispworks
 (defun extn-version ()
   "Shortcut to get at EXTN-VERSION slot of current parameter block."
   (foreign-slot-value *parameter-block* 'extn-version))
 
+#+:lispworks
 (defun which-call ()
   "Shortcut to get at WHICH-CALL slot of current parameter block."
   (foreign-slot-value *parameter-block* 'which-call))
 
+#+:lispworks
 (defun parm1 ()
   "Shortcut to get at PARM1 slot of current parameter block."
   (foreign-slot-value *parameter-block* 'parm1))
 
+#+:lispworks
 (defun parm2 ()
   "Shortcut to get at PARM2 slot of current parameter block."
   (foreign-slot-value *parameter-block* 'parm2))
 
+#+:lispworks
 (defun parm3 ()
   "Shortcut to get at PARM3 slot of current parameter block."
   (foreign-slot-value *parameter-block* 'parm3))
 
+#+:lispworks
 (defun result ()
   "Shortcut to get at RESULT slot of current parameter block."
   (foreign-slot-value *parameter-block* 'result))
 
+#+:lispworks
 (defun (setf result) (new-value)
   "Shortcut to change RESULT slot of current parameter block."
   (setf (foreign-slot-value *parameter-block* 'result)
         new-value))
 
+#+:lispworks
 (defun c-start-script ()
   "Shortcut to get at C-START-SCRIPT slot of current parameter block."
   (foreign-slot-value *parameter-block* 'c-start-script))
 
+#+:lispworks
 (defun c-current-env ()
   "Shortcut to get at C-CURRENT-ENV slot of current parameter block."
   (foreign-slot-value *parameter-block* 'c-current-env))
 
+#+:lispworks
 (defun get-environment ()
   "Returns the value of *ENVIRONMENT* or, failing that, the value of
 *GLOBAL-ENVIRONMENT*."
