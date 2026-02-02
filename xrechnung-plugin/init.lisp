@@ -28,6 +28,12 @@
 
 (in-package :xrechnung-plugin)
 
+;; Keep jzon symbols from being removed during delivery
+(eval-when (:compile-toplevel :load-toplevel :execute)
+  (pushnew 'com.inuoe.jzon:parse *symbols-to-keep*)
+  (pushnew 'com.inuoe.jzon:stringify *symbols-to-keep*)
+  (pushnew 'com.inuoe.jzon::parser *symbols-to-keep*))
+
 ;; Configure FM-PLUGIN-TOOLS for this particular plug-in
 (setq *plugin-id* "XRec"
       *plugin-name* "XRechnungPlugin"
