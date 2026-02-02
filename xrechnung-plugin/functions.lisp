@@ -118,7 +118,7 @@ Returns: Path to created PDF/A file on success, error message on failure."
       (format nil "Error converting to PDF/A: ~A" e))))
 
 (define-plugin-function "ConvertToPDFA ( pdfData ; outputPath {; metadata} )"
-    ((pdf-data :binary) (output-path :string) &optional (metadata :string))
+    ((pdf-data :binary-data) (output-path :string) &optional (metadata :string))
   "Converts a FileMaker PDF to PDF/A-3b format.
 pdfData: Binary PDF data from FileMaker (e.g., from a container field)
 outputPath: Full path where the PDF/A file should be saved
