@@ -1,0 +1,17 @@
+XRechnungPlugin Change Log
+
+Version 0.1.0 (2026-02-02)
+--------------------------
+
+* Initial plugin scaffold created
+* Basic plugin structure following fm-plugin-tools patterns
+* Function definitions for:
+  - PDF/A conversion
+  - X-Rechnung XML generation
+  - ZUGFeRD/Factur-X hybrid document creation
+  - Validation functions
+* Configuration dialog with cache management
+* Build scripts for macOS and Windows
+
+Note: This is a development version with placeholder implementations.
+Full functionality requires integration of PDF and XML libraries.
