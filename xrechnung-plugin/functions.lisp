@@ -63,6 +63,18 @@ Returns: JSON string with tool availability status."
 ;;; PDF/A Conversion Functions
 ;;; ===========================================================================
 
+(define-plugin-function "GetPDFACommand ( pdfPath ; outputPath )"
+    ((pdf-path :string) (output-path :string))
+  "DEBUG: Returns the Ghostscript command that would be executed.
+For debugging purposes."
+  (format nil "DEBUG: pdf-path='~A' (length=~D) output-path='~A' (length=~D) gs-cmd='~A' COMMAND: ~A -dPDFA=3 -dBATCH -dNOPAUSE -dNOSAFER -sColorConversionStrategy=RGB -sDEVICE=pdfwrite -dPDFACompatibilityPolicy=1 -sOutputFile=\"~A\" \"~A\""
+          pdf-path (length pdf-path)
+          output-path (length output-path)
+          (get-ghostscript-command)
+          (get-ghostscript-command)
+          output-path
+          pdf-path))
+
 (define-plugin-function "ConvertToPDFAFromFile ( pdfPath ; outputPath {; metadata} )"
     ((pdf-path :string) (output-path :string) &optional (metadata :string))
   "Converts a PDF file to PDF/A-3b format.
@@ -86,14 +98,10 @@ Returns: Path to created PDF/A file on success, error message on failure."
                            (format nil "gs-error-~A.log" (get-universal-time))
                            (hcl:get-temp-directory)))
                 (gs-cmd (get-ghostscript-command))
-                (command (format nil "~A -dPDFA=3 -dBATCH -dNOPAUSE -dNOSAFER ~
-                                     -sColorConversionStrategy=RGB ~
-                                     -sDEVICE=pdfwrite ~
-                                     -dPDFACompatibilityPolicy=1 ~
-                                     -sOutputFile=~A ~A"
-                                (quote-shell-arg gs-cmd)
-                                (quote-shell-arg (namestring output-path))
-                                (quote-shell-arg pdf-path))))
+                (command (format nil "~A -dPDFA=3 -dBATCH -dNOPAUSE -dNOSAFER -sColorConversionStrategy=RGB -sDEVICE=pdfwrite -dPDFACompatibilityPolicy=1 -sOutputFile=\"~A\" \"~A\""
+                                gs-cmd
+                                output-path
+                                pdf-path)))
 
            ;; Execute Ghostscript
            (multiple-value-bind (exit-code output)

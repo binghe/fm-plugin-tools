@@ -36,26 +36,29 @@
   "Read configuration values from registry/preferences.
 Called during plug-in initialization."
   ;; Read cache setting
-  (let ((cache-value (read-preference-value *plugin-id* "CacheValidation")))
-    (when cache-value
-      (setq *cache-validation-p* (not (zerop cache-value)))))
+  (multiple-value-bind (cache-value foundp)
+      (plugin-preference "Configuration" "CacheValidation")
+    (when foundp
+      (setq *cache-validation-p* cache-value)))
 
   ;; Read temporary directory setting if stored
-  (let ((temp-dir (read-preference-value *plugin-id* "TempDirectory")))
-    (when (and temp-dir (stringp temp-dir))
+  (multiple-value-bind (temp-dir foundp)
+      (plugin-preference "Configuration" "TempDirectory")
+    (when foundp
       (setq *temp-directory* temp-dir))))
 
 (defun store-config-values ()
   "Store configuration values to registry/preferences."
   ;; Store cache setting
-  (store-preference-value *plugin-id* "CacheValidation"
-                         (if *cache-validation-p* 1 0))
+  (setf (plugin-preference "Configuration" "CacheValidation")
+        *cache-validation-p*)
 
   ;; Store temporary directory if set
   (when *temp-directory*
-    (store-preference-value *plugin-id* "TempDirectory" *temp-directory*)))
+    (setf (plugin-preference "Configuration" "TempDirectory")
+          *temp-directory*)))
 
-(defun get-temp-directory_not_being_used ()
+(defun get-xrechnung-temp-directory ()
   "Returns the temporary directory path, creating it if necessary."
   (or *temp-directory*
       (setq *temp-directory*
@@ -66,7 +69,7 @@ Called during plug-in initialization."
 
 (defun ensure-temp-directory ()
   "Ensure the temporary directory exists."
-  (let ((dir (get-temp-directory)))
+  (let ((dir (get-xrechnung-temp-directory)))
     (ensure-directories-exist dir)
     dir))
 
@@ -117,30 +120,25 @@ Replaces XML special characters."
 ;;; ===========================================================================
 
 (defun find-executable (name)
-  "Try to find an executable in the system PATH.
+  "Try to find an executable in common locations.
 Returns the full path if found, NIL otherwise."
   #+:win32
-  (let ((extensions '("" ".exe" ".bat" ".cmd")))
-    (dolist (ext extensions)
-      (let ((stream (sys:run-shell-command
-                     (format nil "where ~A~A" name ext)
-                     :output :stream
-                     :if-error-output-exists :append)))
-        (when stream
-          (with-open-stream (s stream)
-            (let ((path (read-line s nil)))
-              (when (and path (zerop (sys:pipe-exit-status stream)))
-                (return-from find-executable (string-trim '(#\Space #\Tab #\Newline #\Return) path)))))))))
+  (let ((common-paths '("C:/Program Files/gs/" "C:/Program Files (x86)/gs/"
+                        "C:/gs/" "C:/qpdf/bin/"))
+        (extensions '("" ".exe" ".bat" ".cmd")))
+    (dolist (dir common-paths)
+      (dolist (ext extensions)
+        (let ((full-path (concatenate 'string dir name ext)))
+          (when (probe-file full-path)
+            (return-from find-executable full-path))))))
   #-:win32
-  (let ((stream (sys:run-shell-command
-                 (format nil "which ~A" name)
-                 :output :stream
-                 :if-error-output-exists :append)))
-    (when stream
-      (with-open-stream (s stream)
-        (let ((path (read-line s nil)))
-          (when (and path (zerop (sys:pipe-exit-status stream)))
-            (string-trim '(#\Space #\Tab #\Newline #\Return) path)))))))
+  ;; On macOS/Linux, check common paths
+  (let ((common-paths '("/usr/local/bin/" "/usr/bin/" "/opt/homebrew/bin/"
+                        "/opt/local/bin/" "/bin/")))
+    (dolist (dir common-paths)
+      (let ((full-path (concatenate 'string dir name)))
+        (when (probe-file full-path)
+          (return-from find-executable full-path))))))
 
 (defun ghostscript-available-p ()
   "Check if Ghostscript is available on the system."
@@ -160,24 +158,14 @@ Returns the full path if found, NIL otherwise."
       "gs"))
 
 (defun run-external-command (command &key error-output-file)
-  "Run an external command and return (values exit-code output error-output).
-If error-output-file is provided, stderr is redirected to that file."
-  (let* ((error-args (when error-output-file
-                       (list :if-error-output-exists :append
-                             :error-output error-output-file)))
-         (stream (apply #'sys:run-shell-command
-                       command
-                       :output :stream
-                       error-args)))
-    (if stream
-        (let ((output (with-open-stream (s stream)
-                       (with-output-to-string (str)
-                         (loop for line = (read-line s nil)
-                               while line
-                               do (write-line line str)))))
-              (exit-code (sys:pipe-exit-status stream)))
-          (values exit-code output))
-        (values -1 ""))))
+  "Run an external command and return (values exit-code output).
+Uses sys:call-system to avoid stream issues."
+  (declare (ignore error-output-file))
+  (handler-case
+      (let ((exit-code (sys:call-system command :current-directory nil)))
+        (values exit-code ""))
+    (error (e)
+      (values -1 (format nil "Error running command: ~A" e)))))
 
 (defun quote-shell-arg (arg)
   "Quote a shell argument for safe execution."

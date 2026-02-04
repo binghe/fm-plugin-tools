@@ -1,15 +1,27 @@
 # XRechnungPlugin
 
-A FileMaker plugin for generating X-Rechnung compliant invoices and PDF/A documents.
+A FileMaker plugin for generating X-Rechnung compliant invoices and
+PDF/A documents.
+
 
 ## Overview
 
-XRechnungPlugin bridges FileMaker's inability to generate PDF/A format documents, which are required for electronic invoicing in Germany and other EU countries. The plugin supports:
+XRechnungPlugin bridges FileMaker's inability to generate PDF/A format
+documents, which are required for electronic invoicing in Germany and
+other EU countries. The plugin supports:
 
-- **PDF/A Conversion**: Convert FileMaker-generated PDFs to PDF/A-3b format
-- **X-Rechnung XML Generation**: Create valid X-Rechnung/ZUGFeRD XML from FileMaker data
-- **ZUGFeRD/Factur-X Hybrid**: Embed invoice XML into PDF/A files for fully compliant hybrid documents
-- **Validation**: Validate invoice data and generated documents against X-Rechnung specifications
+- **PDF/A Conversion**: Convert FileMaker-generated PDFs to PDF/A-3b
+    format
+
+- **X-Rechnung XML Generation**: Create valid X-Rechnung/ZUGFeRD XML
+    from FileMaker data
+
+- **ZUGFeRD/Factur-X Hybrid**: Embed invoice XML into PDF/A files for
+    fully compliant hybrid documents
+
+- **Validation**: Validate invoice data and generated documents
+    against X-Rechnung specifications
+
 
 ## Standards Supported
 
@@ -17,6 +29,7 @@ XRechnungPlugin bridges FileMaker's inability to generate PDF/A format documents
 - PDF/A-3b (ISO 19005-3)
 - ZUGFeRD 2.3
 - Factur-X
+
 
 ## Plugin Functions
 
@@ -29,13 +42,19 @@ XRechnungPlugin bridges FileMaker's inability to generate PDF/A format documents
 
 ### PDF/A Functions
 
-- `XRec_ConvertToPDFA(pdfData; outputPath; metadata)` - Convert PDF binary data to PDF/A-3b
-- `XRec_ConvertToPDFAFromFile(pdfPath; outputPath; metadata)` - Convert PDF file to PDF/A-3b
+- `XRec_ConvertToPDFA(pdfData; outputPath; metadata)` - Convert PDF
+  binary data to PDF/A-3b
+
+- `XRec_ConvertToPDFAFromFile(pdfPath; outputPath; metadata)` -
+  Convert PDF file to PDF/A-3b
+
 - `XRec_ValidatePDFA(pdfPath)` - Validate PDF/A compliance
 
 ### X-Rechnung XML Functions
 
-- `XRec_GenerateXRechnungXML(invoiceData; outputPath)` - Generate X-Rechnung XML
+- `XRec_GenerateXRechnungXML(invoiceData; outputPath)` - Generate
+  X-Rechnung XML
+
 - `XRec_ValidateXRechnungXML(xmlPath)` - Validate X-Rechnung XML
 
 ### ZUGFeRD/Factur-X Functions
@@ -53,9 +72,11 @@ XRechnungPlugin bridges FileMaker's inability to generate PDF/A format documents
 - `XRec_FormatDateXRechnung(fmDate)` - Format date for X-Rechnung
 - `XRec_ClearValidationCache()` - Clear validation cache
 
+
 ## External Tool Requirements
 
-The plugin requires the following external tools for PDF/A conversion and XML embedding:
+The plugin requires the following external tools for PDF/A conversion
+and XML embedding:
 
 ### Ghostscript (Required for PDF/A conversion)
 
