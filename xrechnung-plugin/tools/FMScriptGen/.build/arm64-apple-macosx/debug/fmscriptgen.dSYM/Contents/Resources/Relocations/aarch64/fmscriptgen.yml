@@ -1,0 +1,42 @@
+---
+triple:          'arm64-apple-darwin'
+binary-path:     '/Users/jens/quicklisp/local-projects/fm-plugin-tools/xrechnung-plugin/tools/FMScriptGen/.build/arm64-apple-macosx/debug/fmscriptgen'
+relocations:
+  - { offset: 0xD6302, size: 0x8, addend: 0x0, symName: _FMScriptGen_main, symObjAddr: 0x0, symBinAddr: 0x100002F68, symSize: 0x18 }
+  - { offset: 0xD631A, size: 0x8, addend: 0x0, symName: _FMScriptGen_main, symObjAddr: 0x0, symBinAddr: 0x100002F68, symSize: 0x18 }
+  - { offset: 0xD6338, size: 0x8, addend: 0x0, symName: '_$s11FMScriptGen4mainyyF', symObjAddr: 0x18, symBinAddr: 0x100002F80, symSize: 0xABC }
+  - { offset: 0xD63AA, size: 0x8, addend: 0x0, symName: '_$s11FMScriptGen0A9GeneratorV11setVariable4name5value10repetitionS2S_S2StFZfA1_', symObjAddr: 0xAD4, symBinAddr: 0x100003A3C, symSize: 0x2C }
+  - { offset: 0xD654C, size: 0x8, addend: 0x0, symName: '_$s11FMScriptGen0A9GeneratorV16showCustomDialog5title7message7buttonsS2S_S2StFZfA1_', symObjAddr: 0x1114, symBinAddr: 0x10000407C, symSize: 0x2C }
+  - { offset: 0xD6566, size: 0x8, addend: 0x0, symName: '_$s11FMScriptGen10printUsageyyF', symObjAddr: 0x2E1C, symBinAddr: 0x100005D84, symSize: 0xCC }
+  - { offset: 0xD6584, size: 0x8, addend: 0x0, symName: '_$sSSWOh', symObjAddr: 0x2F40, symBinAddr: 0x100005EA8, symSize: 0x28 }
+  - { offset: 0xD6598, size: 0x8, addend: 0x0, symName: '_$ss26DefaultStringInterpolationVWOh', symObjAddr: 0x2F68, symBinAddr: 0x100005ED0, symSize: 0x28 }
+  - { offset: 0xD65AC, size: 0x8, addend: 0x0, symName: ___swift_instantiateConcreteTypeFromMangledNameV2, symObjAddr: 0x2F90, symBinAddr: 0x100005EF8, symSize: 0x68 }
+  - { offset: 0xD65C0, size: 0x8, addend: 0x0, symName: '_$sSaySSGSayxGs14_ArrayProtocolsWl', symObjAddr: 0x2FF8, symBinAddr: 0x100005F60, symSize: 0x74 }
+  - { offset: 0xD65D4, size: 0x8, addend: 0x0, symName: ___swift_instantiateConcreteTypeFromMangledNameAbstractV2, symObjAddr: 0x306C, symBinAddr: 0x100005FD4, symSize: 0x70 }
+  - { offset: 0xD65E8, size: 0x8, addend: 0x0, symName: '_$sSaySSGSayxGSKsWl', symObjAddr: 0x30DC, symBinAddr: 0x100006044, symSize: 0x74 }
+  - { offset: 0xD65FC, size: 0x8, addend: 0x0, symName: '_$sSaySSGWOh', symObjAddr: 0x3150, symBinAddr: 0x1000060B8, symSize: 0x28 }
+  - { offset: 0xD6610, size: 0x8, addend: 0x0, symName: '_$sS2SSysWl', symObjAddr: 0x3178, symBinAddr: 0x1000060E0, symSize: 0x64 }
+  - { offset: 0xD6624, size: 0x8, addend: 0x0, symName: '_$s10Foundation4DataV15_RepresentationOWOy', symObjAddr: 0x31DC, symBinAddr: 0x100006144, symSize: 0x78 }
+  - { offset: 0xD6638, size: 0x8, addend: 0x0, symName: '_$s10Foundation4DataV15_RepresentationOWOe', symObjAddr: 0x3254, symBinAddr: 0x1000061BC, symSize: 0x78 }
+  - { offset: 0xD664C, size: 0x8, addend: 0x0, symName: '_$s11FMScriptGen0A9GeneratorVMa', symObjAddr: 0x32CC, symBinAddr: 0x100006234, symSize: 0x14 }
+  - { offset: 0xD6660, size: 0x8, addend: 0x0, symName: '_$sSa12_endMutationyyF', symObjAddr: 0x32E0, symBinAddr: 0x100006248, symSize: 0xC }
+  - { offset: 0xD668F, size: 0x8, addend: 0x0, symName: '_$ss27_finalizeUninitializedArrayySayxGABnlF', symObjAddr: 0x24B0, symBinAddr: 0x100005418, symSize: 0x40 }
+  - { offset: 0xD66DA, size: 0x8, addend: 0x0, symName: '_$ss5print_9separator10terminatoryypd_S2StFfA0_', symObjAddr: 0x2EE8, symBinAddr: 0x100005E50, symSize: 0x2C }
+  - { offset: 0xD66F6, size: 0x8, addend: 0x0, symName: '_$ss5print_9separator10terminatoryypd_S2StFfA1_', symObjAddr: 0x2F14, symBinAddr: 0x100005E7C, symSize: 0x2C }
+  - { offset: 0xD6739, size: 0x8, addend: 0x0, symName: '_$s11FMScriptGen0A9GeneratorV11setVariable4name5value10repetitionS2S_S2StFZ', symObjAddr: 0xB00, symBinAddr: 0x100003A68, symSize: 0x204 }
+  - { offset: 0xD678B, size: 0x8, addend: 0x0, symName: '_$s11FMScriptGen0A9GeneratorV8setField5table9fieldName0G2Id11calculationS2S_S3StFZ', symObjAddr: 0xD04, symBinAddr: 0x100003C6C, symSize: 0x274 }
+  - { offset: 0xD67ED, size: 0x8, addend: 0x0, symName: '_$s11FMScriptGen0A9GeneratorV11ifStatement9conditionS2S_tFZ', symObjAddr: 0xF78, symBinAddr: 0x100003EE0, symSize: 0x118 }
+  - { offset: 0xD6821, size: 0x8, addend: 0x0, symName: '_$s11FMScriptGen0A9GeneratorV13elseStatementSSyFZ', symObjAddr: 0x1090, symBinAddr: 0x100003FF8, symSize: 0x2C }
+  - { offset: 0xD6843, size: 0x8, addend: 0x0, symName: '_$s11FMScriptGen0A9GeneratorV14endIfStatementSSyFZ', symObjAddr: 0x10BC, symBinAddr: 0x100004024, symSize: 0x2C }
+  - { offset: 0xD6865, size: 0x8, addend: 0x0, symName: '_$s11FMScriptGen0A9GeneratorV10exitScriptSSyFZ', symObjAddr: 0x10E8, symBinAddr: 0x100004050, symSize: 0x2C }
+  - { offset: 0xD6887, size: 0x8, addend: 0x0, symName: '_$s11FMScriptGen0A9GeneratorV16showCustomDialog5title7message7buttonsS2S_S2StFZ', symObjAddr: 0x1140, symBinAddr: 0x1000040A8, symSize: 0x204 }
+  - { offset: 0xD68D9, size: 0x8, addend: 0x0, symName: '_$s11FMScriptGen0A9GeneratorV13performScript10scriptNameS2S_tFZ', symObjAddr: 0x1344, symBinAddr: 0x1000042AC, symSize: 0x118 }
+  - { offset: 0xD690D, size: 0x8, addend: 0x0, symName: '_$s11FMScriptGen0A9GeneratorV19generateTestScript1SSyFZ', symObjAddr: 0x145C, symBinAddr: 0x1000043C4, symSize: 0x1054 }
+  - { offset: 0xD694D, size: 0x8, addend: 0x0, symName: '_$s11FMScriptGen0A9GeneratorV12wrapInScript4name5stepsS2S_SaySSGtFZ', symObjAddr: 0x24F0, symBinAddr: 0x100005458, symSize: 0x224 }
+  - { offset: 0xD69AE, size: 0x8, addend: 0x0, symName: '_$s11FMScriptGen0A9GeneratorV12wrapInScript4name5stepsS2S_SaySSGtFZSbSSXEfU_', symObjAddr: 0x2714, symBinAddr: 0x10000567C, symSize: 0xD4 }
+  - { offset: 0xD69DF, size: 0x8, addend: 0x0, symName: '_$s11FMScriptGen0A9GeneratorV17wrapAsScriptSteps5stepsSSSaySSG_tFZ', symObjAddr: 0x27E8, symBinAddr: 0x100005750, symSize: 0x20C }
+  - { offset: 0xD6A31, size: 0x8, addend: 0x0, symName: '_$s11FMScriptGen0A9GeneratorV17wrapAsScriptSteps5stepsSSSaySSG_tFZSbSSXEfU_', symObjAddr: 0x29F4, symBinAddr: 0x10000595C, symSize: 0xD4 }
+  - { offset: 0xD6A62, size: 0x8, addend: 0x0, symName: '_$s11FMScriptGen0A9GeneratorV15copyToClipboardySbSSFZ', symObjAddr: 0x2AC8, symBinAddr: 0x100005A30, symSize: 0x338 }
+  - { offset: 0xD6AE4, size: 0x8, addend: 0x0, symName: '_$sSy10FoundationE4data5using20allowLossyConversionAA4DataVSgSSAAE8EncodingV_SbtFfA0_', symObjAddr: 0x2E00, symBinAddr: 0x100005D68, symSize: 0x18 }
+  - { offset: 0xD6B1B, size: 0x8, addend: 0x0, symName: '_$s11FMScriptGen0A9GeneratorVACycfC', symObjAddr: 0x2E18, symBinAddr: 0x100005D80, symSize: 0x4 }
+...

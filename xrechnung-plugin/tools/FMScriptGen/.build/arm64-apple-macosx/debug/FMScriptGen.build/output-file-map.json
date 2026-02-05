@@ -1,0 +1,12 @@
+{
+  "": {
+    "swift-dependencies": "/Users/jens/quicklisp/local-projects/fm-plugin-tools/xrechnung-plugin/tools/FMScriptGen/.build/arm64-apple-macosx/debug/FMScriptGen.build/master.swiftdeps"
+  },
+  "/Users/jens/quicklisp/local-projects/fm-plugin-tools/xrechnung-plugin/tools/FMScriptGen/Sources/main.swift": {
+    "dependencies": "/Users/jens/quicklisp/local-projects/fm-plugin-tools/xrechnung-plugin/tools/FMScriptGen/.build/arm64-apple-macosx/debug/FMScriptGen.build/main.d",
+    "object": "/Users/jens/quicklisp/local-projects/fm-plugin-tools/xrechnung-plugin/tools/FMScriptGen/.build/arm64-apple-macosx/debug/FMScriptGen.build/main.swift.o",
+    "swiftmodule": "/Users/jens/quicklisp/local-projects/fm-plugin-tools/xrechnung-plugin/tools/FMScriptGen/.build/arm64-apple-macosx/debug/FMScriptGen.build/main~partial.swiftmodule",
+    "swift-dependencies": "/Users/jens/quicklisp/local-projects/fm-plugin-tools/xrechnung-plugin/tools/FMScriptGen/.build/arm64-apple-macosx/debug/FMScriptGen.build/main.swiftdeps",
+    "diagnostics": "/Users/jens/quicklisp/local-projects/fm-plugin-tools/xrechnung-plugin/tools/FMScriptGen/.build/arm64-apple-macosx/debug/FMScriptGen.build/main.dia"
+  }
+}
