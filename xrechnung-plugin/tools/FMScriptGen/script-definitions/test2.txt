@@ -1,0 +1,34 @@
+# Test 2: Error - Empty Container
+# Tests error handling when container field is empty
+
+SetVariable: $testID = "TEST-002"
+SetVariable: $testName = "Error Handling - Empty Container"
+SetVariable: $$testsTotal = $$testsTotal + 1
+SetVariable: $outputPath = Get(DesktopPath) & "test_empty_" & Get(CurrentTimestamp) & ".pdf"
+SetVariable: $emptyData = ""
+
+# Call plugin with empty data
+SetField: plutest::script_result = XRec_ConvertToPDFA ( $emptyData ; $outputPath )
+
+# Parse JSON response
+SetVariable: $jsonResponse = plutest::script_result
+SetVariable: $success = JSONGetElement ( $jsonResponse ; "success" )
+SetVariable: $errorMsg = JSONGetElement ( $jsonResponse ; "error" )
+
+# Verify error handling (should FAIL with error message)
+If: $success = "false" or $success = false or $success = 0
+  If: not IsEmpty ( $errorMsg )
+    SetVariable: $result = "✓ PASSED - Correct error handling"
+    SetVariable: $$testsPassed = $$testsPassed + 1
+  Else
+    SetVariable: $result = "✗ FAILED - No error message provided"
+    SetVariable: $$testsFailed = $$testsFailed + 1
+  EndIf
+Else
+  SetVariable: $result = "✗ FAILED - Should have returned error"
+  SetVariable: $$testsFailed = $$testsFailed + 1
+EndIf
+
+# Log results
+SetVariable: $$testResults = $$testResults & $testID & " - " & $testName & ": " & $result & ¶
+SetField: plutest::test_log = plutest::test_log & ¶ & Get(CurrentTimestamp) & " | " & $testID & " | " & $result & ¶ & "Response: " & $jsonResponse & ¶

@@ -1,0 +1,40 @@
+# Test 3: Error - Invalid Output Path
+# Tests error handling with invalid/non-existent output path
+
+SetVariable: $testID = "TEST-003"
+SetVariable: $testName = "Error Handling - Invalid Output Path"
+SetVariable: $$testsTotal = $$testsTotal + 1
+SetVariable: $invalidPath = "/nonexistent/directory/path/output.pdf"
+
+# Check if container is empty
+If: IsEmpty ( plutest::plu )
+  SetVariable: $result = "SKIPPED - No PDF in container field"
+  SetVariable: $$testResults = $$testResults & $testID & " - " & $testName & ": " & $result & ¶
+  Exit
+EndIf
+
+# Call plugin with invalid output path
+SetField: plutest::script_result = XRec_ConvertToPDFA ( plutest::plu ; $invalidPath )
+
+# Parse JSON response
+SetVariable: $jsonResponse = plutest::script_result
+SetVariable: $success = JSONGetElement ( $jsonResponse ; "success" )
+SetVariable: $errorMsg = JSONGetElement ( $jsonResponse ; "error" )
+
+# Verify error handling
+If: $success = "false" or $success = false or $success = 0
+  If: not IsEmpty ( $errorMsg )
+    SetVariable: $result = "✓ PASSED - Handled invalid path correctly"
+    SetVariable: $$testsPassed = $$testsPassed + 1
+  Else
+    SetVariable: $result = "✗ FAILED - No error message"
+    SetVariable: $$testsFailed = $$testsFailed + 1
+  EndIf
+Else
+  SetVariable: $result = "✗ FAILED - Should have returned error"
+  SetVariable: $$testsFailed = $$testsFailed + 1
+EndIf
+
+# Log results
+SetVariable: $$testResults = $$testResults & $testID & " - " & $testName & ": " & $result & ¶
+SetField: plutest::test_log = plutest::test_log & ¶ & Get(CurrentTimestamp) & " | " & $testID & " | " & $result & ¶ & "Response: " & $jsonResponse & ¶

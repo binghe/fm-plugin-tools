@@ -1,0 +1,20 @@
+# Clear Test Results
+# Resets all test data and global variables
+
+ShowDialog: "Clear Test Results" "Clear all test logs and results?"
+
+If: Get(LastMessageChoice) = 1
+  # Clear fields
+  SetField: plutest::script_result = ""
+  SetField: plutest::test_log = ""
+  SetField: plutest::test_status = ""
+
+  # Clear global variables
+  SetVariable: $$testResults = ""
+  SetVariable: $$testsPassed = 0
+  SetVariable: $$testsFailed = 0
+  SetVariable: $$testsTotal = 0
+
+  # Show confirmation
+  ShowDialog: "Complete" "Test results cleared."
+EndIf

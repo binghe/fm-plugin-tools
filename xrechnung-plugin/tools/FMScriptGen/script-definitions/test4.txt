@@ -1,0 +1,42 @@
+# Test 4: Error - File Not Found
+# Tests ConvertToPDFAFromFile with non-existent input file
+
+SetVariable: $testID = "TEST-004"
+SetVariable: $testName = "Error Handling - Input File Not Found"
+SetVariable: $$testsTotal = $$testsTotal + 1
+SetVariable: $inputPath = "/nonexistent/file/input.pdf"
+SetVariable: $outputPath = Get(DesktopPath) & "test_output.pdf"
+
+# Call FromFile version with non-existent file
+SetField: plutest::script_result = XRec_ConvertToPDFAFromFile ( $inputPath ; $outputPath )
+
+# Parse JSON response
+SetVariable: $jsonResponse = plutest::script_result
+SetVariable: $success = JSONGetElement ( $jsonResponse ; "success" )
+SetVariable: $errorMsg = JSONGetElement ( $jsonResponse ; "error" )
+
+# Verify error message mentions file not found
+If: $success = "false" or $success = false or $success = 0
+  # Check if error message contains "not found"
+  SetVariable: $hasNotFound = PatternCount ( Lower($errorMsg) ; "not found" ) > 0 or PatternCount ( Lower($errorMsg) ; "does not exist" ) > 0
+
+  If: $hasNotFound
+    SetVariable: $result = "✓ PASSED - Correct error for missing file"
+    SetVariable: $$testsPassed = $$testsPassed + 1
+  Else
+    If: not IsEmpty ( $errorMsg )
+      SetVariable: $result = "✓ PASSED - Error detected"
+      SetVariable: $$testsPassed = $$testsPassed + 1
+    Else
+      SetVariable: $result = "✗ FAILED - No error message"
+      SetVariable: $$testsFailed = $$testsFailed + 1
+    EndIf
+  EndIf
+Else
+  SetVariable: $result = "✗ FAILED - Should have returned error"
+  SetVariable: $$testsFailed = $$testsFailed + 1
+EndIf
+
+# Log results
+SetVariable: $$testResults = $$testResults & $testID & " - " & $testName & ": " & $result & ¶
+SetField: plutest::test_log = plutest::test_log & ¶ & Get(CurrentTimestamp) & " | " & $testID & " | " & $result & ¶ & "Response: " & $jsonResponse & ¶

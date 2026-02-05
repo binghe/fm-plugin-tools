@@ -1,0 +1,35 @@
+# Test 5: Success - With File Path
+# Tests ConvertToPDFAFromFile with valid file path
+
+SetVariable: $testID = "TEST-005"
+SetVariable: $testName = "Success Case - From File Path"
+SetVariable: $$testsTotal = $$testsTotal + 1
+SetVariable: $inputPath = plutest::path_to_example_data_g & "in.pdf"
+SetVariable: $outputPath = plutest::path_to_example_data_g & "test_fromfile_" & Get(CurrentTimestamp) & ".pdf"
+
+# Call FromFile version
+SetField: plutest::script_result = XRec_ConvertToPDFAFromFile ( $inputPath ; $outputPath )
+
+# Parse JSON response
+SetVariable: $jsonResponse = plutest::script_result
+SetVariable: $success = JSONGetElement ( $jsonResponse ; "success" )
+SetVariable: $resultPath = JSONGetElement ( $jsonResponse ; "result" )
+SetVariable: $errorMsg = JSONGetElement ( $jsonResponse ; "error" )
+
+# Check results
+If: $success = "true" or $success = true
+  If: not IsEmpty ( $resultPath )
+    SetVariable: $result = "✓ PASSED"
+    SetVariable: $$testsPassed = $$testsPassed + 1
+  Else
+    SetVariable: $result = "✗ FAILED - Empty result path"
+    SetVariable: $$testsFailed = $$testsFailed + 1
+  EndIf
+Else
+  SetVariable: $result = "✗ FAILED - " & $errorMsg
+  SetVariable: $$testsFailed = $$testsFailed + 1
+EndIf
+
+# Log results
+SetVariable: $$testResults = $$testResults & $testID & " - " & $testName & ": " & $result & ¶
+SetField: plutest::test_log = plutest::test_log & ¶ & Get(CurrentTimestamp) & " | " & $testID & " | " & $result & ¶ & "Response: " & $jsonResponse & ¶
