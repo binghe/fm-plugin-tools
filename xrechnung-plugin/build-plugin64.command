@@ -26,7 +26,7 @@ name=XRechnungPlugin
 csid="Jens Teich"
 
 # Open FileMaker client as last step with this database file
-fmdb="/Users/jens/plutest.fmp12"
+fmdb="${HOME}/quicklisp/local-projects/fm-plugin-tools/xrechnung-plugin/example_data/plutest.fmp12"
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # + Don't change anything below this point.                     +

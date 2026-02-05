@@ -32,7 +32,7 @@
   "The ASDF system which contains the code for the plug-in.  It should
 depend on FM-PLUGIN-TOOLS.")
 
-(defvar *deliver-level* 0
+(defvar *deliver-level* 5
   "Delivery level for the delivered DLL.")
 
 (defvar *template*

@@ -28,7 +28,7 @@
 
 (in-package :cl-user)
 
-(defvar *xrechnung-plugin-version* '(0 1 2)
+(defvar *xrechnung-plugin-version* '(0 1 8)
   "Version number.  Should be a list of three non-negative integers,
 e.g. (0 1 0) would correspond to version \"0.1.0\".")
 

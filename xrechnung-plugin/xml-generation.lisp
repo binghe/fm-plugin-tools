@@ -111,9 +111,13 @@
 
       ;; Notes (if any)
       (when notes
-        (loop for note in (if (listp notes) notes (list notes))
-              do (with-xml-element (stream "IncludedNote" :namespace "ram")
-                   (write-xml-element stream "Content" note :namespace "ram")))))))
+        (let ((notes-list (cond
+                           ((vectorp notes) (coerce notes 'list))
+                           ((listp notes) notes)
+                           (t (list notes)))))
+          (loop for note in notes-list
+                do (with-xml-element (stream "IncludedNote" :namespace "ram")
+                     (write-xml-element stream "Content" note :namespace "ram"))))))))
 
 (defun write-party (stream party-data tag-name)
   "Write a party (seller/buyer) section."
