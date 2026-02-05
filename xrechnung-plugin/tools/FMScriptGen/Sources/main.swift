@@ -206,20 +206,31 @@ func printUsage() {
     FileMaker Script Generator
     ==========================
 
-    Usage: fmscriptgen [command]
+    Usage: fmscriptgen <script-file.txt>
 
-    Commands:
-      test1          Generate Test 1 script and copy to clipboard
-      test2          Generate Test 2 script and copy to clipboard
-      clear          Generate Clear Results script
-      runall         Generate Run All Tests script
-
-      list           List all available scripts
-      help           Show this help message
+    The tool reads a simple text format and generates FileMaker XML.
 
     Example:
-      fmscriptgen test1
+      fmscriptgen script-definitions/test1.txt
       # Then paste in FileMaker Script Workspace (Cmd+V)
+
+    Script File Format:
+      SetVariable: $name = value
+      SetField: table::field = calculation
+      If: condition
+      Else
+      EndIf
+      Exit
+      ShowDialog: "title" "message"
+      PerformScript: "script name"
+      # Comments start with #
+
+    Quick Commands (shortcuts):
+      test1          Use script-definitions/test1.txt
+      test2          Use script-definitions/test2.txt
+      clear          Use script-definitions/clear.txt
+      runall         Use script-definitions/runall.txt
+      list           List available script definitions
 
     """)
 }
@@ -232,66 +243,76 @@ func main() {
         return
     }
 
-    let command = args[1].lowercased()
+    let input = args[1]
 
-    switch command {
+    // Check for shortcuts
+    let filepath: String
+    let scriptDefPath = "script-definitions/"
+
+    switch input.lowercased() {
     case "test1":
-        print("Generating Test 1 script...")
-        let xml = FMScriptGenerator.generateTestScript1()
+        filepath = scriptDefPath + "test1.txt"
+        print("Using script-definitions/test1.txt")
+    case "test2":
+        filepath = scriptDefPath + "test2.txt"
+        print("Using script-definitions/test2.txt")
+    case "clear":
+        filepath = scriptDefPath + "clear.txt"
+        print("Using script-definitions/clear.txt")
+    case "runall":
+        filepath = scriptDefPath + "runall.txt"
+        print("Using script-definitions/runall.txt")
+    case "list":
+        listScriptDefinitions()
+        return
+    case "help", "-h", "--help":
+        printUsage()
+        return
+    default:
+        filepath = input
+    }
+
+    // Parse and generate
+    do {
+        print("Parsing script file...")
+        let steps = try ScriptParser.parseScriptFile(filepath)
+
+        if steps.isEmpty {
+            print("✗ No valid script steps found in file")
+            return
+        }
+
+        print("Generating FileMaker XML...")
+        let xml = FMScriptGenerator.wrapAsScriptSteps(steps: steps)
 
         if FMScriptGenerator.copyToClipboard(xml) {
             print("✓ Script copied to clipboard!")
             print("Now paste in FileMaker Script Workspace (Cmd+V)")
             print("\nScript size: \(xml.count) bytes")
+            print("Steps generated: \(steps.count)")
         } else {
             print("✗ Failed to copy to clipboard")
         }
-
-    case "test2":
-        print("Generating Test 2 script...")
-        let xml = FMScriptGenerator.generateTestScript2()
-        if FMScriptGenerator.copyToClipboard(xml) {
-            print("✓ Script copied to clipboard!")
-            print("Now paste in FileMaker Script Workspace (Cmd+V)")
-        } else {
-            print("✗ Failed to copy to clipboard")
+    } catch {
+        print("✗ Error: \(error.localizedDescription)")
+        if let error = error as? CocoaError, error.code == .fileReadNoSuchFile {
+            print("File not found: \(filepath)")
         }
+    }
+}
 
-    case "clear":
-        print("Generating Clear Results script...")
-        let xml = FMScriptGenerator.generateClearResults()
-        if FMScriptGenerator.copyToClipboard(xml) {
-            print("✓ Script copied to clipboard!")
-            print("Now paste in FileMaker Script Workspace (Cmd+V)")
-        } else {
-            print("✗ Failed to copy to clipboard")
+func listScriptDefinitions() {
+    print("Available script definitions:")
+    let path = "script-definitions/"
+
+    do {
+        let files = try FileManager.default.contentsOfDirectory(atPath: path)
+        for file in files.filter({ $0.hasSuffix(".txt") }) {
+            print("  - \(file)")
         }
-
-    case "runall":
-        print("Generating Run All Tests script...")
-        let xml = FMScriptGenerator.generateRunAllTests()
-        if FMScriptGenerator.copyToClipboard(xml) {
-            print("✓ Script copied to clipboard!")
-            print("Now paste in FileMaker Script Workspace (Cmd+V)")
-        } else {
-            print("✗ Failed to copy to clipboard")
-        }
-
-    case "list":
-        print("""
-        Available scripts:
-          ✓ test1: Success Case - Valid PDF
-          ✓ test2: Error - Empty Container
-          ✓ clear: Clear Test Results
-          ✓ runall: Run All Tests
-        """)
-
-    case "help", "-h", "--help":
-        printUsage()
-
-    default:
-        print("Unknown command: \(command)")
-        print("Run 'fmscriptgen help' for usage")
+    } catch {
+        print("  (No script-definitions folder found)")
+        print("  Create .txt files in script-definitions/ directory")
     }
 }
 

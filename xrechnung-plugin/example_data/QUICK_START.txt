@@ -1,0 +1,288 @@
+═══════════════════════════════════════════════════════════════════
+  PDF/A TEST DASHBOARD - QUICK START GUIDE
+═══════════════════════════════════════════════════════════════════
+
+WHAT YOU'VE RECEIVED
+--------------------
+This package contains everything needed to create a comprehensive
+testing interface for the XRechnung Plugin PDF/A conversion features.
+
+FILES IN THIS PACKAGE
+---------------------
+1. PDFATestDashboard_Layout.xml
+   → Structured XML specification of the complete layout
+
+2. Layout_Creation_Guide.txt
+   → Step-by-step manual instructions (45 minutes)
+
+3. QUICK_START.txt (this file)
+   → Overview and quick reference
+
+FASTEST PATH TO SUCCESS
+------------------------
+Choose your approach based on your needs:
+
+APPROACH 1: FULL DASHBOARD (Recommended)
+• Time: 45 minutes
+• Result: Professional testing interface
+• Follow: Layout_Creation_Guide.txt (all 10 steps)
+• Best for: Production use, frequent testing
+
+APPROACH 2: BASIC TESTING (Quick & Dirty)
+• Time: 10 minutes
+• Result: Functional but basic
+• Steps:
+  1. Create calculation fields (Step 1 in guide)
+  2. Create simple form layout with:
+     - One button: "Run All Tests"
+     - Two fields: script_result, test_log
+  3. Add test scripts to your database
+  4. Click button and review results
+
+APPROACH 3: MANUAL TESTING (No Layout)
+• Time: 5 minutes
+• Result: Command-line style testing
+• Steps:
+  1. Open Script Workspace
+  2. Run test scripts individually
+  3. Check field contents manually
+
+═══════════════════════════════════════════════════════════════════
+PREREQUISITES
+═══════════════════════════════════════════════════════════════════
+
+✓ FileMaker Pro (version 16 or later recommended)
+✓ XRechnung Plugin installed and working
+✓ plutest.fmp12 database (or your test database)
+✓ Ghostscript installed (for PDF/A conversion)
+✓ Test PDF files in example_data/
+
+═══════════════════════════════════════════════════════════════════
+MINIMUM REQUIRED FIELDS
+═══════════════════════════════════════════════════════════════════
+
+Create these in your plutest table:
+
+Data Fields (Text):
+  • script_result       - Stores JSON responses
+  • test_log           - Stores test history
+  • test_status        - Current test status
+  • path_to_example_data_g - Path to test files
+  • pdf_in_filename    - Input filename
+  • pdf_out_filename   - Output filename
+  • export_temp        - For report exports
+
+Container Field:
+  • plu               - PDF binary data
+
+Calculation Fields (see guide for formulas):
+  • calc_TestSuccessRate
+  • calc_JSONSuccess
+  • calc_JSONResult
+  • calc_JSONError
+  • calc_CurrentTimestamp
+
+═══════════════════════════════════════════════════════════════════
+MINIMUM REQUIRED SCRIPTS
+═══════════════════════════════════════════════════════════════════
+
+Core Scripts:
+  1. Run All ConvertToPDFA Tests  - Master test runner
+  2. Clear Test Results           - Reset between runs
+  3. Export Test Report           - Save results
+
+Individual Test Scripts:
+  4. Test 1: Success Case - Valid PDF
+  5. Test 2: Error - Empty Container
+  6. Test 3: Error - Invalid Output Path
+  7. Test 4: Error - File Not Found
+  8. Test 5: Success - With File Path
+  9. Test 6: Success - With Metadata
+
+═══════════════════════════════════════════════════════════════════
+QUICK TEST TO VERIFY EVERYTHING WORKS
+═══════════════════════════════════════════════════════════════════
+
+1. Ensure you have a PDF in the plu container field
+2. Set path_to_example_data_g to your test directory
+3. Run script: "Test 1: Success Case - Valid PDF"
+4. Check script_result field for JSON:
+   {"success": true, "result": "/path/to/output.pdf", "error": ""}
+
+If you see this, everything is working! ✓
+
+═══════════════════════════════════════════════════════════════════
+TROUBLESHOOTING CHECKLIST
+═══════════════════════════════════════════════════════════════════
+
+□ Is the XRechnung plugin loaded?
+  Test: Try calling XRec_Version() in Data Viewer
+
+□ Is Ghostscript installed?
+  Test: Run "which gs" in Terminal (macOS/Linux)
+
+□ Do all scripts exist?
+  Check: Scripts menu in Script Workspace
+
+□ Are calculation fields created?
+  Check: Manage Database > Fields tab
+
+□ Is there a test PDF in the container?
+  Check: Browse mode, look at plu field
+
+□ Are paths correct?
+  Check: path_to_example_data_g points to valid directory
+
+═══════════════════════════════════════════════════════════════════
+KEYBOARD SHORTCUTS (FileMaker)
+═══════════════════════════════════════════════════════════════════
+
+Cmd/Ctrl + L  - Switch to Layout Mode
+Cmd/Ctrl + B  - Switch to Browse Mode
+Cmd/Ctrl + E  - Exit Layout Mode
+Cmd/Ctrl + I  - Show Inspector
+Cmd/Ctrl + R  - Show Ruler
+Cmd/Ctrl + T  - Show Text Formatting
+Cmd/Ctrl + D  - Duplicate selected object
+
+═══════════════════════════════════════════════════════════════════
+COMMON FIRST-TIME ISSUES
+═══════════════════════════════════════════════════════════════════
+
+ISSUE: "Unknown function: XRec_ConvertToPDFA"
+FIX: Plugin not loaded. Reinstall plugin, restart FileMaker
+
+ISSUE: "Ghostscript not found" error
+FIX: Install Ghostscript:
+     macOS: brew install ghostscript
+     Windows: Download from ghostscript.com
+
+ISSUE: Scripts don't do anything
+FIX: Check script steps, ensure field names match exactly
+
+ISSUE: Merge variables show as <<$$testsTotal>>
+FIX: Use Insert > Merge Variable, not plain text
+
+ISSUE: Fields not updating
+FIX: Calculation fields shouldn't have "Do not store" option
+
+═══════════════════════════════════════════════════════════════════
+TESTING WORKFLOW
+═══════════════════════════════════════════════════════════════════
+
+Recommended testing sequence:
+
+1. INITIAL SETUP
+   • Clear all previous results
+   • Load test PDF into container field
+   • Verify paths are correct
+
+2. RUN TESTS
+   • Click "Run All Tests" button
+   • Wait for completion (10-30 seconds)
+   • Review summary statistics
+
+3. ANALYZE RESULTS
+   • Check success rate
+   • Review failed tests (if any)
+   • Examine JSON responses
+   • Read detailed log for debugging
+
+4. EXPORT REPORT (Optional)
+   • Click "Export Report"
+   • Save to desktop
+   • Share with team or archive
+
+5. REPEAT
+   • Make changes to plugin if needed
+   • Clear results
+   • Run tests again
+
+═══════════════════════════════════════════════════════════════════
+WHAT EACH TEST DOES
+═══════════════════════════════════════════════════════════════════
+
+Test 1: Success Case
+  → Converts valid PDF to PDF/A using binary data
+  → Should always pass with proper setup
+
+Test 2: Empty Container
+  → Tests error handling with no PDF data
+  → Should fail with appropriate error message
+
+Test 3: Invalid Output Path
+  → Tests error handling with bad output location
+  → Should fail gracefully
+
+Test 4: File Not Found
+  → Tests ConvertToPDFAFromFile with missing input
+  → Should return "file not found" error
+
+Test 5: File Path Success
+  → Tests file-based conversion (not container)
+  → Uses physical file path for input
+
+Test 6: Metadata Support
+  → Tests optional metadata parameter
+  → May show as "not implemented" currently
+
+═══════════════════════════════════════════════════════════════════
+UNDERSTANDING THE JSON RESPONSE FORMAT
+═══════════════════════════════════════════════════════════════════
+
+The plugin returns structured JSON for better error handling:
+
+SUCCESS RESPONSE:
+{
+  "success": true,
+  "result": "/path/to/output.pdf",
+  "error": ""
+}
+
+ERROR RESPONSE:
+{
+  "success": false,
+  "result": "",
+  "error": "Description of what went wrong"
+}
+
+PARSING IN FILEMAKER:
+Use JSONGetElement() function:
+  • JSONGetElement($response; "success")  → true/false
+  • JSONGetElement($response; "result")   → path or empty
+  • JSONGetElement($response; "error")    → error message
+
+═══════════════════════════════════════════════════════════════════
+GETTING HELP
+═══════════════════════════════════════════════════════════════════
+
+1. Check the detailed Layout_Creation_Guide.txt
+2. Review PDFATestDashboard_Layout.xml for exact specs
+3. Verify plugin installation with XRec_Version()
+4. Check FileMaker's Script Debugger for script issues
+5. Review test_log field for detailed error information
+
+═══════════════════════════════════════════════════════════════════
+NEXT STEPS AFTER SETUP
+═══════════════════════════════════════════════════════════════════
+
+Once your dashboard is working:
+
+□ Create similar test layouts for other plugin functions:
+  - GenerateXRechnungXML
+  - ValidatePDFA
+  - CreateZUGFeRD
+
+□ Integrate tests into your CI/CD pipeline
+
+□ Create automated test schedules
+
+□ Document your testing procedures
+
+□ Train team members on testing workflow
+
+═══════════════════════════════════════════════════════════════════
+
+Ready to begin? Start with the Layout_Creation_Guide.txt!
+
+═══════════════════════════════════════════════════════════════════

@@ -1,0 +1,41 @@
+# Test 1: Success Case - Valid PDF
+# Simple text format for defining FileMaker script steps
+
+SetVariable: $testID = "TEST-001"
+SetVariable: $testName = "Success Case - Valid PDF from Container"
+SetVariable: $$testsTotal = $$testsTotal + 1
+SetVariable: $outputPath = Get(DesktopPath) & "test_success_" & Get(CurrentTimestamp) & ".pdf"
+
+# Check if container is empty
+If: IsEmpty ( plutest::plu )
+  SetVariable: $result = "SKIPPED - No PDF in container field"
+  SetVariable: $$testResults = $$testResults & $testID & " - " & $testName & ": " & $result & ¶
+  Exit
+EndIf
+
+# Call plugin function
+SetField: plutest::script_result = XRec_ConvertToPDFA ( plutest::plu ; $outputPath )
+
+# Parse JSON response
+SetVariable: $jsonResponse = plutest::script_result
+SetVariable: $success = JSONGetElement ( $jsonResponse ; "success" )
+SetVariable: $resultPath = JSONGetElement ( $jsonResponse ; "result" )
+SetVariable: $errorMsg = JSONGetElement ( $jsonResponse ; "error" )
+
+# Check results
+If: $success = "true" or $success = true
+  If: not IsEmpty ( $resultPath )
+    SetVariable: $result = "✓ PASSED"
+    SetVariable: $$testsPassed = $$testsPassed + 1
+  Else
+    SetVariable: $result = "✗ FAILED - Empty result path"
+    SetVariable: $$testsFailed = $$testsFailed + 1
+  EndIf
+Else
+  SetVariable: $result = "✗ FAILED - " & $errorMsg
+  SetVariable: $$testsFailed = $$testsFailed + 1
+EndIf
+
+# Log results
+SetVariable: $$testResults = $$testResults & $testID & " - " & $testName & ": " & $result & ¶
+SetField: plutest::test_log = plutest::test_log & ¶ & Get(CurrentTimestamp) & " | " & $testID & " | " & $result & ¶ & "Response: " & $jsonResponse & ¶

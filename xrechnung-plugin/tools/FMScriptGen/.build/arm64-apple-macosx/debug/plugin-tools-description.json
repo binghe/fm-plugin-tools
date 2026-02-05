@@ -24,6 +24,10 @@
       "inputs" : [
         {
           "kind" : "file",
+          "name" : "/Users/jens/quicklisp/local-projects/fm-plugin-tools/xrechnung-plugin/tools/FMScriptGen/Sources/ScriptParser.swift"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/jens/quicklisp/local-projects/fm-plugin-tools/xrechnung-plugin/tools/FMScriptGen/Sources/main.swift"
         },
         {
@@ -39,6 +43,7 @@
       "moduleName" : "FMScriptGen",
       "moduleOutputPath" : "/Users/jens/quicklisp/local-projects/fm-plugin-tools/xrechnung-plugin/tools/FMScriptGen/.build/arm64-apple-macosx/debug/Modules/FMScriptGen.swiftmodule",
       "objects" : [
+        "/Users/jens/quicklisp/local-projects/fm-plugin-tools/xrechnung-plugin/tools/FMScriptGen/.build/arm64-apple-macosx/debug/FMScriptGen.build/ScriptParser.swift.o",
         "/Users/jens/quicklisp/local-projects/fm-plugin-tools/xrechnung-plugin/tools/FMScriptGen/.build/arm64-apple-macosx/debug/FMScriptGen.build/main.swift.o"
       ],
       "otherArguments" : [
@@ -88,6 +93,10 @@
       "outputs" : [
         {
           "kind" : "file",
+          "name" : "/Users/jens/quicklisp/local-projects/fm-plugin-tools/xrechnung-plugin/tools/FMScriptGen/.build/arm64-apple-macosx/debug/FMScriptGen.build/ScriptParser.swift.o"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/jens/quicklisp/local-projects/fm-plugin-tools/xrechnung-plugin/tools/FMScriptGen/.build/arm64-apple-macosx/debug/FMScriptGen.build/main.swift.o"
         },
         {
@@ -97,6 +106,7 @@
       ],
       "prepareForIndexing" : false,
       "sources" : [
+        "/Users/jens/quicklisp/local-projects/fm-plugin-tools/xrechnung-plugin/tools/FMScriptGen/Sources/ScriptParser.swift",
         "/Users/jens/quicklisp/local-projects/fm-plugin-tools/xrechnung-plugin/tools/FMScriptGen/Sources/main.swift"
       ],
       "tempsPath" : "/Users/jens/quicklisp/local-projects/fm-plugin-tools/xrechnung-plugin/tools/FMScriptGen/.build/arm64-apple-macosx/debug/FMScriptGen.build",
@@ -114,6 +124,7 @@
       "-package-name",
       "fmscriptgen",
       "-c",
+      "/Users/jens/quicklisp/local-projects/fm-plugin-tools/xrechnung-plugin/tools/FMScriptGen/Sources/ScriptParser.swift",
       "/Users/jens/quicklisp/local-projects/fm-plugin-tools/xrechnung-plugin/tools/FMScriptGen/Sources/main.swift",
       "-I",
       "/Users/jens/quicklisp/local-projects/fm-plugin-tools/xrechnung-plugin/tools/FMScriptGen/.build/arm64-apple-macosx/debug/Modules",
@@ -188,6 +199,10 @@
         },
         {
           "kind" : "file",
+          "name" : "/Users/jens/quicklisp/local-projects/fm-plugin-tools/xrechnung-plugin/tools/FMScriptGen/Sources/ScriptParser.swift"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/jens/quicklisp/local-projects/fm-plugin-tools/xrechnung-plugin/tools/FMScriptGen/Sources/main.swift"
         }
       ],
@@ -213,6 +228,10 @@
         {
           "kind" : "virtual",
           "name" : "<link-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/jens/quicklisp/local-projects/fm-plugin-tools/xrechnung-plugin/tools/FMScriptGen/.build/arm64-apple-macosx/debug/FMScriptGen.build/ScriptParser.swift.o"
         },
         {
           "kind" : "file",
