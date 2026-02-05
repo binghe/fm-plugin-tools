@@ -1,0 +1,220 @@
+═══════════════════════════════════════════════════════════════════
+  HOW TO IMPORT SCRIPTS INTO FILEMAKER
+  Simple Copy-Paste Method
+═══════════════════════════════════════════════════════════════════
+
+WHAT THIS IS
+------------
+The .xml files in this folder are FileMaker Clipboard Format scripts.
+You can literally copy the XML text and paste it into FileMaker!
+
+QUICK START (3 MINUTES)
+-----------------------
+
+1. Open any .xml script file (e.g., Run_All_Tests.xml)
+2. Select ALL the text (Cmd+A / Ctrl+A)
+3. Copy it (Cmd+C / Ctrl+C)
+4. Open FileMaker Pro
+5. Go to Scripts > Script Workspace (Cmd+Shift+S)
+6. Create new script or open existing one
+7. Click in the script steps area
+8. Paste (Cmd+V / Ctrl+V)
+9. Done! The script steps appear instantly! ✨
+
+DETAILED STEP-BY-STEP
+----------------------
+
+Step 1: Open the XML file
+   - Navigate to: example_data/scripts/
+   - Open: Run_All_Tests.xml (in any text editor)
+
+Step 2: Copy the entire XML content
+   - Select all: Cmd+A (Mac) or Ctrl+A (Windows)
+   - Copy: Cmd+C (Mac) or Ctrl+C (Windows)
+
+Step 3: Open FileMaker Script Workspace
+   - In FileMaker Pro: Scripts menu > Script Workspace
+   - Keyboard shortcut: Cmd+Shift+S (Mac) or Ctrl+Shift+S (Win)
+
+Step 4: Create or open a script
+   - Option A: Create new script (Click + button)
+   - Option B: Open existing script to replace steps
+
+Step 5: Paste the clipboard XML
+   - Click in the script steps area (right side)
+   - Paste: Cmd+V (Mac) or Ctrl+V (Windows)
+   - FileMaker automatically converts XML to script steps!
+
+Step 6: Save the script
+   - Click "Save" button
+   - The script name is embedded in the XML
+
+═══════════════════════════════════════════════════════════════════
+SCRIPTS TO IMPORT (IN ORDER)
+═══════════════════════════════════════════════════════════════════
+
+Import these in this order:
+
+1. Clear_Test_Results.xml
+   → Clears all test data before running tests
+
+2. Test1_Success_Case.xml
+   → Tests successful PDF/A conversion
+
+3. Test2_Empty_Container.xml
+   → Tests error handling with empty input
+
+4. Run_All_Tests.xml
+   → Master script that runs all tests
+   → Import this LAST (after all test scripts exist)
+
+Optional (you can create these manually or I can generate them):
+5. Test 3: Error - Invalid Output Path
+6. Test 4: Error - File Not Found
+7. Test 5: Success - With File Path
+8. Test 6: Success - With Metadata
+
+═══════════════════════════════════════════════════════════════════
+IMPORTANT NOTES
+═══════════════════════════════════════════════════════════════════
+
+⚠️  Field References May Need Adjustment
+   The XML contains field IDs like:
+   <Field table="plutest" id="18" name="script_result"/>
+
+   FileMaker will try to match by name first. If your field names
+   match exactly, it will work. If not, you'll see:
+   <Field Missing> in the script
+
+   Fix: Double-click the step and select the correct field.
+
+⚠️  Script References
+   The "Run All Tests" script calls other scripts:
+   - Test 1: Success Case - Valid PDF
+   - Test 2: Error - Empty Container
+   - etc.
+
+   Import the individual test scripts BEFORE importing Run All Tests.
+
+⚠️  Table Name
+   Scripts assume table name is "plutest"
+   If your table has a different name, you'll need to adjust
+   field references after pasting.
+
+═══════════════════════════════════════════════════════════════════
+REQUIRED FIELDS IN YOUR DATABASE
+═══════════════════════════════════════════════════════════════════
+
+Before importing, make sure these fields exist in plutest table:
+
+Text Fields:
+  • script_result (stores JSON responses)
+  • test_log (stores detailed logs)
+  • test_status (stores current status)
+  • path_to_example_data_g
+  • pdf_in_filename
+  • pdf_out_filename
+
+Container Field:
+  • plu (stores PDF binary data)
+
+═══════════════════════════════════════════════════════════════════
+TROUBLESHOOTING
+═══════════════════════════════════════════════════════════════════
+
+Problem: Paste doesn't work
+Solution: Make sure you copied the ENTIRE XML file including the
+          first line: <?xml version="1.0"...
+
+Problem: Script steps show <Field Missing>
+Solution: The field doesn't exist or has a different name.
+          Double-click the step and select the correct field.
+
+Problem: "Perform Script" step shows <Script Missing>
+Solution: That referenced script doesn't exist yet.
+          Import it first, then this error will disappear.
+
+Problem: Script doesn't run correctly
+Solution: Check that all referenced scripts exist.
+          Check that $$global variables are initialized.
+
+═══════════════════════════════════════════════════════════════════
+TESTING YOUR IMPORTED SCRIPT
+═══════════════════════════════════════════════════════════════════
+
+After importing "Clear_Test_Results.xml":
+
+1. Go to Browse mode
+2. Scripts menu > Clear Test Results
+3. Should show dialog asking to confirm
+4. Click "Clear"
+5. Should show "Test results cleared"
+
+If this works, your import was successful! ✓
+
+═══════════════════════════════════════════════════════════════════
+ALTERNATIVE: MANUAL IMPORT VIA CLIPBOARD
+═══════════════════════════════════════════════════════════════════
+
+You can also:
+1. Open the XML in browser (not text editor)
+2. Copy from browser
+3. Paste into FileMaker
+
+Or use command line:
+Mac: pbcopy < Run_All_Tests.xml
+     Then paste in FileMaker
+
+Windows: clip < Run_All_Tests.xml
+         Then paste in FileMaker
+
+═══════════════════════════════════════════════════════════════════
+WHAT'S IN EACH SCRIPT FILE
+═══════════════════════════════════════════════════════════════════
+
+Run_All_Tests.xml:
+  • Initializes global variables ($$testsPassed, etc.)
+  • Calls all 6 test scripts in sequence
+  • Shows summary dialog with results
+  • ~30 script steps
+
+Test1_Success_Case.xml:
+  • Tests XRec_ConvertToPDFA with valid PDF
+  • Parses JSON response
+  • Updates global counters
+  • Logs results
+  • ~35 script steps
+
+Test2_Empty_Container.xml:
+  • Tests error handling with empty input
+  • Verifies proper error message returned
+  • ~30 script steps
+
+Clear_Test_Results.xml:
+  • Clears all fields and global variables
+  • Shows confirmation dialog
+  • ~12 script steps
+
+═══════════════════════════════════════════════════════════════════
+NEXT STEPS
+═══════════════════════════════════════════════════════════════════
+
+After importing all scripts:
+
+1. ✓ Test each script individually
+2. ✓ Run "Clear Test Results" to reset
+3. ✓ Run "Run All Tests" to see full suite
+4. ✓ Check script_result field for JSON output
+5. ✓ Check test_log field for detailed history
+
+Need more test scripts? Let me know and I'll generate:
+  • Test 3: Invalid Output Path
+  • Test 4: File Not Found
+  • Test 5: File Path Success
+  • Test 6: Metadata Support
+
+═══════════════════════════════════════════════════════════════════
+
+That's it! Copy-paste these scripts and start testing your plugin! 🚀
+
+═══════════════════════════════════════════════════════════════════

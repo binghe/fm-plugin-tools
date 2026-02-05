@@ -131,10 +131,10 @@ Returns: JSON with {\"success\": true/false, \"result\": path, \"error\": messag
 pdfData: Binary PDF data from FileMaker (e.g., from a container field)
 outputPath: Full path where the PDF/A file should be saved
 metadata: Optional JSON string with PDF metadata (title, author, subject, keywords)
-Returns: Path to created PDF/A file on success, error message on failure."
+Returns: JSON with {\"success\": true/false, \"result\": path, \"error\": message}"
   (handler-case
       (if (not (ghostscript-available-p))
-          "Error: Ghostscript not found. Please install Ghostscript to enable PDF/A conversion."
+          "{\"success\": false, \"result\": \"\", \"error\": \"Ghostscript not found. Please install Ghostscript to enable PDF/A conversion.\"}"
           (progn
             ;; Create temporary input file
             (ensure-temp-directory)
@@ -166,11 +166,11 @@ Returns: Path to created PDF/A file on success, error message on failure."
                   ;; Clean up temporary input file
                   (ignore-errors (delete-file temp-input))
 
-                  ;; Check result
+                  ;; Check result and return JSON
                   (if (zerop exit-code)
                       (progn
                         (ignore-errors (delete-file error-log))
-                        (namestring output-path))
+                        (format nil "{\"success\": true, \"result\": \"~A\", \"error\": \"\"}" output-path))
                       (let ((error-msg (if (probe-file error-log)
                                          (with-open-file (stream error-log)
                                            (with-output-to-string (str)
@@ -179,10 +179,10 @@ Returns: Path to created PDF/A file on success, error message on failure."
                                                    do (write-line line str))))
                                          output)))
                         (ignore-errors (delete-file error-log))
-                        (format nil "Error: Ghostscript conversion failed (exit code ~A): ~A"
+                        (format nil "{\"success\": false, \"result\": \"\", \"error\": \"Ghostscript conversion failed (exit code ~A): ~A\"}"
                                exit-code error-msg))))))))
     (error (e)
-      (format nil "Error converting to PDF/A: ~A" e))))
+      (format nil "{\"success\": false, \"result\": \"\", \"error\": \"Error converting to PDF/A: ~A\"}" e))))
 
 (define-plugin-function "ValidatePDFA ( pdfPath )"
     ((pdf-path :string))
