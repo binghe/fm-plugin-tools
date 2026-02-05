@@ -1,0 +1,133 @@
+╔═══════════════════════════════════════════════════════════════╗
+║           FILEMAKER SCRIPT IMPORT - CHEAT SHEET               ║
+╚═══════════════════════════════════════════════════════════════╝
+
+┌─ THE 30-SECOND METHOD ────────────────────────────────────────┐
+│                                                                │
+│  1. Open .xml file → Select All (Cmd+A) → Copy (Cmd+C)       │
+│  2. FileMaker → Scripts → Script Workspace (Cmd+Shift+S)     │
+│  3. Create new script → Click in steps area → Paste (Cmd+V)  │
+│  4. Save → Done! ✨                                           │
+│                                                                │
+└────────────────────────────────────────────────────────────────┘
+
+┌─ IMPORT ORDER (Important!) ───────────────────────────────────┐
+│                                                                │
+│  Import in this order:                                        │
+│                                                                │
+│  1. Clear_Test_Results.xml         (utility script)          │
+│  2. Test1_Success_Case.xml         (test #1)                 │
+│  3. Test2_Empty_Container.xml      (test #2)                 │
+│  4. Test3_Invalid_Path.xml         (test #3)                 │
+│  5. Test4_File_Not_Found.xml       (test #4)                 │
+│  6. Test5_File_Path.xml            (test #5)                 │
+│  7. Test6_With_Metadata.xml        (test #6)                 │
+│  8. Run_All_Tests.xml              (master - import LAST!)   │
+│                                                                │
+│  Why? Run_All_Tests calls the other scripts, so they must    │
+│  exist first!                                                  │
+│                                                                │
+└────────────────────────────────────────────────────────────────┘
+
+┌─ REQUIRED FIELDS ─────────────────────────────────────────────┐
+│                                                                │
+│  Create these in your "plutest" table FIRST:                 │
+│                                                                │
+│  Text Fields:                                                 │
+│    • script_result                                            │
+│    • test_log                                                 │
+│    • test_status                                              │
+│    • path_to_example_data_g                                   │
+│    • pdf_in_filename                                          │
+│    • pdf_out_filename                                         │
+│                                                                │
+│  Container Field:                                             │
+│    • plu                                                      │
+│                                                                │
+└────────────────────────────────────────────────────────────────┘
+
+┌─ QUICK TEST ──────────────────────────────────────────────────┐
+│                                                                │
+│  After importing scripts:                                     │
+│                                                                │
+│  1. Go to Browse mode                                         │
+│  2. Put a PDF in the "plu" container field                   │
+│  3. Run script: "Clear Test Results"                          │
+│  4. Run script: "Test 1: Success Case - Valid PDF"           │
+│  5. Check "script_result" field:                              │
+│                                                                │
+│     Should see:                                               │
+│     {"success": true, "result": "/path/to/file.pdf", ...}    │
+│                                                                │
+│  If you see this JSON → Everything works! ✓                  │
+│                                                                │
+└────────────────────────────────────────────────────────────────┘
+
+┌─ COMMON ISSUES ───────────────────────────────────────────────┐
+│                                                                │
+│  Problem: <Field Missing> in script steps                    │
+│  Fix: Field doesn't exist. Create it or double-click to      │
+│       select existing field with different name              │
+│                                                                │
+│  Problem: <Script Missing> in Perform Script step            │
+│  Fix: Referenced script doesn't exist yet. Import it!        │
+│                                                                │
+│  Problem: Paste doesn't work                                  │
+│  Fix: Copy the ENTIRE file including <?xml...> first line    │
+│                                                                │
+└────────────────────────────────────────────────────────────────┘
+
+┌─ KEYBOARD SHORTCUTS ──────────────────────────────────────────┐
+│                                                                │
+│  Cmd+Shift+S  →  Open Script Workspace                       │
+│  Cmd+B        →  Switch to Browse Mode                       │
+│  Cmd+L        →  Switch to Layout Mode                       │
+│  Cmd+A        →  Select All                                   │
+│  Cmd+C        →  Copy                                         │
+│  Cmd+V        →  Paste                                        │
+│                                                                │
+└────────────────────────────────────────────────────────────────┘
+
+┌─ WHAT EACH SCRIPT DOES ───────────────────────────────────────┐
+│                                                                │
+│  Clear_Test_Results      → Reset all test data               │
+│  Test1_Success_Case      → Test valid PDF conversion         │
+│  Test2_Empty_Container   → Test error: empty input           │
+│  Test3_Invalid_Path      → Test error: bad output path       │
+│  Test4_File_Not_Found    → Test error: missing input file    │
+│  Test5_File_Path         → Test FromFile version             │
+│  Test6_With_Metadata     → Test metadata parameter           │
+│  Run_All_Tests           → Run all 6 tests + show report     │
+│                                                                │
+└────────────────────────────────────────────────────────────────┘
+
+┌─ PLUGIN FUNCTIONS TESTED ─────────────────────────────────────┐
+│                                                                │
+│  XRec_ConvertToPDFA ( pdfData ; outputPath ; metadata )       │
+│    → Converts PDF from container field to PDF/A              │
+│    → Returns JSON: {"success": bool, "result": path, ...}    │
+│                                                                │
+│  XRec_ConvertToPDFAFromFile ( inputPath ; outputPath ; ... )  │
+│    → Converts PDF from file path to PDF/A                    │
+│    → Returns JSON (same format)                               │
+│                                                                │
+└────────────────────────────────────────────────────────────────┘
+
+┌─ COMPLETE TEST RUN ───────────────────────────────────────────┐
+│                                                                │
+│  1. Scripts → "Clear Test Results"                            │
+│  2. Scripts → "Run All Tests"                                 │
+│  3. Wait 10-30 seconds                                        │
+│  4. See report dialog with:                                   │
+│     - Total Tests: 6                                          │
+│     - Passed: 5 (or 6)                                        │
+│     - Failed: 0 (hopefully!)                                  │
+│     - Success Rate: 100%                                      │
+│                                                                │
+└────────────────────────────────────────────────────────────────┘
+
+╔═══════════════════════════════════════════════════════════════╗
+║  THAT'S IT! Copy → Paste → Test → Done!                      ║
+╚═══════════════════════════════════════════════════════════════╝
+
+For detailed instructions: See HOW_TO_IMPORT.txt
