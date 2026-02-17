@@ -48,9 +48,12 @@ is NIL.  CONTROL-STRING and FORMAT-ARGS are interpreted as by
 FORMAT."
   (when *fm-logfile*
     (let ((fm-logfile (if (eq *fm-logfile* t)
-                        (merge-pathnames "FM-PlugIn-Tools/fm-plugin-tools.log"
-                                         (sys:get-folder-path #-:macosx :local-appdata
-                                                              #+:macosx :my-appsupport))
+			  #+:lispworks
+                          (merge-pathnames "FM-PlugIn-Tools/fm-plugin-tools.log"
+                                           (sys:get-folder-path #-:macosx :local-appdata
+								#+:macosx :my-appsupport))
+			  #+:sbcl
+			  (merge-pathnames "Library/Application Support/FM-Plugin-Tools/fm-plugin-tools.log" (user-homedir-pathname))
                         *fm-logfile*)))
       (with-open-file (out (ensure-directories-exist fm-logfile)
                            :direction :output

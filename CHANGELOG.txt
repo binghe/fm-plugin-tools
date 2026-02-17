@@ -1,3 +1,7 @@
+Version 0.5.0 (by Jens Teich and Claude Code support)
+build scripts macos 64 improvemments, codesigning is now part of process.
+new file build-and-increment.sh automaticly increments patch number 
+
 Version 0.4.1 (by Chun Tian)
 A C/C++ pre-processor is no more needed for preparing `fli.lisp` (just like versions before 0.3.0).
 

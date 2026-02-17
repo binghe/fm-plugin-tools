@@ -56,7 +56,7 @@ depend on FM-PLUGIN-TOOLS.")
   "Whether the plug-in needs MP.  This is only relevant if
 *CAPI-REQUIRED-P* is NIL.")
 
-(defvar *deliver-level* 5
+(defvar *deliver-level* 0
   ;; level 0 is good for development - for deployment you most likely
   ;; want higher values for a much smaller DLL file
   "Delivery level for the delivered DLL.")
