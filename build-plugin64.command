@@ -26,7 +26,7 @@ name=FMPLisp
 csid="-"
 
 # Open FileMaker client as last step with this database file
-fmdb="/Users/jens/plutest.fmp12"
+fmdb="${HOME}/plutest.fmp12"
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # + Don't change anything below this point.                     +
