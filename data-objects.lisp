@@ -191,12 +191,14 @@ by DATE-TIME-OBJECT."
   "Sets the contents of DATA-OBJECT to BINARY-DATA-OBJECT."
   (fm-data-set-binary-data (pointer data-object) (pointer new-value) force-binary-native-type))
 
+#+ignore ; removed in PlugInSDK 22
 (defmethod get-font-id ((data-object data-object) font-name font-script)
   "Returns the ID of the font identified by \(the Lisp string)
 FONT-NAME and the font script FONT-SCRIPT."
   (with-text (text-ptr font-name)
     (fm-data-get-font-id data-object text-ptr font-script (get-environment))))
 
+#+ignore ; removed in PlugInSDK 22
 (defmethod get-font-info ((data-object data-object) font-id)
   "Returns as two values the name and the script of the font with
 the ID FONT-ID."

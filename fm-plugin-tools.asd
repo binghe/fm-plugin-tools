@@ -33,7 +33,7 @@
   :maintainer "Chun Tian (binghe)"
   :license "BSD"
   ;; we increase this version even if only the parser has changed
-  :version "0.4.1"
+  :version "0.5.0"
   :serial t
   :components ((:file "packages")
                (:file "specials")

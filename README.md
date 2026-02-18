@@ -30,9 +30,7 @@ Sample code for defining a plugin script step with UI (New to FileMaker Pro 16):
     "BAD BASE VALUE"))
 ```
 
-To use FM-PLUGIN-TOOLS you will need the Common Lisp implementation from LispWorks and of course FileMaker Pro (Advanced).
-
-On Windows, Microsoft C/C++ compiler (e.g., from any version of Visual Studio community edition) is now required once, when preparing `fli.lisp`. On macOS you will need the free Apple's Xcode for preparing `fli.lisp` and (possibly) for code signing.
+To use FM-PLUGIN-TOOLS you will need LispWorks (the Common Lisp implementation) and FileMaker Pro (Advanced).
 
 ## Preparing `fli.lisp`
 
@@ -105,7 +103,7 @@ Licensed under the BSD License.
 
 Copyright (c) 2006-2010, Dr. Edmund Weitz.  All rights reserved.
 
-Copyright (c) 2018,2022,  Chun Tian (binghe).  All rights reserved.
+Copyright (c) 2018,2022,2025  Chun Tian (binghe).  All rights reserved.
 
 ## fm-plugin-regex
 

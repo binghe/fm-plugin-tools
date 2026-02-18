@@ -69,5 +69,3 @@ then
 else
     echo "Couldn't change to directory $build_dir."
 fi
-
-
