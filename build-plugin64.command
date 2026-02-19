@@ -14,7 +14,7 @@ build_dir="/tmp"
 target_dir="${HOME}/Library/Application Support/FileMaker/FileMaker Pro/22.0/Extensions"
 
 # The delivery script
-script="${HOME}/Lisp/fm-plugin-tools/deliver.lisp"
+script="${HOME}/quicklisp/local-projects/fm-plugin-tools/deliver.lisp"
 
 # The LispWorks executable
 lispworks="/Applications/LispWorks 8.0 (64-bit)/LispWorks (64-bit).app/Contents/MacOS/lispworks-8-0-0-macos64-universal"

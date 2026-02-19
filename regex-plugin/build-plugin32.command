@@ -14,7 +14,7 @@ build_dir="/tmp"
 target_dir="/Applications/FileMaker Pro 11 Advanced/Extensions"
 
 # The delivery script
-script="${HOME}/Lisp/fm-plugin-tools/regex-plugin/deliver.lisp"
+script="${HOME}/quicklisp/local-projects/fm-plugin-tools/regex-plugin/deliver.lisp"
 
 # The LispWorks executable
 lispworks="/Applications/LispWorks 6.0/LispWorks.app/Contents/MacOS/lispworks-6-0-0-macos-universal"
